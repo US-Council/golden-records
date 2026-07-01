@@ -1,0 +1,189 @@
+{%- if federal_grants_focus -%}
+---
+type: policy
+organization: {{ org_name }}
+title: Cybersecurity and Information Security Policy
+status: adopted
+effective_date: on-merge
+legal_basis: NIST SP 800-171; NIST SP 800-53 Rev 5 (control mapping); FAR 52.204-21; DFARS 252.204-7012, 252.204-7019, 252.204-7020, 252.204-7021; 32 CFR Part 170; 2 CFR 200.303
+id: POL-011
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Cybersecurity and Information Security Policy
+
+**{{ org_name }}** — EIN {{ ein }}
+A 501(c)(3) nonprofit research institute incorporated in {{ state }}.
+
+## 1. Purpose and Scope
+
+This policy establishes cybersecurity and information security requirements for all {{ org_name }} systems, data, and personnel. It applies to every person who accesses {{ org_name }} infrastructure — board members, staff, contractors, researchers, and automated agents.
+
+{{ org_name }} pursues federal research funding, including opportunities that may impose safeguarding obligations for Federal Contract Information (FCI) and Controlled Unclassified Information (CUI). This policy is structured around the safeguarding requirements of **NIST SP 800-171** for nonfederal systems handling sensitive federal information, with internal traceability to **NIST SP 800-53 Rev. 5** control families for broader program maturity. It is designed to support truthful compliance with applicable sponsor or contract clauses, including **FAR 52.204-21**, **DFARS 252.204-7012**, **DFARS 252.204-7019**, **DFARS 252.204-7020**, **DFARS 252.204-7021**, and related **CMMC** program requirements when they apply.
+
+{{ org_name }}'s self-hosted, zero-trust-first architecture — with no unnecessary public-facing services, identity-based overlay networking, and encryption at every layer — provides a strong baseline security posture. This policy converts that architecture into a documented governance program that can be reviewed, assessed, and evidenced.
+
+## 2. Information Classification and System Boundaries
+
+{{ org_name }} classifies information at minimum as:
+
+- **Public** — intended for public release.
+- **Internal / Confidential** — non-public organizational information not subject to a specific federal handling regime.
+- **FCI** — Federal Contract Information requiring safeguarding under applicable federal contract clauses.
+- **CUI** — Controlled Unclassified Information requiring documented safeguarding, access restrictions, and flow-down management.
+
+No system, repository, external service, or collaboration workflow may be used for FCI or CUI until the Organization has documented the relevant **system boundary**, approved the handling approach, and identified the applicable contract or sponsor obligations.
+
+## 3. Access Control and Authentication
+
+### 3.1 Zero-Trust Network Model
+
+All internal services are accessed exclusively through **OpenZiti** or another approved identity-based access layer. There are no intentionally exposed public endpoints for internal administrative services. Every connection must require:
+
+- A cryptographic identity or equivalent approved credential.
+- Policy-based authorization tied to the specific service or role.
+- Encrypted communications from endpoint to service.
+
+### 3.2 Authentication
+
+**Keycloak** or another approved centralized identity provider serves as the primary Identity Provider for {{ org_name }} systems.
+
+- **Multi-factor authentication (MFA) is mandatory** for all human user accounts, with no standing exceptions.
+- Shared human accounts are prohibited.
+- Session lifetimes must be bounded, with token rotation where supported.
+- Administrative and service credentials must be scoped to least privilege.
+
+### 3.3 Authorization
+
+All systems enforce **role-based access control (RBAC)** under the principle of least privilege.
+
+| System | Mechanism | Enforcement |
+|--------|-----------|-------------|
+| Kubernetes | RBAC (Role / ClusterRole per namespace) | No routine cluster-admin for workload accounts |
+| GitLab | Project-level roles | Protected branches and limited merge authority |
+| Azure Key Vault | Azure RBAC with named principals | Restricted secret and key access |
+| OpenZiti | Service-level policies per identity | Access granted per service, not per network segment |
+
+Access is reviewed at least annually and upon separation or material role change. Departing personnel lose access within 24 hours.
+
+## 4. Audit, Logging, and Accountability
+
+- Authentication events, authorization decisions, administrative actions, configuration changes, sensitive data access, and security alerts must be logged.
+- Audit logs must be retained for at least **one year**, or longer if required by contract, investigation, or litigation hold.
+- Logs must be protected from unauthorized modification and deletion.
+- Systems must use a common trusted time source to support reliable event reconstruction.
+- Log review occurs at least monthly, with alerting for materially suspicious events.
+
+## 5. Cryptography and FIPS Requirements
+
+### 5.1 Encryption in Transit and at Rest
+
+- **TLS 1.2 or higher** is required for approved communications.
+- Secrets committed to version control must be encrypted before commit.
+- Storage containing Confidential, FCI, or CUI data must use approved encryption-at-rest controls.
+- Backup encryption must be enabled for all protected workloads and archives.
+
+### 5.2 FIPS-Validated Cryptography
+
+When a federal contract, award term, agency requirement, or approved CUI system boundary requires cryptographic protection of FCI or CUI, {{ org_name }} shall use **FIPS 140-validated cryptographic modules**, or managed services that rely on such validated modules, for the relevant encryption, key-management, remote-access, or transport-security functions.
+
+- For new federal systems, {{ org_name }} shall prefer **FIPS 140-3** validated modules where available and appropriate.
+- Transitional reliance on **FIPS 140-2** validated modules must follow current federal transition guidance and contract requirements.
+- Non-validated cryptography may not be treated as satisfying a requirement for validated cryptographic protection.
+- Any exception or dependency on vendor-attested validation status must be documented in the relevant SSP or opportunity review record.
+
+## 6. Network, System, and Configuration Security
+
+{{ org_name }}'s network and system security model is **deny by default** at every layer:
+
+1. **Perimeter**: Internal services are not broadly exposed to the public internet unless a documented business need and security review approve the exposure.
+2. **Cluster / host**: Network segmentation, namespace isolation, and workload restrictions must limit lateral movement.
+3. **Application**: Approved gateways and identity-aware controls enforce transport security and request-level access restrictions.
+4. **Configuration**: Infrastructure and application configuration should be version-controlled, peer-reviewed, and deployed through managed workflows.
+
+Critical vulnerabilities are patched within **72 hours**. High-severity vulnerabilities are patched within **14 days**. All others are remediated within **30 days** unless a documented exception is approved with compensating controls.
+
+## 7. Incident Response and Reporting
+
+{{ org_name }} maintains an incident response capability that covers detection, containment, eradication, recovery, reporting, and post-incident review.
+
+| Phase | Actions | Responsible |
+|-------|---------|-------------|
+| Detect | Alert triage, log review, anomaly identification | IT Administrator |
+| Contain | Credential revocation, system isolation, access restriction | IT Administrator |
+| Eradicate | Root-cause analysis, patching, removal of persistence | IT Administrator + Board Chair |
+| Recover | Restore from verified backups, validate integrity, return to service | IT Administrator |
+| Report | Notify affected parties, sponsors, and agencies as required | Executive Director + Board Chair |
+
+For incidents involving CUI or covered defense information under applicable DoD clauses:
+
+- Report to the **DoD Cyber Crime Center (DC3)** within **72 hours** when required.
+- Preserve forensic images and relevant monitoring data for at least **90 days** when required.
+- Maintain a written incident record linking the event to the affected contract, system boundary, and remediation actions.
+
+## 8. Security Awareness, Personnel Security, and Physical Protection
+
+- Security awareness training is required upon onboarding and at least annually thereafter for all personnel with system access.
+- Personnel with access to FCI or CUI must receive role-appropriate handling instructions before access is granted.
+- Background screening must be performed when required by contract, sponsor rule, or risk assessment.
+- Upon departure or reassignment, access must be revoked promptly across identity providers, repositories, remote access systems, secrets systems, and infrastructure.
+- Physical infrastructure must be located in controlled spaces with visitor restrictions and basic environmental protections.
+
+## 9. System Security Plans, POA&M, and Evidence
+
+For any environment that stores, processes, or transmits FCI or CUI, {{ org_name }} shall maintain:
+
+1. A **System Security Plan (SSP)** documenting the system boundary, control implementation approach, inherited services, and assessment status.
+2. A **Plan of Action and Milestones (POA&M)** documenting gaps, interim safeguards, owners, and remediation target dates.
+3. Evidence sufficient to support internal review, sponsor inquiry, contract representation, or external assessment.
+
+The board-approved templates in `templates/cui-system-security-plan.md` and `templates/cui-poam.md` are the standard institutional formats for those artifacts unless a sponsor or assessor requires a different format.
+
+## 10. Assessments, SPRS, and CMMC Readiness
+
+- The IT Administrator shall conduct a formal cybersecurity self-assessment at least **annually** and after any material system-boundary change affecting FCI or CUI handling.
+- When required by DoD clauses, {{ org_name }} shall maintain a current **SPRS** score and related assessment evidence before proposal submission or award acceptance.
+- When a solicitation or award requires a specific **CMMC** status, affirmation, or third-party assessment, {{ org_name }} shall not make the representation unless the requirement is actually met.
+- Assessment results, material gaps, and remediation priorities shall be summarized to the Board of Directors.
+
+This policy is intended to support a defensible **CMMC Level 2** posture. It does not claim that board approval of documents alone satisfies certification or assessment requirements; operational implementation and evidence remain mandatory.
+
+## 11. Risk Management, Maintenance, and External Services
+
+- {{ org_name }} shall perform a documented risk review at least annually and before adopting any new external service that may store, process, or transmit protected information.
+- Maintenance on systems handling FCI or CUI must be authorized, logged, and performed by approved personnel. Remote maintenance requires encrypted sessions and documented approval.
+- Cloud, SaaS, MSP, and other external services that touch FCI or CUI require documented review of security responsibilities, access controls, data location, incident reporting, subcontractor use, and any required federal authorizations or validations.
+- Supply-chain and software-dependency risk must be considered in CI, deployment, and procurement decisions.
+
+## 12. Proposal, Contract, and Flow-Down Review
+
+Before submitting or accepting any opportunity that may impose cybersecurity obligations, the Executive Director and IT Administrator shall complete a documented review covering at minimum:
+
+- Whether the opportunity includes **FAR**, **DFARS**, **CMMC**, or agency-specific cybersecurity clauses.
+- Whether {{ org_name }} will handle **FCI**, **CUI**, export-controlled data, or other restricted information.
+- Whether the relevant system boundary, SSP, POA&M, SPRS score, and external-service reviews are current.
+- Whether subrecipients, consultants, or vendors require clause flow-down, security obligations, or access restrictions.
+- Whether required cryptographic protections depend on validated FIPS modules or sponsor-approved managed services.
+
+The board-approved template in `templates/dod-cui-opportunity-review.md` is the standard institutional form for this review unless a sponsor requires a different format.
+
+If the review shows that the Organization cannot truthfully meet a material clause, representation, or handling requirement, the proposal or award must be declined, delayed, or escalated for remediation before acceptance.
+
+## 13. 800-53 Rev. 5 Mapping and Program Maturity
+
+{{ org_name }} uses **NIST SP 800-53 Rev. 5** as the broader control catalog for program maturity, crosswalks, and evidence organization. This does not mean {{ org_name }} is asserting a federal-agency-style system authorization. It means the Organization will maintain control traceability across areas such as planning, risk assessment, security assessment, maintenance, supply-chain review, and system-and-services acquisition so that contract-specific requirements can be answered coherently.
+
+## 14. Board Communications
+
+Board communications are conducted via **Focusmail** or another approved organizational channel. Sensitive board matters involving FCI, CUI, or Restricted data must use approved protected channels and must not be transmitted over unapproved personal or unsecured channels.
+
+## 15. Policy Governance
+
+This policy is reviewed annually by the Board of Directors or their designee. Amendments require board approval. Emergency security changes may be implemented by the IT Administrator and ratified by the Board at the next meeting when prompt action is necessary to protect the Organization.
+{%- endif %}
