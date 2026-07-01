@@ -1,0 +1,63 @@
+# SCAFFOLD. This file intentionally contains no real board data. Populate
+# it via your organization's own board/ governance process (see
+# GOVERNANCE.md) — every addition, removal, or change to this roster
+# should be its own board/ merge/pull request, approved at the quorum
+# threshold your bylaws require. Do not commit real director names,
+# emails, or appointment history until the corresponding board action has
+# actually been adopted. See board-roster.md for the human-readable
+# version of this same data.
+---
+organization: {{ org_name }}
+ein: "{{ ein }}"
+{%- if charter_no %}
+charter_no: "{{ charter_no }}"
+{%- endif %}
+state: {{ state }}
+last_updated: <to be set on adoption>
+updated_by: <to be set on adoption>
+
+directors:
+  - name: "[Director Name]"
+    role: Chair
+    title: Board Chair
+    appointed: "[YYYY-MM-DD]"
+    appointed_meeting: "[meeting/motion reference]"
+    term_expires: "[per your bylaws]"
+    status: active
+    us_person: true
+    email: "[director email]"
+    committees: []
+
+  - name: "[Director Name]"
+    role: Vice-Chair
+    title: Vice-Chair / Executive Director
+    appointed: "[YYYY-MM-DD]"
+    appointed_meeting: "[meeting/motion reference]"
+    term_expires: "[per your bylaws]"
+    status: active
+    us_person: true
+    email: "[director email]"
+    committees: []
+
+pending_invitations: []
+
+former_directors: []
+
+officers:
+  - role: Board Chair
+    holder: "[current Board Chair]"
+    appointed_meeting: "[meeting/motion reference]"
+
+  - role: Vice-Chair / Executive Director
+    holder: "[current Vice-Chair / Executive Director]"
+    appointed_meeting: "[meeting/motion reference]"
+
+  - role: {{ treasurer_title }}
+    holder: "[current {{ treasurer_title }}]"
+    appointed_meeting: "[meeting/motion reference]"
+
+  - role: Secretary
+    holder: "[current Secretary]"
+    appointed_meeting: "[meeting/motion reference]"
+
+committees: []

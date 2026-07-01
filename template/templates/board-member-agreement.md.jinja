@@ -2,7 +2,7 @@
 type: template
 organization: {{ org_name }}
 title: Board Member Agreement
-related_policy: bylaws.md
+related_policy: "{% if include_bylaws_example %}bylaws.md{% else %}your organization's bylaws (not rendered by this configuration — see GOVERNANCE.md and adopt your own bylaws.md at the repository root){% endif %}"
 ---
 
 # {{ org_name }} — Board Member Agreement

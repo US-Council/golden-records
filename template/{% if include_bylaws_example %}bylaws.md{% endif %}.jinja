@@ -1,0 +1,414 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- if board_quorum_rule == "majority" -%}
+  {%- set board_quorum_prose = "a majority of the directors then serving" -%}
+  {%- set amend_quorum_prose = "a majority of the directors then serving" -%}
+{%- elif board_quorum_rule == "two-thirds" -%}
+  {%- set board_quorum_prose = "two-thirds (2/3) of the directors then serving" -%}
+  {%- set amend_quorum_prose = "two-thirds (2/3) of the directors then serving" -%}
+{%- else -%}
+  {%- set board_quorum_prose = "[your organization's custom quorum rule]" -%}
+  {%- set amend_quorum_prose = "[your organization's custom amendment-vote rule]" -%}
+{%- endif -%}
+---
+type: bylaws
+organization: {{ org_name }}
+title: Bylaws of {{ org_name }}
+status: adopted
+effective_date: on-merge
+legal_basis: {{ incorp_statute }}
+id: BYL-001
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Bylaws of {{ org_name }}
+
+> **Not legal advice — worked example only.** This document is a generic,
+> non-binding illustration of one common way to structure nonprofit
+> corporate bylaws. It is provided by the Golden Records commons as a
+> starting point, not as a finished, adopt-as-is legal document. State
+> nonprofit corporation law varies materially — a provision that is
+> standard and compliant in one state may be invalid, incomplete, or
+> simply the wrong fit for your organization in another. **These bylaws
+> must be reviewed, revised as needed, and formally adopted by your board
+> with the assistance of counsel licensed in {{ state }} before they have
+> any legal effect.** Every bracketed placeholder below (`[like this]`)
+> marks a decision your board and counsel must make explicitly; this
+> document does not make that decision for you.
+
+A nonprofit corporation organized under {{ incorp_statute }}
+EIN: {{ ein }}{% if charter_no %} | Charter No. {{ charter_no }}{% endif %}
+
+These Bylaws govern the internal affairs of the Corporation and are
+subject to the Corporation's Articles of Incorporation and applicable
+{{ state }} law. In case of conflict, the Articles of Incorporation and
+applicable law control.
+
+---
+
+## Article I — Name, Office, and Registered Agent
+
+### Section 1.1 — Name
+
+The name of the corporation is **{{ org_name }}** (the "Corporation").
+
+### Section 1.2 — Principal Office
+
+The principal office of the Corporation is located at {{ principal_address }}. The Board of Directors may change the principal office by resolution at any regular or special meeting.
+
+### Section 1.3 — Registered Agent
+
+The Corporation shall continuously maintain a registered agent and registered office in the State of {{ state }} as required by {{ incorp_statute }}.{% if registered_agent_name %} **{{ registered_agent_name }}** (a{{ "n" if registered_agent_type == "individual" else "" }} {{ registered_agent_type }}) serves as the Corporation's registered agent.{% else %} [Name and type of registered agent to be designated by the Board.]{% endif %} The Board of Directors may change the registered agent or registered office by filing the appropriate notice with the {{ state }} Secretary of State (or equivalent state filing office).
+
+---
+
+## Article II — Purpose
+
+### Section 2.1 — General Purpose
+
+The Corporation is organized exclusively for [charitable/scientific/educational — describe your organization's actual mission] purposes within the meaning of Section 501(c)(3) of the Internal Revenue Code of 1986, as amended.
+
+### Section 2.2 — Limitations
+
+No part of the net earnings of the Corporation shall inure to the benefit of, or be distributable to, its directors, officers, or other private persons, except that the Corporation is authorized to pay reasonable compensation for services rendered and to make payments and distributions in furtherance of the purposes stated in Section 2.1. No substantial part of the activities of the Corporation shall be the carrying on of propaganda or otherwise attempting to influence legislation, and the Corporation shall not participate in or intervene in any political campaign on behalf of or in opposition to any candidate for public office. Notwithstanding any other provision of these Bylaws, the Corporation shall not carry on any activity not permitted to be carried on by a corporation exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code.
+
+### Section 2.3 — Public Charity Status
+
+The Corporation is not a private foundation within the meaning of Section 509(a) of the Internal Revenue Code. The Corporation is classified as a public charity under **{{ public_charity_classification }}**{% if irs_determination_date %}, as determined by the IRS in its Determination Letter dated {{ irs_determination_date }}{% endif %}. The Corporation shall operate so as to maintain its public charity status and meet the applicable public support test.
+
+### Section 2.4 — Whistleblower Protection
+
+The Corporation shall maintain a Whistleblower Protection Policy, as adopted by the Board, providing that any director, officer, employee, volunteer, or contractor who reports in good faith a suspected violation of law, regulation, or organizational policy shall be protected from retaliation.
+
+---
+
+## Article III — Members
+
+### Section 3.1 — No Statutory Members
+
+[Adjust this Article if your organization has a voting membership structure.] The Corporation has no members within the meaning of {{ incorp_statute }}. All rights, powers, and duties that would otherwise be vested in the members are vested in the Board of Directors. Any action that would otherwise require the approval or vote of a majority of all members or the members with voting rights shall require only the approval of the Board of Directors.
+
+---
+
+## Article IV — Board of Directors
+
+### Section 4.1 — General Powers
+
+The business and affairs of the Corporation shall be managed by its Board of Directors. The Board may exercise all powers of the Corporation and do all lawful acts that are not by statute, the Articles of Incorporation, or these Bylaws directed or required to be exercised or done by others.
+
+### Section 4.2 — Number
+
+The Board of Directors shall consist of no fewer than **{{ board_size }}** and no more than **[maximum number]** directors. The exact number shall be fixed by resolution of the Board from time to time.
+
+### Section 4.3 — Terms
+
+Directors shall serve **[term length]**-year terms. [Specify whether terms auto-renew, are staggered, or are subject to re-election, and the notice required for non-renewal or removal.]
+
+### Section 4.4 — Qualifications
+
+Directors must be natural persons of at least eighteen (18) years of age. [State any residency or other qualification requirements, or state that none apply.]
+
+### Section 4.5 — Nominations
+
+[Describe your organization's process for identifying, evaluating, and recommending candidates for Board membership — e.g., via a Governance or Board Development Committee.] Elections shall be decided by majority vote of the directors present at a meeting where quorum is established, unless these Bylaws specify a higher threshold for a particular action.
+
+### Section 4.6 — Vacancies
+
+A vacancy on the Board — whether caused by death, resignation, removal, failure to renew, increase in the number of directors, or otherwise — shall be filled by a majority vote of the remaining directors, even if fewer than a quorum. A director elected to fill a vacancy shall serve for the unexpired term of the predecessor, or, in the case of a vacancy created by an increase in the number of directors, for a full term as described in Section 4.3.
+
+### Section 4.7 — Removal
+
+A director may be removed with or without cause by {{ amend_quorum_prose }} (excluding the director subject to removal from both the vote and the quorum count). Removal is effective upon passage of the vote. The director subject to removal shall be given at least seven (7) days' written notice of the meeting at which removal will be considered and shall have the opportunity to address the Board before the vote.
+
+### Section 4.8 — Emergency Removal
+
+The Board Chair may convene an emergency meeting with twenty-four (24) hours' notice to consider immediate removal of a director when the director's continued service poses an immediate threat to the Corporation's legal compliance, tax-exempt status, or organizational integrity. Emergency removal requires {{ amend_quorum_prose }} (excluding the director subject to removal). The removed director shall receive written notice within twenty-four (24) hours and may petition the full Board for reinstatement at the next regular meeting.
+
+### Section 4.9 — Resignation
+
+A director may resign at any time by delivering written notice to the Board Chair or the Secretary. The resignation is effective when the notice is delivered unless the notice specifies a later effective date.
+
+### Section 4.10 — Quorum
+
+{{ board_quorum_prose | capitalize }} shall constitute a quorum for the transaction of business. The act of a majority of the directors present at a meeting at which a quorum is present shall be the act of the Board, except where a greater vote is required by statute, the Articles of Incorporation, or these Bylaws.
+
+### Section 4.11 — Regular Meetings
+
+The Board shall hold regular meetings at least **[frequency, e.g. quarterly]**. The Board Chair shall set the date, time, and manner of each regular meeting. Notice of regular meetings shall be given to all directors at least seven (7) days in advance via **[your organization's designated communications platform]** or another method reasonably calculated to provide actual notice.
+
+### Section 4.12 — Special Meetings
+
+Special meetings of the Board may be called by the Board Chair or by any two (2) directors. Notice of a special meeting shall be given to all directors at least forty-eight (48) hours in advance via the same method described in Section 4.11. The notice shall state the date, time, manner, and purpose of the meeting.
+
+### Section 4.13 — Remote Participation
+
+Directors may participate in any meeting by telephone, video conference, or other electronic means through which all participants can simultaneously communicate with each other. A director participating remotely shall be deemed present in person for purposes of quorum and voting.
+
+### Section 4.14 — Action Without Meeting
+
+Any action required or permitted to be taken at a meeting of the Board may be taken without a meeting if all directors then serving consent in writing to the action. Written consent includes electronic consent transmitted via {{ mr_term }} approval on this repository (see `GOVERNANCE.md`), or any other verifiable electronic means the Board designates. Consent is effective when the last director signs or transmits consent. Actions taken by written consent have the same force and effect as a unanimous vote at a duly held meeting and shall be filed with the minutes of the Board.
+
+### Section 4.15 — Electronic Voting
+
+{{ mr_term | capitalize }} approval on this repository is valid written consent for Board actions as described in `GOVERNANCE.md`. [If your organization also uses a separate electronic-voting platform, name it here and describe how its records relate to the {{ mr_term }} record — see `GOVERNANCE.md` Section 7, "Integrity Rules."] The Secretary shall preserve electronic voting records as part of the permanent corporate records.
+
+### Section 4.16 — Compensation
+
+Directors shall serve without compensation. Directors may be reimbursed for reasonable expenses incurred in connection with their duties upon approval by the Board in accordance with the Corporation's Delegation of Authority Policy.
+
+### Section 4.17 — Parliamentary Authority
+
+The rules contained in the current edition of Robert's Rules of Order, Newly Revised shall govern the proceedings of the Board and its committees in all cases to which they are applicable and in which they are not inconsistent with these Bylaws, the Articles of Incorporation, or applicable law.
+
+---
+
+## Article V — Officers
+
+### Section 5.1 — Officers Designated
+
+The officers of the Corporation shall be a Chair of the Board ("Board Chair"), a Vice-Chair, an Executive Director, a Secretary, and a {{ treasurer_title }}. The Board may create additional officer positions as it deems necessary. One person may hold two or more offices, except that the Board Chair and the Secretary may not be the same person.
+
+### Section 5.2 — Executive Director
+
+The Executive Director serves as the chief operating officer of the Corporation and manages its day-to-day operations, programs, and personnel under the direction of the Board. The Executive Director shall have authority to:
+
+(a) Execute contracts, agreements, and other instruments on behalf of the Corporation in accordance with the Delegation of Authority Policy;
+{%- if federal_grants_focus %}
+(b) Certify proposals and serve as the Corporation's authorized organizational representative for federal grant submissions;
+(c) Interact with contracting officers, grants management officers, and program officers on behalf of the Corporation;
+(d) Manage compliance functions, including those required by federal grants, 2 CFR Part 200, and sponsor-specific terms and conditions;
+{%- endif %}
+(e) Supervise all employees, consultants, and volunteers of the Corporation;
+(f) Report to the Board at each regular meeting on the operations and activities of the Corporation.
+
+The Executive Director shall be an ex officio member of all standing committees.
+
+### Section 5.3 — Board Chair
+
+The Board Chair shall preside at all meetings of the Board, exercise general oversight of the affairs of the Corporation, and perform such other duties as the Board may assign. The Board Chair shall ensure that the orders and resolutions of the Board are carried into effect. The Board Chair serves as chairperson of the Governance Committee.
+
+### Section 5.4 — Vice-Chair
+
+The Vice-Chair shall, in the absence or disability of the Board Chair, perform the duties and exercise the powers of the Board Chair. The Vice-Chair shall perform such other duties as the Board Chair or the Board may assign.
+
+### Section 5.5 — Secretary
+
+The Secretary shall be responsible for the records of the Corporation, including minutes of all Board meetings, voting records, and official correspondence.{% if ai_agents_enabled %} The Board may delegate specific secretarial functions to an AI agent system operating under documented instructions, subject to Article XII. When secretarial functions are delegated to an AI agent, a human officer designated by the Board shall review and approve all official records before they are entered into the permanent record.{% endif %} The Secretary or the designated human officer retains ultimate responsibility for the accuracy and completeness of all corporate records.
+
+### Section 5.6 — {{ treasurer_title }}
+
+The {{ treasurer_title }} shall oversee the financial affairs of the Corporation, including budgets, financial reports, and tax filings. [If the Board delegates fiscal-custodian duties to an outside firm, name that arrangement here and cite the resolution authorizing it — do not hardcode a vendor name directly into these Bylaws, since vendors change independent of the Corporation's identity.] The {{ treasurer_title }} or the Board Chair shall review and approve all financial reports before they are presented to the Board or filed with regulatory agencies.
+
+### Section 5.7 — Election and Term
+
+Officers shall be elected annually by the Board of Directors at the first regular meeting of each calendar year, or at such other time as the Board determines. Each officer shall serve until a successor is elected and qualified, or until the officer's earlier death, resignation, or removal.
+
+### Section 5.8 — Elections
+
+Officers shall be elected by majority vote of the Board of Directors at the annual meeting or at any regular meeting where an officer vacancy exists.
+
+### Section 5.9 — Removal of Officers
+
+Any officer may be removed by a majority vote of the Board of Directors at any regular or special meeting. Removal of an officer shall not affect the officer's rights, if any, under any contract with the Corporation.
+
+### Section 5.10 — Vacancy
+
+A vacancy in any office shall be filled by the Board of Directors for the unexpired term.
+
+### Section 5.11 — Official Communications
+
+**[Name your organization's official board communication platform, if any.]** is the Corporation's official board communication platform. All official Board notices, correspondence, and communications shall be transmitted via that platform unless these Bylaws or a Board resolution specifically authorize an alternative method.
+
+---
+
+## Article VI — Executive Committee
+
+### Section 6.1 — Composition
+
+The Executive Committee shall consist of the elected officers of the Corporation (Board Chair, Vice-Chair, Secretary, and {{ treasurer_title }}) and the immediate Past Chair, if any. The Board Chair shall serve as chairperson of the Executive Committee. The Executive Director shall serve as an ex officio, non-voting member.
+
+### Section 6.2 — Authority
+
+The Executive Committee may act on behalf of the Board between regular meetings on matters that require timely action, except that the Executive Committee may not take any action reserved to the full Board under {{ incorp_statute }}, these Bylaws, or a Board resolution.
+
+### Section 6.3 — Reporting
+
+All actions taken by the Executive Committee shall be reported to the full Board at the next regular meeting and entered into the minutes.
+
+---
+
+## Article VII — Committees
+
+### Section 7.1 — Standing Committees
+
+The following standing committees are established by these Bylaws. The Board may establish additional standing committees by resolution. Each standing committee shall have a charter approved by the Board specifying the committee's purpose, authority, composition, and reporting obligations.
+
+### Section 7.2 — Governance Committee
+
+The Governance Committee is chaired by the Board Chair and is responsible for oversight of corporate governance, bylaw compliance, and organizational integrity, including reviewing proposed bylaw amendments and maintaining the Corporation's whistleblower reporting channel.
+
+### Section 7.3 — Board Development Committee
+
+The Board Development Committee shall be responsible for identifying, recruiting, and nominating candidates for Board membership, and for planning and delivering director orientation and continuing education.
+
+### Section 7.4 — [Additional Standing Committee]
+
+[Add any additional standing committees your organization requires — e.g. a Planning Committee, a Grant/Development Committee — with the same purpose/composition/authority structure as above.]
+
+### Section 7.5 — Ad Hoc Committees
+
+The Board may create ad hoc committees at any time for any purpose. Ad hoc committees shall be dissolved upon completion of their assigned tasks or by Board resolution.
+
+### Section 7.6 — Committee Composition
+
+Unless otherwise specified in these Bylaws, each committee shall consist of at least two (2) persons appointed by the Board. Committee members need not be directors. The Board shall designate a chair for each committee.
+
+### Section 7.7 — Committee Authority
+
+Committees may exercise only the authority specifically delegated to them by the Board or these Bylaws. No committee may amend the Articles of Incorporation; elect, appoint, or remove directors or officers (except as provided in Sections 4.7 and 4.8); adopt a plan of merger or dissolution; or take any action that requires a vote of the full Board under applicable law.
+
+### Section 7.8 — Committee Quorum and Voting
+
+A majority of the members of a committee shall constitute a quorum. The act of a majority of committee members present at a meeting at which a quorum is present shall be the act of the committee, except where these Bylaws require a higher threshold.
+
+### Section 7.9 — Committee Meetings
+
+Committee meetings may be held in person, by electronic means, or by written consent, following the same procedures applicable to the Board under Sections 4.13 and 4.14.
+
+---
+
+## Article VIII — Fiscal Year and Banking
+
+### Section 8.1 — Fiscal Year
+
+The fiscal year of the Corporation shall begin the day after {{ fiscal_year_end }} and end on {{ fiscal_year_end }} of the following period.
+
+### Section 8.2 — Primary Bank
+
+**[Name of primary financial institution]** is designated as the Corporation's primary financial institution. The Board may authorize additional depositories by resolution.
+
+### Section 8.3 — Deposits
+
+All funds of the Corporation shall be deposited to the credit of the Corporation in such banks, trust companies, or other depositories as the Board may approve.
+
+---
+
+## Article IX — Contracts, Checks, and Grants
+
+### Section 9.1 — Contracts
+
+The Board may authorize any officer or agent to enter into contracts or execute instruments on behalf of the Corporation. Such authority shall be exercised in accordance with the Corporation's Delegation of Authority Policy.
+
+### Section 9.2 — Checks and Disbursements
+
+All checks, drafts, orders for payment, and other disbursements of Corporation funds shall be authorized in accordance with the Delegation of Authority Policy and the fiscal procedures the Board establishes.
+
+### Section 9.3 — Gifts and Grants
+
+The Board or the Executive Director may accept, on behalf of the Corporation, any contribution, gift, bequest, devise, or grant for the general purposes or any special purpose of the Corporation, provided such acceptance is consistent with the Corporation's tax-exempt status{% if federal_grants_focus %} and, for federal awards, in compliance with 2 CFR Part 200 and applicable sponsor terms and conditions{% endif %}.
+
+### Section 9.4 — Current Board Signatories
+
+Authorized signatories for the Corporation's financial accounts and official documents are designated in `board-roster.md`, as maintained and amended through the Board's governance process. The Board may modify authorized signatories by resolution at any regular or special meeting.
+
+---
+
+## Article X — Conflict of Interest
+
+Directors, officers, and key employees of the Corporation shall comply with the Corporation's Conflict of Interest Policy (`policies/conflict-of-interest.md`). The Conflict of Interest Policy, as adopted and amended by the Board from time to time, is incorporated by reference into these Bylaws. Each director and officer shall annually execute a disclosure statement as required by that policy.
+
+---
+{% if federal_grants_focus %}
+## Article XI — Federal Grant Compliance and Export Control
+
+### Section 11.1 — Federal Grant Compliance
+
+The Corporation shall develop and maintain all policies, procedures, and internal controls required for federal grant eligibility, including but not limited to those required by 2 CFR Part 200 (Uniform Guidance), agency-specific regulations, and applicable federal statutes. All governance and compliance policies shall be adopted by the Board and maintained in this repository. The Executive Director shall ensure that the Corporation's systems and processes satisfy all applicable federal requirements.
+
+### Section 11.2 — Export Control
+
+The Corporation shall comply with all applicable export control laws and regulations, including the International Traffic in Arms Regulations (ITAR), the Export Administration Regulations (EAR), and sanctions administered by the Office of Foreign Assets Control (OFAC), to the extent applicable to the Corporation's activities. Board members, officers, employees, consultants, and any personnel with access to controlled technical data shall comply with the Corporation's Export Control Policy as adopted by the Board.
+
+### Section 11.3 — Audit Committee
+
+The Board shall establish an Audit Committee consisting of at least two (2) directors who are independent of management. The Audit Committee shall oversee the Corporation's financial reporting, internal controls, and compliance with 2 CFR 200 Subpart F (Single Audit requirements) once the Corporation's federal expenditures exceed the threshold set by 2 CFR 200 Subpart F.
+
+---
+{% endif -%}
+{% if ai_agents_enabled %}
+## Article XII — AI Agent Authorization
+
+### Section 12.1 — Authorization
+
+The Board of Directors authorizes the use of AI agent systems for operational and governance functions of the Corporation, including agenda preparation, minutes drafting, transcription, financial reporting, voting-record management, document drafting, and such other functions as the Board may approve.
+
+### Section 12.2 — Governance Framework
+
+AI agents shall operate under documented instructions and in accordance with the Corporation's AI Governance Policy for Board Operations (`policies/ai-governance-board.md`) and the hard rules in `CLAUDE.md`. Each agent's scope, workflow, permitted data sources, and output requirements shall be specified in its instructions.
+
+### Section 12.3 — Human Oversight
+
+No AI agent output shall become an official record of the Corporation until a responsible human officer has reviewed and approved it. AI-generated drafts shall be clearly marked as drafts until approved. The responsible human officer retains ultimate accountability for the accuracy, completeness, and legal sufficiency of all official records. **No AI agent has authority to cast a vote, approval, or written consent on behalf of a director or officer** — see `CLAUDE.md` for the full prohibition.
+
+### Section 12.4 — Board Chair Control
+
+The Board Chair may modify, suspend, or expand any AI agent's operating authority at any time. The Board Chair's authority under this section may be delegated to other officers by written notice.
+
+### Section 12.5 — Authorized Platforms
+
+The Board Chair may authorize AI platforms and tools for use in Corporation operations without requiring a formal amendment to these Bylaws. Such authorizations shall be noted in the next meeting's minutes.
+
+---
+{% endif -%}
+## Article XIII — Indemnification and Insurance
+
+### Section 13.1 — Scope
+
+To the fullest extent permitted by {{ incorp_statute }} and consistent with the Corporation's Articles of Incorporation, the Corporation shall indemnify any person who was or is a party, or is threatened to be made a party, to any threatened, pending, or completed action, suit, or proceeding — whether civil, criminal, administrative, or investigative (including actions by or in the right of the Corporation) — by reason of the fact that the person is or was a director, officer, employee, or agent of the Corporation, against expenses (including attorneys' fees), judgments, fines, and amounts paid in settlement actually and reasonably incurred in connection with such action, suit, or proceeding.
+
+### Section 13.2 — Advancement of Expenses
+
+Expenses incurred in defending any action, suit, or proceeding covered by Section 13.1 shall be paid by the Corporation in advance of the final disposition of such action, suit, or proceeding upon receipt of an undertaking by or on behalf of the director, officer, employee, or agent to repay such amount if it is ultimately determined that the person is not entitled to be indemnified by the Corporation.
+
+### Section 13.3 — Directors' and Officers' Insurance
+
+The Board shall use reasonable efforts to obtain and maintain directors' and officers' (D&O) liability insurance in amounts and on terms the Board considers appropriate.
+
+### Section 13.4 — Non-Exclusivity
+
+The indemnification and advancement of expenses provided by this Article shall not be exclusive of any other rights to which a person seeking indemnification or advancement may be entitled under any agreement, vote of disinterested directors, or otherwise, and shall inure to the benefit of the heirs, executors, and administrators of such a person.
+
+---
+
+## Article XIV — Amendments
+
+### Section 14.1 — Amendment by Board Vote
+
+These Bylaws may be amended, repealed, or restated by {{ amend_quorum_prose }} at any regular or special meeting. Written notice of any proposed amendment, including the text of the proposed change, shall be given to all directors at least seven (7) days before the meeting at which the amendment will be considered. The Governance Committee may review proposed amendments and provide recommendations to the Board, but the Board vote is final and not subject to committee approval or veto.
+
+### Section 14.2 — Emergency Amendment
+
+In exigent circumstances requiring immediate bylaw modification to maintain legal compliance or tax-exempt status, the Board Chair may call an emergency meeting with twenty-four (24) hours' notice. Emergency amendments require {{ amend_quorum_prose }}. Emergency amendments shall be reviewed at the next regular meeting and may be ratified, modified, or repealed by the Board at that time.
+
+---
+
+## Article XV — Dissolution
+
+### Section 15.1 — Procedure
+
+The Corporation may be dissolved in accordance with the procedures set forth in {{ incorp_statute }}.
+
+### Section 15.2 — Distribution of Assets
+
+Upon dissolution of the Corporation, after paying or making provision for the payment of all liabilities, the Board shall distribute the remaining assets of the Corporation exclusively for the exempt purposes of the Corporation, or to one or more organizations that are organized and operated exclusively for charitable, educational, scientific, or other purposes qualifying under Section 501(c)(3) of the Internal Revenue Code, as the Board shall determine, consistent with the Corporation's Articles of Incorporation. No part of the assets shall be distributed to any director or officer of the Corporation.
+
+---
+
+## Certification
+
+These Bylaws become effective on merge to `main`. The merge commit and {{ mr_term }} approval record are the official adoption record.

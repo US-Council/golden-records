@@ -1,0 +1,67 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+<!--
+SCAFFOLD. This file intentionally contains no real board data. Populate it
+via your organization's own board/ governance process (see GOVERNANCE.md):
+each addition, removal, or change to this roster should be its own
+board/ {{ mr_term }}, approved at the quorum threshold your bylaws require,
+just like any other governance change. Do not commit real director names,
+emails, or appointment history until the corresponding board action has
+actually been adopted.
+-->
+
+---
+type: board-roster
+organization: {{ org_name }}
+last_updated: <to be set on adoption>
+source: <cite the board action(s) that established this roster — meeting date, motion/resolution number>
+---
+
+# {{ org_name }} Board of Directors
+
+Your bylaws establish a board of {{ board_size }} seat(s) at the time of
+adoption (see `bylaws.md`{% if not include_bylaws_example %}, if adopted{% endif %}, Article IV). Add one row below per
+seated director; remove the example row first.
+
+## Current Board
+
+| Name | Role | Title | Appointed | Status |
+|------|------|-------|-----------|--------|
+| [Director Name] | Chair | Board Chair | [YYYY-MM-DD] | Active |
+| [Director Name] | Vice-Chair | Vice-Chair / Executive Director | [YYYY-MM-DD] | Active |
+
+## Pending Director Invitations
+
+Individuals the Board has formally invited to consider accepting a seat,
+but who have not yet been elected, are **not directors**. They hold no
+director rights or responsibilities and are not counted toward board
+composition or quorum until a separate resolution records their election.
+
+| Name | Invited | Per Motion | Resolution | Status |
+|------|---------|------------|------------|--------|
+| [Candidate Name] | [YYYY-QN] | [Motion N] | `resolutions/[file].md` | Invited — awaiting written acceptance |
+
+## Former Board Members
+
+| Name | Role | Appointed | Departed | Reason |
+|------|------|-----------|----------|--------|
+| [Former Director Name] | [Role] | [YYYY-MM-DD] | [YYYY-MM-DD] | [Resigned / term not renewed / removed / etc.] |
+
+## Officers & Appointments
+
+| Role | Appointed To | Per Motion |
+|------|-------------|------------|
+| Board Chair | [current Board Chair] | [board action establishing this seat] |
+| Vice-Chair / Executive Director | [current Vice-Chair / Executive Director] | [board action establishing this seat] |
+| {{ treasurer_title }} | [current {{ treasurer_title }}] | [board action establishing this seat] |
+| Secretary | [current Secretary] | [board action establishing this seat] |
+
+## Committees
+
+Populate this table to match the committee structure your bylaws
+establish (see `bylaws.md`{% if not include_bylaws_example %}, if adopted{% endif %}, Article VII).
+
+| Committee | Chair | Established |
+|-----------|-------|-------------|
+| Governance Committee | [current chair] | [bylaws / board action] |
+| [Additional committee] | [current chair] | [bylaws / board action] |

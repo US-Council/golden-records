@@ -1,0 +1,34 @@
+---
+type: copyright
+organization: {{ org_name }}
+title: Copyright Notice
+---
+
+# Copyright Notice
+
+Copyright (c) <year of first adoption>–present {{ org_name }}. All rights reserved.
+
+EIN: {{ ein }} | {{ state }} 501(c)(3){% if charter_no %} | Charter No. {{ charter_no }}{% endif %}
+
+The documents in this repository constitute the official governance records of {{ org_name }}, a 501(c)(3) nonprofit incorporated in {{ state }}. These documents are proprietary to the organization and are maintained for institutional governance, regulatory compliance{% if federal_grants_focus %}, and federal grant readiness{% endif %} purposes.
+
+Unauthorized reproduction, distribution, or modification of these documents outside the authorized governance process described in `GOVERNANCE.md` is prohibited.
+
+## Template provenance
+
+This repository was generated from the
+[Golden Records](https://github.com/USCouncil/golden-records) governance-as-code
+commons, maintained by USCouncil. The commons template itself is
+dual-licensed — Apache-2.0 for its `copier.yml` logic and CI tooling,
+CC-BY-4.0 for its policy language, bylaws skeleton, and documentation
+prose (see that repository's `LICENSE` and `LICENSE-CONTENT`). This
+repository is a rendered, organization-specific instance of that
+commons — the copyright above covers the resulting content as adopted by
+{{ org_name }}, consistent with the commons' own open-license terms and
+attribution requirements.
+
+The governance framework, repository structure, and merge/pull-request-as-vote
+methodology reflected in this repository may be referenced or adapted by
+other organizations, consistent with the Golden Records commons' own open
+licensing — see that project directly rather than this repository if you
+are looking to adopt the framework itself.
