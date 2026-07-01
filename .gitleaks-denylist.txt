@@ -1,0 +1,34 @@
+# .gitleaks-denylist.txt
+#
+# One forbidden literal string per line. Any line matched verbatim
+# (case-insensitive) anywhere in a commit, file, or diff fails CI via the
+# "denylist-scan" job in .github/workflows/leak-guard.yml.
+#
+# WHY THIS FILE EXISTS
+# This commons repo must never contain real organization-specific data —
+# it is a generic, parameterized template consumed via Copier. This file is
+# the extensible, no-regex-required safety net: contributors who accidentally
+# paste real org identifiers, names, or addresses while de-branding source
+# material will fail CI immediately, with a clear message pointing here.
+#
+# HOW TO EXTEND
+# - Append one literal string per line. No regex syntax, no escaping needed.
+# - Lines starting with # are comments and are ignored.
+# - Blank lines are ignored.
+# - Keep entries specific (full names, full addresses, full identifiers)
+#   rather than short substrings that would cause false positives on
+#   legitimate generic content.
+# - See CONTRIBUTING.md for the full leak-guard contract.
+
+# Seed denylist: known real-organization identifiers that must never
+# appear in this generic commons repository.
+INSTAR Lab
+INSTAR
+85-0845517
+4465031
+Matthew Hackney
+Suzanne Conejos
+Maha Khan
+125 Frederick Street
+Marietta, Ohio
+Tao Mgt

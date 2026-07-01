@@ -1,0 +1,85 @@
+name: leak-guard
+
+# This workflow is the automated enforcement of the repo's core invariant:
+# ZERO real organization-specific data. It runs two independent checks —
+# a gitleaks pattern scan and a literal-string denylist scan — and fails
+# the build on any hit. See CONTRIBUTING.md and SECURITY.md for context.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: gitleaks pattern scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_CONFIG: .gitleaks.toml
+          GITLEAKS_ENABLE_COMMENTS: false
+
+  denylist-scan:
+    name: literal org-identifier denylist scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan tracked files for denylisted literals
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          denylist=".gitleaks-denylist.txt"
+          if [ ! -f "$denylist" ]; then
+            echo "::error::${denylist} is missing — leak-guard cannot run without it."
+            exit 1
+          fi
+
+          hits=0
+          while IFS= read -r line; do
+            # Skip blank lines and comments.
+            [ -z "$line" ] && continue
+            case "$line" in \#*) continue ;; esac
+
+            # Search all tracked files (excluding this repo's own leak-guard
+            # machinery, which necessarily documents the forbidden strings).
+            matches=$(git grep -I -l -i -F -- "$line" -- \
+              ':!.gitleaks-denylist.txt' \
+              ':!.gitleaks.toml' \
+              ':!CONTRIBUTING.md' \
+              ':!.github/workflows/leak-guard.yml' \
+              || true)
+
+            if [ -n "$matches" ]; then
+              echo "::error::Denylisted string '${line}' found in:"
+              echo "$matches" | while IFS= read -r f; do
+                echo "::error file=${f}::forbidden literal '${line}' found in ${f}"
+              done
+              hits=$((hits + 1))
+            fi
+          done < "$denylist"
+
+          if [ "$hits" -gt 0 ]; then
+            echo "leak-guard: ${hits} denylisted string(s) found. See errors above."
+            echo "This repo must contain ZERO real organization-specific data."
+            echo "See CONTRIBUTING.md for what to do next."
+            exit 1
+          fi
+
+          echo "leak-guard: denylist scan passed, no forbidden literals found."

@@ -1,0 +1,266 @@
+# copier.yml — Golden Records commons template configuration
+#
+# This is the question schema for `copier copy` / `copier update`. It renders
+# the generic, parameterized governance/policy template in ./template into a
+# concrete repository for one adopting organization. Nothing in ./template
+# should ever contain real organization data directly — everything flows
+# through these variables. See docs/ARCHITECTURE.md for the full rationale.
+
+_min_copier_version: "9.3.0"
+_subdirectory: template
+
+_message_before_copy: |
+  You're about to generate a nonprofit governance repository from the
+  USCouncil Golden Records commons template.
+
+  Have ready: your organization's legal name, EIN, state of incorporation,
+  principal address, and primary contact email. Everything you enter here
+  is used only to render YOUR copy — nothing is sent anywhere.
+
+  This is not legal advice. See docs/NOT-LEGAL-ADVICE.md after rendering.
+
+_message_after_copy: |
+  Your governance repository has been generated at {{ _copier_conf.dst_path }}.
+
+  Next steps:
+    1. Review every rendered file — this template covers common patterns,
+       not your specific legal situation. Have counsel review before adoption.
+    2. Commit the rendered output to your own repository.
+    3. Read ADOPTER-GUIDE.md for the full walkthrough.
+    4. To pull upstream improvements later, run `copier update` from your
+       repo root (see UPGRADE-GUIDE.md for the dirty-tree gotcha first).
+
+_message_after_update: |
+  Update complete. Please review the diff carefully — `copier update` does a
+  3-way merge and may have introduced conflict markers in files you've
+  customized locally. Resolve any `<<<<<<<` / `=======` / `>>>>>>>` blocks
+  before committing.
+
+# ---------------------------------------------------------------------------
+# Organization identity
+# ---------------------------------------------------------------------------
+
+org_name:
+  type: str
+  help: >-
+    Full legal name of your organization, exactly as it appears on IRS and
+    state filings (e.g. "Example Community Foundation").
+  required: true
+
+org_short:
+  type: str
+  help: >-
+    Short name or acronym used in casual references (e.g. "ECF"). Defaults
+    to an acronym derived from org_name's initials.
+  default: "{{ org_name.split() | map('first') | join('') | upper }}"
+
+ein:
+  type: str
+  help: >-
+    IRS Employer Identification Number, format NN-NNNNNNN (e.g. 12-3456789).
+  required: true
+  validator: >-
+    {% if not (ein | regex_search('^\d{2}-\d{7}$')) %}
+    EIN must be in the format NN-NNNNNNN (e.g. 12-3456789).
+    {% endif %}
+
+state:
+  type: str
+  help: "State (or DC) of incorporation."
+  required: true
+  choices:
+    - Alabama
+    - Alaska
+    - Arizona
+    - Arkansas
+    - California
+    - Colorado
+    - Connecticut
+    - Delaware
+    - District of Columbia
+    - Florida
+    - Georgia
+    - Hawaii
+    - Idaho
+    - Illinois
+    - Indiana
+    - Iowa
+    - Kansas
+    - Kentucky
+    - Louisiana
+    - Maine
+    - Maryland
+    - Massachusetts
+    - Michigan
+    - Minnesota
+    - Mississippi
+    - Missouri
+    - Montana
+    - Nebraska
+    - Nevada
+    - New Hampshire
+    - New Jersey
+    - New Mexico
+    - New York
+    - North Carolina
+    - North Dakota
+    - Ohio
+    - Oklahoma
+    - Oregon
+    - Pennsylvania
+    - Rhode Island
+    - South Carolina
+    - South Dakota
+    - Tennessee
+    - Texas
+    - Utah
+    - Vermont
+    - Virginia
+    - Washington
+    - West Virginia
+    - Wisconsin
+    - Wyoming
+
+incorp_statute:
+  type: str
+  help: >-
+    Statute governing nonprofit incorporation in your state (used in
+    boilerplate governance language). A default is provided for a few
+    common states; for others, enter the citation yourself (e.g.
+    "[State] Nonprofit Corporation Act").
+  default: >-
+    {%- set statutes = {
+      "Ohio": "Ohio Revised Code Chapter 1702",
+      "Delaware": "Delaware General Corporation Law, Title 8, Chapter 1 (nonstock corporation provisions)",
+      "California": "California Nonprofit Public Benefit Corporation Law, Corporations Code Section 5110 et seq.",
+      "New York": "New York Not-for-Profit Corporation Law (N-PCL)",
+      "Texas": "Texas Business Organizations Code, Title 2, Chapter 22 (Texas Nonprofit Corporation Law)"
+    } -%}
+    {{ statutes.get(state, "") }}
+
+charter_no:
+  type: str
+  help: "State charter / registration number, if applicable. Leave blank if unknown or not yet issued."
+  default: ""
+
+principal_address:
+  type: str
+  help: "Principal office address as filed with the state and IRS."
+  required: true
+
+registered_agent_name:
+  type: str
+  help: "Registered agent's name (individual or entity), if applicable. Leave blank if not yet designated."
+  default: ""
+
+registered_agent_type:
+  type: str
+  help: "Is the registered agent an individual person or an entity (e.g. a registered agent service)?"
+  default: individual
+  choices:
+    - individual
+    - entity
+
+# ---------------------------------------------------------------------------
+# Fiscal & tax-exempt status
+# ---------------------------------------------------------------------------
+
+fiscal_year_end:
+  type: str
+  help: 'Fiscal year end date (e.g. "December 31" or "June 30").'
+  default: "December 31"
+
+irs_determination_date:
+  type: str
+  help: >-
+    Date of your IRS 501(c)(3) determination letter, if received
+    (e.g. "March 15, 2024"). Leave blank if pending or not applicable.
+  default: ""
+
+public_charity_classification:
+  type: str
+  help: >-
+    Public charity classification under the Internal Revenue Code
+    (e.g. the default is the common publicly-supported organization
+    classification; change if yours differs, such as a supporting
+    organization or private foundation).
+  default: "509(a)(1)/170(b)(1)(A)(vi)"
+
+# ---------------------------------------------------------------------------
+# Board & governance
+# ---------------------------------------------------------------------------
+
+board_size:
+  type: int
+  help: "Number of seats on the governing board."
+  default: 2
+
+board_quorum_rule:
+  type: str
+  help: "Rule used to establish quorum at board meetings."
+  default: majority
+  choices:
+    - majority
+    - two-thirds
+    - custom
+
+treasurer_title:
+  type: str
+  help: >-
+    Title used for the officer responsible for financial oversight
+    (e.g. "Treasurer", "CFO", "VP of Finance").
+  default: "Treasurer"
+
+# ---------------------------------------------------------------------------
+# Operating posture
+# ---------------------------------------------------------------------------
+
+vcs_platform:
+  type: str
+  help: "Primary version control platform your organization uses for governance-as-code."
+  default: gitlab
+  choices:
+    - gitlab
+    - github
+
+ai_agents_enabled:
+  type: bool
+  help: >-
+    Does your organization use AI agents (e.g. for drafting, research, or
+    operational automation) as part of its workflow? This toggles related
+    governance/disclosure language in the rendered template.
+  default: true
+
+federal_grants_focus:
+  type: bool
+  help: >-
+    Does your organization pursue or manage US federal grants? This toggles
+    related compliance language (e.g. 2 CFR 200 references) in the
+    rendered template.
+  default: true
+
+include_bylaws_example:
+  type: bool
+  help: >-
+    Include a fully worked example bylaws document (generic, non-binding
+    sample) in the rendered output? If false, only a skeleton/checklist
+    is included.
+  default: false
+
+# ---------------------------------------------------------------------------
+# Contact
+# ---------------------------------------------------------------------------
+
+primary_contact_email:
+  type: str
+  help: "Primary contact email for governance and security matters."
+  required: true
+  validator: >-
+    {% if not (primary_contact_email | regex_search('^[^@\s]+@[^@\s]+\.[^@\s]+$')) %}
+    Please enter a valid email address.
+    {% endif %}
+
+org_website:
+  type: str
+  help: "Organization website URL, if any."
+  default: ""

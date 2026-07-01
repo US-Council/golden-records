@@ -1,0 +1,51 @@
+title = "golden-records leak-guard configuration"
+
+# Extend gitleaks' built-in ruleset (AWS keys, private keys, generic API
+# tokens, etc.) rather than replacing it. This repo is a public commons —
+# standard secret hygiene applies on top of our custom org-identifier rules.
+[extend]
+useDefault = true
+
+# --- Custom rules -----------------------------------------------------
+#
+# This repo must contain ZERO real organization-specific data (see
+# CONTRIBUTING.md and SECURITY.md). Two layers of defense:
+#
+#   1. Pattern-based rules below, for structured identifiers whose *shape*
+#      is inherently sensitive (e.g. an EIN) regardless of the exact value.
+#   2. The literal-string denylist in .gitleaks-denylist.txt, enforced by
+#      the separate "denylist-scan" job in .github/workflows/leak-guard.yml.
+#      That file is the extensible mechanism: contributors add a line, no
+#      regex required. Use it for names, addresses, and one-off literals.
+#
+# Both layers must pass for leak-guard to pass.
+
+[[rules]]
+id = "us-ein"
+description = "US IRS Employer Identification Number (EIN) pattern (NN-NNNNNNN)"
+regex = '''\b\d{2}-\d{7}\b'''
+tags = ["pii", "ein", "custom", "org-identifier"]
+
+[[rules]]
+id = "us-ssn"
+description = "US Social Security Number pattern (NNN-NN-NNNN) — should never appear in governance docs"
+regex = '''\b\d{3}-\d{2}-\d{4}\b'''
+tags = ["pii", "ssn", "custom"]
+
+# --- Allowlist ----------------------------------------------------------
+# Copier's own template placeholders (e.g. "{{ ein }}", validator examples
+# in copier.yml, and this file's own documentation) legitimately reference
+# the *shape* of an EIN without being a real one. Allow the literal
+# placeholder/example patterns used in copier.yml and docs so the template
+# schema itself doesn't trip the rule.
+[allowlist]
+description = "Copier template placeholders and documented example patterns"
+regexes = [
+  '''\{\{\s*ein\s*\}\}''',
+  '''12-3456789''', # canonical placeholder EIN used in examples/docs
+]
+paths = [
+  '''(?i)^copier\.yml$''',
+  '''(?i)^\.gitleaks\.toml$''',
+  '''(?i)^\.gitleaks-denylist\.txt$''',
+]

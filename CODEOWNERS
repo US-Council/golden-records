@@ -1,0 +1,20 @@
+# CODEOWNERS for the golden-records commons repository.
+#
+# This file governs review/approval for changes to the COMMONS itself
+# (template logic, copier.yml schema, CI, shared policy language). It is
+# intentionally distinct from any individual adopting organization's board
+# of directors or internal approval chain — those are configured separately
+# in each organization's *rendered* copy after `copier copy`/`copier update`.
+#
+# @USCouncil/maintainers is a placeholder team. Replace with the actual
+# commons maintainer team handle once the USCouncil GitHub organization
+# and team are provisioned.
+
+* @USCouncil/maintainers
+
+# The Copier question schema and leak-guard are especially sensitive —
+# changes here affect every downstream adopter and the anti-leak safety net.
+/copier.yml               @USCouncil/maintainers
+/.gitleaks.toml            @USCouncil/maintainers
+/.gitleaks-denylist.txt    @USCouncil/maintainers
+/.github/workflows/        @USCouncil/maintainers
