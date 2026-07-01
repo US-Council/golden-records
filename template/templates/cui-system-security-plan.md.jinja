@@ -1,0 +1,103 @@
+{%- if federal_grants_focus %}
+---
+type: template
+organization: {{ org_name }}
+title: CUI System Security Plan
+related_policy: policies/cybersecurity.md
+---
+
+# {{ org_name }} — CUI System Security Plan Template
+
+Use this template to define the system boundary, inherited services, control implementation approach, and assessment status for any environment that stores, processes, or transmits Federal Contract Information (FCI) or Controlled Unclassified Information (CUI).
+
+## 1. System Overview
+
+| Field | Value |
+|-------|-------|
+| System name | |
+| System owner | |
+| Authorizing business purpose | |
+| Information types handled | FCI / CUI / both / other |
+| Sponsoring contract or opportunity | |
+| Primary hosting environment | |
+| Date established | |
+| Last materially updated | |
+
+## 2. Boundary Definition
+
+- In-scope users:
+- In-scope devices:
+- In-scope servers, clusters, or cloud services:
+- In-scope repositories and collaboration systems:
+- External services relied upon:
+- Out-of-scope systems and justification:
+
+## 3. Data Flow Summary
+
+Describe how FCI or CUI enters, moves within, and exits the system boundary. Identify transfer methods, storage locations, backup paths, and any cross-boundary interfaces.
+
+## 4. Control Inheritance and Shared Services
+
+| Service | Provider | Function | Inherited Controls / Safeguards | Evidence Location |
+|---------|----------|----------|---------------------------------|------------------|
+| Identity provider | | | | |
+| Source control / CI | | | | |
+| Storage / backup | | | | |
+| Logging / monitoring | | | | |
+| Key management | | | | |
+| Network overlay / remote access | | | | |
+
+## 5. Control Implementation Summary
+
+| Control Family | Implementation Summary | Status | Evidence |
+|----------------|------------------------|--------|----------|
+| Access Control | | Implemented / Partial / Planned | |
+| Audit and Accountability | | Implemented / Partial / Planned | |
+| Awareness and Training | | Implemented / Partial / Planned | |
+| Configuration Management | | Implemented / Partial / Planned | |
+| Identification and Authentication | | Implemented / Partial / Planned | |
+| Incident Response | | Implemented / Partial / Planned | |
+| Maintenance | | Implemented / Partial / Planned | |
+| Media Protection | | Implemented / Partial / Planned | |
+| Personnel Security | | Implemented / Partial / Planned | |
+| Physical Protection | | Implemented / Partial / Planned | |
+| Risk Assessment | | Implemented / Partial / Planned | |
+| Security Assessment | | Implemented / Partial / Planned | |
+| System and Communications Protection | | Implemented / Partial / Planned | |
+| System and Information Integrity | | Implemented / Partial / Planned | |
+| Planning / system security planning | | Implemented / Partial / Planned | |
+| System and Services Acquisition / external services | | Implemented / Partial / Planned | |
+
+## 6. FIPS and Cryptography
+
+| Use Case | Product / Module | FIPS Status | Certificate / Evidence | Notes |
+|----------|------------------|-------------|------------------------|-------|
+| TLS termination | | Validated / vendor-attested / not applicable | | |
+| VPN / overlay / remote access | | Validated / vendor-attested / not applicable | | |
+| Disk or volume encryption | | Validated / vendor-attested / not applicable | | |
+| Backup encryption | | Validated / vendor-attested / not applicable | | |
+| Key management / HSM / KMS | | Validated / vendor-attested / not applicable | | |
+
+## 7. Assessment and Scoring
+
+| Item | Value |
+|------|-------|
+| Current self-assessment date | |
+| Assessment method | Basic / Medium / High / other |
+| Current score | |
+| SPRS submission date | |
+| Assessment evidence location | |
+| Next planned assessment date | |
+
+## 8. Risks and Exceptions
+
+List material gaps, planned remediation, temporary exceptions, and any contract-specific conditions that affect the boundary.
+
+## 9. Approval Record
+
+| Role | Name | Date |
+|------|------|------|
+| System owner | | |
+| IT Administrator | | |
+| Executive Director | | |
+{%- endif %}
