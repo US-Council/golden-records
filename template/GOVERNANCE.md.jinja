@@ -1,0 +1,341 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+{%- set mr_article = "an" if vcs_platform == "gitlab" else "a" -%}
+{%- set platform_name = "GitLab" if vcs_platform == "gitlab" else "GitHub" -%}
+{%- set review_template_path = ".gitlab/merge_request_templates/governance-change.md" if vcs_platform == "gitlab" else ".github/PULL_REQUEST_TEMPLATE/governance-change.md" -%}
+{%- if board_quorum_rule == "majority" -%}
+  {%- set board_quorum_count = (board_size // 2) + 1 -%}
+  {%- set board_quorum_prose = "a majority of the directors then serving" -%}
+{%- elif board_quorum_rule == "two-thirds" -%}
+  {%- set board_quorum_count = ((board_size * 2 + 2) // 3) -%}
+  {%- set board_quorum_prose = "two-thirds (2/3) of the directors then serving" -%}
+{%- else -%}
+  {%- set board_quorum_count = None -%}
+  {%- set board_quorum_prose = "[your organization's custom quorum rule]" -%}
+{%- endif -%}
+---
+id: GOV-001
+type: governance
+organization: {{ org_name }}
+title: "Repository Governance"
+version: "1.0"
+status: adopted
+effective_date: on-merge
+adopted_meeting: <to be set on adoption>
+legal_basis: "{{ incorp_statute }}; {{ org_name }} Bylaws"
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Repository Governance
+
+**{{ org_name }}** | EIN: {{ ein }} | {{ state }} 501(c)(3){% if charter_no %} | Charter No. {{ charter_no }}{% endif %}
+
+This document defines how this repository is governed. It is the first document any board member, auditor, grant officer, or partner should read to understand how institutional decisions are proposed, debated, adopted, amended, and preserved. It operationalizes the bylaws for a git-native governance workflow.
+
+---
+
+## 1. Purpose
+
+This repository is the **official record of all adopted governance documents** for {{ org_name }}, a{{ ' federal-grant-focused' if federal_grants_focus else '' }} 501(c)(3) public charity incorporated in {{ state }} under {{ incorp_statute }}.
+
+The `main` branch of this repository constitutes the **current official state of the institution**. Any document on `main` is, by definition, in force. Any document not on `main` is not in force. There is no other canonical source.
+
+This repository holds:
+
+- The bylaws{% if not include_bylaws_example %} (this configuration does not include the commons' worked bylaws example — add your organization's adopted bylaws here directly, see `docs/NOT-LEGAL-ADVICE.md` in the commons for why this template does not attempt to write them for you by default){% endif %}
+- Board-adopted policies and standing rules
+- Board resolutions and voting records
+- Approved meeting minutes
+- Executed agreements, MOUs, and subawards
+- Tax filings, state filings, and compliance artifacts
+- Board-approved templates and forms
+
+Working drafts, agendas, meeting preparation, AI agent scratch space, and deliberative material **do not belong here**. If your organization maintains a separate working/drafting repository, keep that material there — see `CLAUDE.md`, Section "Relationship to a Working/Drafting Repository."
+
+---
+
+## 2. Principles
+
+The governance model rests on six invariants. They are non-negotiable.
+
+1. **Each policy is a file. Each amendment is a commit. Each adoption is a merge.** The unit of governance is the file; the unit of change is the commit; the unit of authority is the merge to `main`.
+2. **Git history is the immutable audit trail.** Every change to every document is cryptographically linked and timestamped. `git log` is the minute book. `git blame` is the chain of custody.
+3. **{{ mr_term | capitalize }} approval by board members constitutes valid written consent** under the organization's bylaws (see your bylaws' electronic-voting or written-consent provisions). The {{ mr_abbr }} is the motion. Approvals are the votes. The merge is the adoption.
+4. **The merge commit timestamp is the official adoption date.** Not the date written in the document. Not the date of the meeting. The git timestamp on `main` is authoritative for legal, tax, and regulatory purposes.
+5. **No direct pushes to `main`. Ever.** Branch protection is enforced at the {{ platform_name }} project level. Any bypass of this rule — whether by force-push, history rewrite, or administrative override — is a governance violation and must be reported to the full Board and recorded in the next minutes.
+6. **Placeholder or synthetic material is prohibited in operative records.** Fillable blanks are allowed only in `templates/`. Incomplete or synthetic examples must not be presented as adopted records.
+
+---
+
+## 3. Document Lifecycle
+
+Every governance document moves through a defined sequence of states. The state is recorded in the document's YAML frontmatter under `status`.
+
+```
+draft → proposed → review → adopted → amended → superseded → archived
+```
+
+| State | Meaning | Location |
+|-------|---------|----------|
+| `draft` | Working document being prepared. Not yet submitted for consideration. | Your working/drafting space, if any |
+| `proposed` | Submitted to this repo via an open {{ mr_abbr }} on a `board/` or `admin/` branch. The text should already be in final in-force wording. | This repo, feature branch |
+| `review` | {{ mr_abbr }} is open and in the mandatory review period. Merge activates the exact reviewed text. | This repo, feature branch |
+| `adopted` | Merged to `main` with the required approvals. In force. | This repo, `main` |
+| `amended` | A newer version has been adopted on `main`. This version's frontmatter has `superseded_by` pointing to the new `id`. Still present in git history. | This repo, `main` and history |
+| `superseded` | Fully replaced by a successor document. May be moved into an archive subdirectory or retained in place with updated frontmatter. | This repo, `main` or archive |
+| `archived` | No longer in effect. Retained solely for historical and audit reference. | This repo, `main` under archive subdirectory |
+
+A document never moves backward through the lifecycle. A superseded policy is not re-adopted; a new version is proposed and passes through the full cycle on its own merits.
+
+---
+
+## 4. Who Can Propose Changes
+
+The right to propose is deliberately broad. The right to adopt is deliberately narrow.
+
+- **Any director or officer** may propose a change by creating a branch in this repo and opening {{ mr_article }} {{ mr_term }} here.
+- **Committee chairs** may propose changes within the scope of their committee's charter.
+{%- if ai_agents_enabled %}
+- **AI agents** authorized by the Board Chair may prepare {{ mr_term }}s, draft frontmatter, assemble supporting materials, and carry out mechanical edits. However, **a human director or officer must be the {{ mr_abbr }} author of record, or must explicitly endorse the {{ mr_abbr }} in writing in its description.** AI agents do not hold votes and cannot author governance actions unattended — see `CLAUDE.md` for the full hard rule.
+{%- endif %}
+- **External parties** (grant officers, auditors, partners, counsel) do not have write access and cannot propose changes directly. Their input is routed through a director or officer who opens the {{ mr_abbr }} on their behalf.
+
+---
+
+## 5. Branch Naming
+
+Branch prefixes are load-bearing. They determine the approval tier required for merge. **This scheme is fixed** — it is an interoperability convention shared across every organization using this commons, and is not a Copier variable.
+
+| Prefix | Approval Required | Scope |
+|--------|-------------------|-------|
+| `board/` | **{{ board_quorum_prose | capitalize }}**{% if board_quorum_count %} — with a {{ board_size }}-seat board, that is currently **{{ board_quorum_count }}** director(s){% endif %} | Bylaws, policies, resolutions, elections, officer appointments, board roster changes, amendments to this `GOVERNANCE.md` |
+| `admin/` | **1 officer** (Chair, Executive Director, Secretary, or {{ treasurer_title }} as appropriate) | Minutes, financial reports, tax filings, state filings, routine correspondence, template typo fixes |
+
+### Format
+
+Branch names must follow one of:
+
+- `board/YYYY-QN-<topic>` for quarterly meeting omnibus {{ mr_abbr }}s — e.g. `board/2026-q3-meeting`
+- `board/YYYY-MM-<topic>` for single-subject board actions — e.g. `board/2026-08-travel-policy-amendment`
+- `admin/YYYY-QN-<topic>` or `admin/YYYY-MM-<topic>` — e.g. `admin/2026-q3-minutes`
+
+### Branch Hygiene
+
+- Branches are **deleted after merge**. The git history preserves the work; the branch reference is no longer needed.
+- Branches must not be reused across unrelated changes. One branch, one coherent proposal.
+- Long-lived feature branches are prohibited for governance work. If a proposal stalls, close the {{ mr_abbr }} and archive the branch.
+
+---
+
+## 6. {{ mr_term | capitalize }} Process
+
+The {{ mr_term }} is the motion. It is prepared, discussed, voted on, and either adopted or rejected — all within {{ platform_name }}, all preserved in the permanent record.
+
+### Required {{ mr_abbr }} Contents
+
+Every {{ mr_abbr }} against this repository must include:
+
+1. **The motion or resolution text** — the formal language being put to the board, in the {{ mr_abbr }} description.
+2. **Affected documents** — an explicit list of every file added, modified, or removed.
+3. **Legal basis** — the bylaws section, prior resolution, statute, or regulation that authorizes this action.
+4. **Effective date** — when the change takes effect if adopted (may be the merge date itself, or a future date specified in the document frontmatter).
+5. **Review period classification** — whether this is a standard, emergency, or administrative action, per your bylaws.
+
+The {{ mr_abbr }} template at `{{ review_template_path }}` enforces these fields. Use it.
+
+### Review Period
+
+- **Policy changes** (`board/` branches): the review period set by your bylaws (commonly 7 days), waivable only by unanimous written consent of all directors then serving for documented emergencies.
+- **Bylaw amendments**: the review period and vote threshold set by your bylaws (a supermajority is common practice for bylaw amendments even where ordinary board actions use a lower threshold — see `bylaws.md` if this configuration includes the commons' worked example, or your organization's own adopted bylaws).
+- **Administrative {{ mr_abbr }}s** (`admin/`): no minimum period; may be merged as soon as the required officer approves.
+
+### Discussion Record
+
+- **{{ mr_abbr }} comments serve as the board discussion record.** They are preserved indefinitely and are part of the corporate books.
+- **All open threads must be resolved before merge.** An unresolved thread is an unresolved objection.
+- **Directors and officers must use their real identities** — no anonymous or pseudonymous comments on governance {{ mr_abbr }}s. {{ platform_name }} accounts must be tied to director identity verified at the time of seating.
+
+### Merge Rules
+
+- **No squash merges.** Full commit history is preserved. Each author's contribution remains attributable. This is a bright-line rule — {{ 'squash is disabled at the project level for this repository' if vcs_platform == 'gitlab' else 'the "Squash and merge" and "Rebase and merge" options are disabled for this repository, leaving only "Create a merge commit"' }}.
+- **No force pushes to any branch after {{ mr_article }} {{ mr_abbr }} is opened.** Rewriting proposed history during review destroys the audit trail of the deliberation itself.
+- **Fast-forward or merge commit only.** The merge commit is the adoption record and must be preserved.
+- **The merge commit message must reference the {{ mr_abbr }} number** and cite the motion being adopted.
+
+---
+
+## 7. Voting
+
+Voting happens in {{ platform_name }}. There is no separate ballot unless your organization has separately adopted one (see "Integrity Rules" below).
+
+| Action in {{ platform_name }} | Equivalent in Robert's Rules |
+|------------------|------------------------------|
+| Approve {{ mr_abbr }} | Aye |
+| Request Changes | Motion to debate; must specify concerns in {{ mr_article }} {{ mr_abbr }} comment |
+| Leave a comment without approving | Discussion; not yet a vote |
+| Silence through the full review period | Abstain |
+| Close the {{ mr_abbr }} without merging | Motion withdrawn or defeated |
+
+### Thresholds
+
+- **`board/` branches**: approval by {{ board_quorum_prose }} for ordinary board actions.{% if board_quorum_count %} With the current {{ board_size }}-seat board, that means {{ board_quorum_count }} director(s), unless the bylaws require a higher threshold for a specific action (e.g. bylaw amendments).{% endif %}
+- **`admin/` branches**: 1 officer approval, provided the officer holds authority over the subject matter under the Delegation of Authority Policy.
+- **Bylaw amendments**: the supermajority threshold set by your bylaws.
+
+### Integrity Rules
+
+- **Director-authored {{ mr_abbr }}s are allowed.** A director-author's approval counts as that director's consent. Service, bot, or admin accounts may open or maintain {{ mr_article }} {{ mr_abbr }}, but they do not count toward director quorum and must not be the only named proposer of a board action.
+- **Approvals are reset on substantive push.** If the {{ mr_abbr }} author pushes material changes after an approval, that approval is invalidated and must be renewed. This is enforced by {{ platform_name }}'s "remove approvals on new commits" (or equivalent) setting.
+- **If your organization uses a separate electronic-voting platform** in parallel with {{ platform_name }} approvals for certain actions (e.g. formal elections), the {{ mr_abbr }} description must reference that platform's record ID, and both records must agree. [Specify in your bylaws which record controls in case of conflict.]
+
+---
+
+## 8. Amendment Process
+
+Amending a governance document is the same workflow as adopting a new one. There are no shortcuts, and there is no in-place editing of adopted files on `main`.
+
+### Policies
+
+- Proposer creates a branch and opens {{ mr_article }} {{ mr_abbr }} that modifies the policy file.
+- The {{ mr_abbr }} description cites the policy being amended, the sections affected, and the rationale.
+- The policy's frontmatter `version` is incremented (semver: major for substantive changes, minor for clarifications, patch for typographical fixes).
+- Approval by the required directors-then-serving threshold.
+- On merge, the new version replaces the old version in place on `main`, and the commit history preserves every prior version.
+
+### Bylaws
+
+- Same mechanical process as policies.
+- **Threshold is the supermajority set by your bylaws.**
+- Bylaw amendments must be logged in the next meeting's minutes and communicated to any parties with standing notice requirements (e.g., your state's Secretary of State, if the amendment affects registered information).
+
+### Emergency Amendments
+
+- The expedited review period set by your bylaws.
+- The supermajority vote set by your bylaws.
+- The {{ mr_abbr }} description must state the exigent circumstance justifying the emergency procedure.
+- The amendment must be placed on the agenda of the next regular meeting for ratification, modification, or repeal. The ratification is itself a separate {{ mr_abbr }} against `main`.
+
+### This Governance Document
+
+This `GOVERNANCE.md` is itself amendable by the same process as a policy: the standard review period and the applicable director quorum or supermajority threshold, via a `board/` branch. It is reviewed annually (see the `next_review` field in the frontmatter).
+
+---
+
+## 9. YAML Frontmatter Standard
+
+Every document in this repository must begin with a YAML frontmatter block. The block is machine-readable and is the source of truth for document metadata.
+
+### Required Fields
+
+```yaml
+---
+id: POL-001                        # Sequential identifier within the document type
+type: policy                       # policy | bylaws | resolution | template | governance | agreement | compliance
+organization: {{ org_name }}
+title: "Document Title"
+version: "1.0"                     # Semver; increment for substantive changes
+status: adopted                    # draft | proposed | review | adopted | amended | superseded | archived
+effective_date: on-merge           # Use on-merge unless the document has a delayed future effective date
+adopted_meeting: <to be set on adoption>  # Identifier linking to the resolutions/ file or meeting record
+legal_basis: "Citation"            # Bylaws section, statute, regulation, or prior resolution
+supersedes: null                   # ID of a prior document this replaces, or null
+superseded_by: null                # ID of a successor document, or null
+review_cycle: annual               # annual | biennial | as-needed
+next_review: <to be set on adoption>      # Next scheduled review
+---
+```
+
+### Identifier Conventions
+
+- `GOV-NNN` — governance documents (this file, charter amendments)
+- `BYL-NNN` — bylaws articles (when versioned separately)
+- `POL-NNN` — policies
+- `RES-NNN` — resolutions
+- `TMPL-NNN` — templates
+- `MIN-YYYY-QN` — minutes
+- `VOT-YYYY-NNN` — voting records
+
+Identifiers are assigned sequentially within their type and are never reused, even if a document is archived.
+
+### Frontmatter as Contract
+
+When `status: adopted` appears on a `board/` branch, the file is staged in its final in-force wording. It becomes operative when that exact file is merged to `main`. Merging a file with `status: draft` to `main` is a governance violation and must be corrected by a follow-up {{ mr_abbr }} within a short, board-defined window.
+
+---
+
+## 10. Repository Structure
+
+```
+.
+├── GOVERNANCE.md                  This file
+├── README.md                      Public-facing description
+├── COPYRIGHT.md                   Legal notice and licensing
+├── CLAUDE.md                      Agent operating instructions
+{%- if include_bylaws_example %}
+├── bylaws.md                      Adopted bylaws
+{%- else %}
+├── bylaws.md                      Adopted bylaws (add your own — not included by this configuration)
+{%- endif %}
+├── board-roster.md                Current board of directors (human-readable)
+├── board-roster.yml               Current board of directors (machine-readable)
+├── policies/                      Adopted organizational policies
+├── templates/                     Board-approved templates and forms
+├── minutes/                       Approved meeting minutes
+├── voting/                        Certified voting records
+├── resolutions/                   Board resolutions and meeting records
+├── agreements/                    Executed agreements, MOUs, subawards
+├── compliance/                    Tax filings, state filings, audit reports
+└── {{ review_template_path }}
+```
+
+Files in the repository root are singletons — there is one bylaws, one board roster, one governance document. Subdirectories hold collections that grow over time.
+
+---
+
+## 11. Audit Trail
+
+The audit trail is automatic, complete, and tamper-evident. It requires no separate record-keeping.
+
+### What the Git History Provides
+
+- **`git log --all`** — every change ever made to every document, with author, timestamp, and commit message.
+- **`git log --merges main`** — every adoption decision, in chronological order.
+- **`git log --follow <file>`** — the complete lineage of any single document across renames and moves.
+- **`git blame <file>`** — line-by-line attribution of every adopted word to a specific commit, author, and date.
+- **`git show <commit>`** — the exact state of a change, its diff, and the merge context.
+- **Merge commit messages** — each references the {{ mr_abbr }} number, which in turn links to the full discussion, the approvals, and the motion text.
+
+### Retention
+
+- **Git history is permanent.** Rewriting history on `main` is prohibited. The {{ platform_name }} project is configured to reject force pushes to protected branches.
+- **{{ mr_abbr }}s and their comments are retained indefinitely.** The Secretary is responsible for ensuring platform export backups are taken periodically and stored with the corporate books per the Document Retention Policy.
+- **Deleted branches do not affect history.** Once merged, a branch's commits are part of `main` and are preserved regardless of whether the branch reference still exists.
+
+### Reconstructing the Record
+
+At any point in the future, the full legal state of {{ org_name }} as of any date can be reconstructed by:
+
+```bash
+git checkout $(git rev-list -1 --before="YYYY-MM-DD HH:MM:SS" main)
+```
+
+This is equivalent to pulling a specific volume of the minute book off the shelf. It is the definitive answer to "what were the bylaws on this date?" or "which policies were in force when this contract was signed?"
+
+### Tamper Evidence
+
+Every commit is a cryptographic hash of its contents and parent. Altering any historical commit changes every subsequent hash, producing a divergent history that is immediately detectable on push. The audit trail cannot be silently edited.
+
+---
+
+## 12. Review and Maintenance
+
+- **This document is reviewed annually.** The review is itself a `board/` {{ mr_abbr }} that either confirms the document unchanged (bumping `next_review`) or proposes amendments.
+- **The Secretary** is the document owner and is responsible for scheduling the annual review and for ensuring {{ mr_abbr }} templates, branch protection rules, and code-owner/reviewer rules remain consistent with this document.
+- **Any material inconsistency** between this document and the bylaws is resolved in favor of the bylaws. If discovered, the Secretary must open a corrective {{ mr_abbr }} promptly.
+
+---
+
+*Adopted by the Board of Directors of {{ org_name }}. The merge commit of this file to `main` constitutes the official adoption under the organization's bylaws.*

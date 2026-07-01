@@ -1,0 +1,100 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+{%- set mr_article = "an" if vcs_platform == "gitlab" else "a" -%}
+{%- set platform_name = "GitLab" if vcs_platform == "gitlab" else "GitHub" -%}
+# {{ org_name }} — Governance Records
+
+This repository is the official, git-native governance record for
+{{ org_name }}, a 501(c)(3) nonprofit corporation incorporated in {{ state }}
+(EIN: {{ ein }}{% if charter_no %}, Charter No. {{ charter_no }}{% endif %}).
+
+It was generated from the
+[Golden Records](https://github.com/USCouncil/golden-records) governance-as-code
+commons and is now this organization's own repository — customize it freely.
+
+## What this repository is
+
+The `main` branch is the current, authoritative, board-approved state of
+the institution. Policies, bylaws, resolutions, minutes, and every other
+governance artifact here have been through this repository's adoption
+process; nothing on `main` is a draft.
+
+## How adoption works
+
+Governance in this repository happens through ordinary {{ platform_name }}
+{{ mr_term }}s, not a separate voting system:
+
+- **A {{ mr_abbr }} is a motion.** Opening one against `board/` or `admin/`
+  branch puts a proposal in front of the people who can adopt it.
+- **{{ mr_term | capitalize }} approval is a vote.** Approving a {{ mr_abbr }}
+  is the electronic equivalent of voting "aye."
+- **Merging is adoption.** The merge commit's timestamp is the official,
+  legally operative adoption date — not the date written in the document,
+  not the date of any meeting.
+
+The full model — branch prefixes, quorum thresholds, review periods, and
+the frontmatter standard every document follows — is documented in
+[`GOVERNANCE.md`](GOVERNANCE.md). If this organization uses AI agents as
+part of its governance workflow, [`CLAUDE.md`](CLAUDE.md) defines the hard
+limits on what those agents may and may not do here — most importantly,
+**agents draft; only real, named directors adopt.**
+
+## Repository structure
+
+| Path | Contents |
+|------|----------|
+| `GOVERNANCE.md` | The governance model in full |
+| `CLAUDE.md` | AI agent operating rules for this repository |
+{%- if include_bylaws_example %}
+| `bylaws.md` | Adopted bylaws |
+{%- endif %}
+| `board-roster.md` / `board-roster.yml` | Current board of directors |
+| `COPYRIGHT.md` | Licensing and copyright notice for this repository's content |
+| `policies/` | Adopted organizational policies |
+| `templates/` | Board-approved document templates and forms |
+| `minutes/` | Approved meeting minutes |
+| `voting/` | Certified voting records |
+| `resolutions/` | Board resolutions and meeting records |
+| `agreements/` | Executed agreements, MOUs, subawards |
+| `compliance/` | Tax filings, state filings, audit reports |
+
+## Not legal advice
+
+This repository was rendered from a generic template. Nothing in it — the
+bylaws{% if include_bylaws_example %} example{% endif %}, the policy language, the resolution templates —
+is legal, tax, or accounting advice, and none of it should be treated as
+adopted until your board and, where appropriate, your counsel have
+reviewed it. See the Golden Records commons'
+[`docs/NOT-LEGAL-ADVICE.md`](https://github.com/USCouncil/golden-records/blob/main/docs/NOT-LEGAL-ADVICE.md)
+for the full statement.
+
+## Staying current with the commons
+
+This repository can pull future improvements from the Golden Records
+commons (clarified policy language, new compliance checklists, corrected
+boilerplate) without losing your own customizations:
+
+```
+cd path/to/this/repo
+copier update --trust
+```
+
+`copier update` performs a 3-way merge between the version of the commons
+template you last rendered, the current commons template, and your
+repository's current (possibly customized) state. Read the commons'
+`docs/UPGRADE-GUIDE.md` before your first run — there is an important
+gotcha about running `copier update` on a dirty working tree. The
+`{{ _copier_conf.answers_file }}` file in this repository's root records
+exactly what was answered and which template version was used; `copier
+update` relies on it and it should not be edited by hand.
+
+## Contact
+
+Primary governance and security contact: {{ primary_contact_email }}
+{%- if org_website %}
+Website: {{ org_website }}
+{%- endif %}
+
+## License
+
+See [`COPYRIGHT.md`](COPYRIGHT.md).
