@@ -25,7 +25,7 @@ path.
 ## The core distinction: your repo has real data, the commons must not
 
 This is the single most important thing to internalize before opening a
-pull request against `USCouncil/golden-records`:
+pull request against `US-Council/golden-records`:
 
 - **Your rendered repository** contains your real EIN, your real board
   member names, your real address, your real minutes and resolutions. That
@@ -78,7 +78,7 @@ repository's org-specific customizations (those are yours to maintain; see
 
 ## The pathway, step by step
 
-1. **Fork** `USCouncil/golden-records` (or create a branch, if you have
+1. **Fork** `US-Council/golden-records` (or create a branch, if you have
    write access) — same as any other commons contribution.
 2. **Locate the corresponding template file(s).** If you're porting a
    change from your rendered `policies/conflict-of-interest.md`, the file
@@ -154,6 +154,6 @@ Before you open the pull request, confirm:
 
 Questions about whether a specific contribution is a good fit for the
 commons (versus something that should stay organization-specific in your
-own rendered repo): open an issue on `USCouncil/golden-records` and ask
+own rendered repo): open an issue on `US-Council/golden-records` and ask
 before doing the work. Security or data-leak concerns: see `SECURITY.md`,
 not a public issue.

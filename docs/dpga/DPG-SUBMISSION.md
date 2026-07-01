@@ -24,11 +24,11 @@ and the [DPG Review Policy](https://github.com/DPGAlliance/publicgoods-candidate
 | Field | Draft answer |
 |---|---|
 | Solution name | Golden Records |
-| Aliases | `USCouncil/golden-records`; "the golden-records commons" |
+| Aliases | `US-Council/golden-records`; "the golden-records commons" |
 | Solution category | **Open Software** (Copier question schema, CI, tooling — Apache-2.0) and **Open Content** (governance/policy template corpus and documentation — CC-BY-4.0). The application's category field is multi-select; both apply. |
 | Short description (tweet-length) | "A public, vendor-neutral commons of governance-as-code templates — bylaws, policies, and compliance checklists — that any US nonprofit can render into their own repository via Copier, then own and maintain independently." |
-| Website | `https://uscouncil.org` (USCouncil, the maintaining organization) |
-| Where solution's source is hosted | **Pending.** Intended: `https://github.com/USCouncil/golden-records`. The repository does not yet have a public remote — see `SUBMISSION-CHECKLIST.md`, item 2. This field cannot be completed until the repo is pushed and public. |
+| Website | `https://uscouncil.org` (US-Council, the maintaining organization) |
+| Where solution's source is hosted | **Pending.** Intended: `https://github.com/US-Council/golden-records`. The repository does not yet have a public remote — see `SUBMISSION-CHECKLIST.md`, item 2. This field cannot be completed until the repo is pushed and public. |
 | Alternate contact email | **To be supplied by the human submitter.** DPGA requires a verified email tied to an authorized representative of the applicant; this is a human decision, not something drafted here (see `SUBMISSION-CHECKLIST.md`, item 7). |
 
 ---
@@ -116,9 +116,9 @@ covered by DPGA-approved licenses.
 **Requirement (Standard §3):** ownership must be unambiguous, evidenced via
 copyright, trademark, or similar public documentation.
 
-**Who owns this digital solution:** USCouncil.
+**Who owns this digital solution:** US-Council.
 
-**Evidence of ownership:** `README.md` states USCouncil as commons steward
+**Evidence of ownership:** `README.md` states US-Council as commons steward
 and links `https://uscouncil.org`. `CODEOWNERS` names the responsible
 review authority for changes to the commons. `SECURITY.md`'s reporting
 channel identifies who is responsible for the repository.
@@ -129,10 +129,10 @@ rights; the policy corpus was authored/de-branded specifically for this
 commons (see `docs/DEBRANDING-SPEC.md`).
 
 **Status: Gap, pending a provisioning step.** `CODEOWNERS` currently
-references a **placeholder** team handle (`@USCouncil/maintainers`) because
-the USCouncil GitHub organization has not yet been provisioned — this is a
+references a **placeholder** team handle (`@US-Council/maintainers`) because
+the US-Council GitHub organization has not yet been provisioned — this is a
 manual, outside-of-API step, not an engineering task. Ownership itself
-(USCouncil as the legal/organizational owner) is not in question; what's
+(US-Council as the legal/organizational owner) is not in question; what's
 pending is the *public, verifiable evidence* of it (a real org/team handle
 DPGA reviewers can click through to). See `SUBMISSION-CHECKLIST.md`,
 item 1.
@@ -235,7 +235,7 @@ data of natural persons.
 any kind. `copier.yml` collects only organization-level operational data
 (legal name, EIN, state, address, contact email) supplied voluntarily and
 locally by the adopter, for rendering *their own* repository — it is never
-transmitted to USCouncil, the DPGA, or any third party by the tooling
+transmitted to US-Council, the DPGA, or any third party by the tooling
 itself (Copier runs entirely on the adopter's own machine).
 `SECURITY.md` and the leak-guard CI (`gitleaks` + `.gitleaks-denylist.txt`,
 enforced by `.github/workflows/leak-guard.yml` on every push/PR) explicitly

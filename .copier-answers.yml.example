@@ -12,7 +12,7 @@
 #   every value for your own organization, then run:
 #
 #     copier copy --trust --data-file your-answers.yml \
-#       gh:USCouncil/golden-records ./our-records
+#       gh:US-Council/golden-records ./our-records
 #
 #   This skips the interactive question prompts and renders directly from
 #   the values you supply — useful for scripting a render, or for a second

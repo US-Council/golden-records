@@ -62,7 +62,7 @@ copier --version
 From wherever you want your new governance repository to live locally:
 
 ```bash
-copier copy --trust gh:USCouncil/golden-records ./our-records
+copier copy --trust gh:US-Council/golden-records ./our-records
 ```
 
 - `--trust` tells Copier you trust this template source. Golden Records
@@ -70,8 +70,8 @@ copier copy --trust gh:USCouncil/golden-records ./our-records
   Jinja expressions (computed defaults, validators) — `--trust` is the
   documented, unambiguous way to allow that on every current Copier
   release, and it's the form used throughout this repo's own docs.
-- `gh:USCouncil/golden-records` is Copier's shorthand for
-  `https://github.com/USCouncil/golden-records.git`. Copier checks out the
+- `gh:US-Council/golden-records` is Copier's shorthand for
+  `https://github.com/US-Council/golden-records.git`. Copier checks out the
   latest semver git tag by default, so you get the latest **released**
   version of the commons, not whatever is on `main` at the moment (see
   `docs/UPGRADE-GUIDE.md` for pinning vs. tracking).
@@ -168,7 +168,7 @@ generic, fully worked (but non-binding) example. If `false` (the default),
 your board adds its own adopted bylaws directly at that path.
 
 **Every file is now yours.** Nothing about the rendered output phones home
-to USCouncil or the commons — Copier ran locally, and `_message_before_copy`
+to US-Council or the commons — Copier ran locally, and `_message_before_copy`
 already told you that. Customize freely.
 
 ## Step 4 — Commit and initialize your repository

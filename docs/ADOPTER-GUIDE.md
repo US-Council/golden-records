@@ -114,10 +114,10 @@ drafting aid your counsel marks up, not a document your board merges as-is.
 This is the property that makes the commons safe to keep public: **data
 flows one direction, and it stops at your repository boundary.**
 
-- The commons repo (`USCouncil/golden-records`) contains zero real
+- The commons repo (`US-Council/golden-records`) contains zero real
   organization data, by construction and by CI enforcement (`leak-guard`,
   covered in `SECURITY.md` and `CONTRIBUTING.md`). Nothing you type into
-  `copier copy` is ever transmitted back to the commons, to USCouncil, or
+  `copier copy` is ever transmitted back to the commons, to US-Council, or
   to any third party — Copier renders entirely on your own machine, from a
   template it downloaded, into a directory you control.
 - Your rendered repository — which does contain your EIN, your directors'

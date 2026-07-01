@@ -4,7 +4,7 @@
 
 ### Does my organization have to use GitHub, because the commons is on GitHub?
 
-No. `USCouncil/golden-records` (the commons) happens to be hosted on
+No. `US-Council/golden-records` (the commons) happens to be hosted on
 GitHub, but the `vcs_platform` question in `copier.yml` lets you render
 your own copy for **GitHub or GitLab**, independent of where the commons
 itself lives. Set `vcs_platform: gitlab` and Copier renders
@@ -17,7 +17,7 @@ Jinja logic keyed off that one variable (see the top of
 platform independence — see `docs/ARCHITECTURE.md` and
 `docs/DPG-STANDARD-MAPPING.md` (indicator 4).
 
-You can even fetch the commons from GitHub (`gh:USCouncil/golden-records`)
+You can even fetch the commons from GitHub (`gh:US-Council/golden-records`)
 while rendering a `vcs_platform: gitlab` copy — the source platform and
 your rendered target platform are unrelated. An adopter whose organization
 runs its own infrastructure on GitLab internally simply sets
@@ -146,17 +146,17 @@ legal opinion about what your specific organization needs. Have your board
 and, where appropriate, your counsel review every document before treating
 it as adopted.
 
-### Does using this template create any relationship with USCouncil or the commons maintainers?
+### Does using this template create any relationship with US-Council or the commons maintainers?
 
 No attorney-client relationship, no ongoing obligation, and no data
 relationship — `copier copy` runs entirely on your own machine, and
-nothing you enter is transmitted to USCouncil or any third party. The only
+nothing you enter is transmitted to US-Council or any third party. The only
 ongoing connection, if you choose it, is the optional `copier update`
 mechanism pulling template improvements you explicitly request.
 
 ## Getting help
 
-Still stuck? Open an issue on `USCouncil/golden-records` for questions
+Still stuck? Open an issue on `US-Council/golden-records` for questions
 about the commons itself, or see `SECURITY.md` for security/data-leak
 concerns that shouldn't be discussed in a public issue. For questions
 about your own rendered repository's specific legal or tax situation,
