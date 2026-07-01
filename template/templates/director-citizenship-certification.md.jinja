@@ -1,0 +1,116 @@
+{%- if federal_grants_focus %}
+---
+type: template
+organization: {{ org_name }}
+title: Annual Director Citizenship and Residency Certification
+related_policy: policies/export-control.md
+---
+
+# {{ org_name }} — Annual Director Citizenship and Residency Certification
+
+**EIN**: {{ ein }}
+**Authority**: Export Control and Technology Control Policy, Section 11.2; ITAR; EAR
+
+---
+
+**Name**: _______________________________________________
+
+**Board Role**: _______________________________________________
+
+**Date**: _______________________________________________
+
+---
+
+## Section 1: Citizenship
+
+Country(ies) of citizenship (list all): _______________________________________________
+
+**U.S. Person Status** (check one):
+
+- [ ] U.S. citizen
+- [ ] U.S. permanent resident (green card holder)
+- [ ] Neither
+
+If U.S. permanent resident:
+
+| Green Card Last 4 Digits | Expiration Date |
+|--------------------------|-----------------|
+| | |
+
+---
+
+## Section 2: Current Residency
+
+**Country of primary residence**: _______________________________________________
+
+Do you reside outside the United States?
+
+- [ ] No
+- [ ] Yes — provide details below
+
+| Country | City | Duration of Residency |
+|---------|------|-----------------------|
+| | | |
+
+---
+
+## Section 3: Export Control Implications
+
+**Deemed export rule applicability**: If the director is NOT a U.S. person (neither a U.S. citizen nor a U.S. permanent resident), the deemed export rule applies to any controlled technical data shared with this director. Such sharing is legally treated as an export to the director's country(ies) of nationality and may require a license from BIS (EAR) or DDTC (ITAR).
+
+Based on Section 1 responses:
+
+- [ ] U.S. person — deemed export rule does **not** apply
+- [ ] Not a U.S. person — deemed export rule **applies**
+
+Are any information barriers currently in place for this director?
+
+- [ ] No
+- [ ] Yes — describe scope below
+
+> ___________________________________________________________________________
+>
+> ___________________________________________________________________________
+
+---
+
+## Section 4: Foreign Government Affiliations
+
+Do you hold any position with, or receive any compensation from, a foreign government or foreign government-controlled entity?
+
+- [ ] No
+- [ ] Yes — describe below
+
+> ___________________________________________________________________________
+>
+> ___________________________________________________________________________
+
+Are you currently participating in any foreign talent recruitment program? (Cross-reference MFTRP Non-Participation Certification per `templates/mftrp-certification.md`.)
+
+- [ ] No
+- [ ] Yes — describe below
+
+> ___________________________________________________________________________
+>
+> ___________________________________________________________________________
+
+---
+
+## Certification
+
+I certify the above is accurate and complete. I will notify the Board Chair within 30 days of any change in citizenship, residency, or foreign government affiliations.
+
+**Signature**: _________________________________________ **Date**: _______________
+
+**Printed Name**: _________________________________________
+
+---
+
+## Board Chair Acknowledgment
+
+I have reviewed this certification and recorded it in the Organization's export control compliance records.
+
+**Board Chair Name**: _________________________________________
+
+**Signature**: _________________________________________ **Date**: _______________
+{%- endif %}

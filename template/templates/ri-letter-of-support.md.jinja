@@ -1,0 +1,66 @@
+{%- if federal_grants_focus %}
+---
+type: template
+organization: {{ org_name }}
+title: Research Institution Letter of Support / Commitment
+related_policy: policies/sttr-sbir-partnership.md
+---
+
+# {{ org_name }} --- Research Institution Letter of Support / Commitment
+
+**EIN**: {{ ein }} | 501(c)(3) Nonprofit Research Institute
+
+---
+
+## Instructions
+
+This template is used when {{ org_name }} commits to serve as the Research Institution (RI) partner on an STTR proposal, or as a research subcontractor on an SBIR proposal. The completed letter is provided to the small business concern (SBC) for inclusion in the proposal package.
+
+**When to use this template:**
+
+- The SBC requests a letter of institutional commitment for an STTR or SBIR proposal.
+- The Executive Director has reviewed and approved the Organization's participation per the STTR/SBIR Research Institution Partnership Policy (Section 10).
+
+**Preparation:** Replace all `{{ '{{placeholder}}' }}` fields with proposal-specific information. Print on {{ org_name }} letterhead. The Executive Director signs as the authorized institutional official.
+
+---
+
+## Letter
+
+{{ '{{Date}}' }}
+
+{{ '{{Agency Program Officer / Contracting Officer Name}}' }}
+{{ '{{Agency Name}}' }}
+{{ '{{Agency Address}}' }}
+
+**Re: Letter of Institutional Commitment --- {{ '{{Proposal Title}}' }}, {{ '{{Solicitation Number}}' }}**
+
+Dear {{ '{{Agency Program Officer / Contracting Officer Name}}' }}:
+
+I am writing to confirm the commitment of {{ org_name }} to serve as the Research Institution partner on the proposal entitled "{{ '{{Proposal Title}}' }}" submitted by {{ '{{SBC Name}}' }} in response to {{ '{{Solicitation Number}}' }}. {{ org_name }} is a 501(c)(3) nonprofit research institution (EIN: {{ ein }}) incorporated in {{ state }} and qualified to serve as a Research Institution under 15 USC 638(e)(6) for the Small Business Technology Transfer (STTR) program.
+
+{{ org_name }} confirms the following commitments with respect to this proposal:
+
+**Principal Investigator and Effort.** {{ '{{PI Name}}' }}, {{ '{{PI Title}}' }}, will serve as the {{ org_name }} Principal Investigator on this project and will devote {{ '{{X}}' }}% of {{ '{{his/her/their}}' }} professional effort to the proposed research during the period of performance.
+
+**Work Allocation.** {{ org_name }} will perform at least {{ '{{30}}' }}% of the research and development work under the proposed project, consistent with SBA STTR Policy Directive requirements. The scope of work, tasks, and deliverables are detailed in the proposal's technical plan and budget.
+
+**Facilities and Resources.** {{ org_name }} will make available the following facilities, equipment, and institutional resources in support of the proposed work: {{ '{{list of facilities, equipment, computational resources, datasets, or other institutional resources}}' }}.
+
+**Indirect Cost Rate.** {{ org_name }}'s indirect cost rate is {{ '{{Indirect Cost Rate}}' }}% of modified total direct costs, applied as the de minimis rate permitted by 2 CFR 200.414(f) (or the Organization's current federally negotiated rate, if applicable), unless a sponsor caps recovery at a lower rate. This rate is reflected in the budget submitted with this proposal.
+
+**Institutional Compliance.** {{ org_name }} maintains a comprehensive research compliance infrastructure of adopted institutional policies, including policies governing financial conflict of interest (42 CFR 50 Subpart F), export control (ITAR/EAR), research security and conflict of commitment, mandatory disclosures and federal award integrity, cost accounting (2 CFR 200), human subjects protection, research misconduct, cybersecurity, and time-and-effort reporting. All personnel assigned to this project will comply with applicable federal requirements and the Organization's compliance policies.
+
+**Intellectual Property.** {{ org_name }} and {{ '{{SBC Name}}' }} will execute a written intellectual property allocation agreement prior to award, in accordance with the SBA STTR Policy Directive and 15 USC 638, addressing the ownership, use, and licensing of inventions and technical data arising from the proposed research.
+
+{{ org_name }} is fully committed to the success of this collaboration. Should you require any additional information regarding our institutional qualifications or commitment, please do not hesitate to contact me.
+
+Sincerely,
+
+---
+
+**{{ '{{Executive Director Name}}' }}, {{ '{{Credentials}}' }}**
+Executive Director
+{{ org_name }}
+{{ principal_address }}
+{%- endif %}

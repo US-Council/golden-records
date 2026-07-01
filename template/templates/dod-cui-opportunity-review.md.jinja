@@ -1,0 +1,83 @@
+{%- if federal_grants_focus %}
+---
+type: template
+organization: {{ org_name }}
+title: DoD / CUI Opportunity Review
+related_policy: policies/proposal-routing.md
+---
+
+# {{ org_name }} — DoD / CUI Opportunity Review Template
+
+Use this template during proposal routing or award review whenever an opportunity may involve FAR, DFARS, FCI, CUI, CMMC, SPRS, FIPS-validated cryptography, export controls, or sponsor-specific cybersecurity obligations.
+
+## 1. Opportunity Summary
+
+| Field | Value |
+|-------|-------|
+| Sponsor / agency | |
+| Solicitation / contract number | |
+| Prime / subrecipient role | |
+| Deadline / award date | |
+| Program manager / contracting contact | |
+| Internal owner | |
+
+## 2. Data and Security Scope
+
+| Question | Response |
+|----------|----------|
+| Will {{ org_name }} handle FCI? | Yes / No / Unknown |
+| Will {{ org_name }} handle CUI? | Yes / No / Unknown |
+| Is a separate enclave or system boundary required? | Yes / No / Unknown |
+| Are export-controlled items or technical data involved? | Yes / No / Unknown |
+| Are subrecipients or vendors expected to touch FCI/CUI? | Yes / No / Unknown |
+
+## 3. Clause Review
+
+Mark all clauses or equivalents present in the opportunity.
+
+- [ ] FAR 52.204-21
+- [ ] DFARS 252.204-7012
+- [ ] DFARS 252.204-7019
+- [ ] DFARS 252.204-7020
+- [ ] DFARS 252.204-7021
+- [ ] Agency cloud or authorization requirements
+- [ ] FedRAMP or equivalent hosting requirements
+- [ ] FIPS-validated cryptography requirement
+- [ ] Export control / ITAR / EAR requirements
+- [ ] Other cybersecurity terms: ______________________
+
+## 4. Readiness Check
+
+| Item | Status | Notes |
+|------|--------|-------|
+| System boundary identified | Ready / Partial / Not Ready | |
+| SSP available and current | Ready / Partial / Not Ready | |
+| POA&M available and current | Ready / Partial / Not Ready | |
+| SPRS score current (if required) | Ready / Partial / Not Ready | |
+| Incident reporting workflow defined | Ready / Partial / Not Ready | |
+| External service review completed | Ready / Partial / Not Ready | |
+| FIPS cryptography review completed | Ready / Partial / Not Ready | |
+| Subrecipient flow-down plan prepared | Ready / Partial / Not Ready | |
+| Export-control review completed | Ready / Partial / Not Ready | |
+
+## 5. Decision
+
+- [ ] Proceed as proposed
+- [ ] Proceed with conditions / remediation
+- [ ] Escalate to Board or executive review
+- [ ] Decline or no-bid
+
+## 6. Conditions / Remediation Required Before Submission or Award
+
+1.
+2.
+3.
+
+## 7. Review Signoff
+
+| Role | Name | Date |
+|------|------|------|
+| Executive Director | | |
+| IT Administrator | | |
+| Grant Officer / Chair | | |
+{%- endif %}

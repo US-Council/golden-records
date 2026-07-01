@@ -1,0 +1,24 @@
+{%- if federal_grants_focus %}
+---
+type: template
+organization: {{ org_name }}
+title: CUI Plan of Action and Milestones
+related_policy: policies/cybersecurity.md
+---
+
+# {{ org_name }} — CUI POA&M Template
+
+Use this template to track remediation items identified through self-assessments, incidents, audits, penetration tests, vendor reviews, or proposal / award clause reviews for systems that handle FCI or CUI.
+
+| ID | Source | Control / Requirement | Gap Description | Risk Level | Interim Safeguard | Owner | Target Date | Status | Evidence / Notes |
+|----|--------|------------------------|-----------------|------------|-------------------|-------|-------------|--------|------------------|
+| 1 | Self-assessment / audit / incident / other | | | Low / Moderate / High / Critical | | | | Open / In Progress / Closed / Deferred | |
+
+## Instructions
+
+- Create one row per discrete gap.
+- Reference the applicable control family, contract clause, or assessment objective.
+- Record interim safeguards whenever remediation is not immediate.
+- Update the status whenever evidence changes.
+- Closed items should reference the evidence showing remediation.
+{%- endif %}
