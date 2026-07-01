@@ -26,7 +26,7 @@ organization.
 ## Step 1 — Render your copy
 
 ```
-copier copy --trust gh:USCouncil/golden-records path/to/your-new-repo
+copier copy --trust gh:US-Council/golden-records path/to/your-new-repo
 ```
 
 Copier will walk you through the question schema defined in `copier.yml`,
@@ -63,7 +63,7 @@ commons via `copier update`.
 ## Getting help
 
 - Questions about the commons itself: open an issue on
-  `USCouncil/golden-records`.
+  `US-Council/golden-records`.
 - Security or data-leak concerns: see `SECURITY.md`.
 - Legal/tax questions about your specific rendered documents: consult your
   own counsel/CPA — see `docs/NOT-LEGAL-ADVICE.md`.

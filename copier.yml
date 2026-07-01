@@ -11,7 +11,7 @@ _subdirectory: template
 
 _message_before_copy: |
   You're about to generate a nonprofit governance repository from the
-  USCouncil Golden Records commons template.
+  US-Council Golden Records commons template.
 
   Have ready: your organization's legal name, EIN, state of incorporation,
   principal address, and primary contact email. Everything you enter here

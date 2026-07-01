@@ -47,7 +47,7 @@ specifically needs.
 
 Use of this repository, its templates, or its documentation does not create
 an attorney-client relationship between you and the maintainers of this
-commons, USCouncil, or any contributor. The maintainers are not acting as
+commons, US-Council, or any contributor. The maintainers are not acting as
 your counsel.
 
 ## Liability

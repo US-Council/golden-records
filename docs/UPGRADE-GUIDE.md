@@ -84,6 +84,6 @@ conflict-marker resolution looks like in practice.
 ## Getting help
 
 If an update produces a merge result you don't understand, open an issue on
-`USCouncil/golden-records` with your Copier version (`copier --version`),
+`US-Council/golden-records` with your Copier version (`copier --version`),
 the template version you're updating from/to, and the specific file where
 the merge looks wrong.

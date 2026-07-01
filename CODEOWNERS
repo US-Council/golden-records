@@ -6,15 +6,15 @@
 # of directors or internal approval chain — those are configured separately
 # in each organization's *rendered* copy after `copier copy`/`copier update`.
 #
-# @USCouncil/maintainers is a placeholder team. Replace with the actual
-# commons maintainer team handle once the USCouncil GitHub organization
+# @US-Council/maintainers is a placeholder team. Replace with the actual
+# commons maintainer team handle once the US-Council GitHub organization
 # and team are provisioned.
 
-* @USCouncil/maintainers
+* @US-Council/maintainers
 
 # The Copier question schema and leak-guard are especially sensitive —
 # changes here affect every downstream adopter and the anti-leak safety net.
-/copier.yml               @USCouncil/maintainers
-/.gitleaks.toml            @USCouncil/maintainers
-/.gitleaks-denylist.txt    @USCouncil/maintainers
-/.github/workflows/        @USCouncil/maintainers
+/copier.yml               @US-Council/maintainers
+/.gitleaks.toml            @US-Council/maintainers
+/.gitleaks-denylist.txt    @US-Council/maintainers
+/.github/workflows/        @US-Council/maintainers

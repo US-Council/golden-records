@@ -5,7 +5,7 @@ US nonprofit organizations — bylaws, board resolutions, policy language,
 and compliance checklists, rendered for your organization via
 [Copier](https://copier.readthedocs.io/).**
 
-Golden Records is maintained by [USCouncil](https://uscouncil.org) as an
+Golden Records is maintained by [US-Council](https://uscouncil.org) as an
 open commons: no single NGO's real governance data lives here. What lives
 here is a generic, parameterized template that any 501(c)(3) (or
 organization pursuing that status) can render into their *own* concrete,
@@ -47,7 +47,7 @@ repo isn't a one-time snapshot; it can stay current with the commons.
 
 ```
 pipx install copier   # or: pip install copier
-copier copy --trust gh:USCouncil/golden-records path/to/your-new-repo
+copier copy --trust gh:US-Council/golden-records path/to/your-new-repo
 ```
 
 You'll be asked a series of questions (organization name, EIN, state of

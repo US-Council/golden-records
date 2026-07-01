@@ -30,7 +30,7 @@ golden-records/                  (this repo — the commons / template SOURCE)
 Everything outside `template/` (docs, CI, this file, contributing guides)
 describes and governs the *commons itself*. Everything inside `template/`
 is payload — the actual Jinja-templated files that get rendered into an
-adopter's new repository when they run `copier copy gh:USCouncil/golden-records their-repo/`.
+adopter's new repository when they run `copier copy gh:US-Council/golden-records their-repo/`.
 
 ## Why `_subdirectory: template`
 
@@ -63,7 +63,7 @@ deliberately:
    risk) so their `copier update` runs are predictable.
 3. **Adopt.** A new organization runs:
    ```
-   copier copy --trust gh:USCouncil/golden-records path/to/their-new-repo
+   copier copy --trust gh:US-Council/golden-records path/to/their-new-repo
    ```
    Copier walks the `copier.yml` question schema, validates answers (e.g.
    the EIN regex validator), renders every file in `template/` with Jinja,

@@ -2,7 +2,7 @@
 
 This document covers two distinct things — do not conflate them:
 
-1. **The commons repo** (`USCouncil/golden-records`, this repository) — how
+1. **The commons repo** (`US-Council/golden-records`, this repository) — how
    *it* should be configured to keep the public template free of real
    organization data.
 2. **An adopter's rendered repo** — how *they* should wire up the
@@ -18,7 +18,7 @@ own Terraform/API tooling, which is out of scope here) by someone with
 admin rights on the repository. This document tells you *what* to set;
 it is not itself the mechanism that sets it.
 
-## 1. The commons repo (`USCouncil/golden-records`)
+## 1. The commons repo (`US-Council/golden-records`)
 
 This is a public repository whose core invariant is **zero real
 organization-specific data** (see `CONTRIBUTING.md`, `SECURITY.md`). The
@@ -47,7 +47,7 @@ add a rule for `main`:
 These are manual GitHub organization/repository settings, not something
 committed to this repo as code — there is no GitHub-native way to express
 branch protection as a version-controlled file at the time of writing.
-Whoever provisions the `USCouncil` GitHub organization (see the Milestone 0
+Whoever provisions the `US-Council` GitHub organization (see the Milestone 0
 report referenced in `DPG-STANDARD-MAPPING.md`, indicator 3) should apply
 this configuration as part of that setup, and re-apply it if the repository
 is ever transferred or recreated.
