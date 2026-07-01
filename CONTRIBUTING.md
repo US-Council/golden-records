@@ -7,6 +7,13 @@ every adopter via `copier update`. Please read this whole document before
 opening a pull request; the rules below (especially the leak-guard
 requirement) are non-negotiable.
 
+**Already adopted the commons and want to port an improvement from your own
+rendered repo back upstream?** See
+[`docs/CONTRIBUTING-POLICIES.md`](docs/CONTRIBUTING-POLICIES.md) — it walks
+through the adopter-specific path, including how to re-genericize content
+that currently contains your organization's real data before it can go
+anywhere near this repo.
+
 ## What kinds of contributions we welcome
 
 - **Policy and template improvements** — corrections, clarifications, or
