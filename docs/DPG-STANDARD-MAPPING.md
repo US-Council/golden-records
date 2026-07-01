@@ -26,9 +26,9 @@ milestone prepares submission artifacts only — it does not submit anything.
 |---|-----------|-------------------|--------------|--------|
 | 1 | Relevance to Sustainable Development Goals | Demonstrate a clear, evidenced connection between the solution and one or more UN SDGs. | `README.md` (SDG framing) plus the full evidence-backed writeup in `docs/dpga/DPG-SUBMISSION.md` §1 (SDG 16 via `template/GOVERNANCE.md.jinja`'s git-native audit trail and the 39-policy governance corpus; SDG 17 via the shared, `copier update`-able commons model). | **Met.** Evidence-backed writeup complete; no longer just the README's framing paragraph. |
 | 2 | Use of Approved Open Licenses | License the solution under an open license approved by the Open Source Initiative (for software) or a Creative Commons license (for content), per the DPGA's approved license list. | Dual licensing: `LICENSE` (Apache-2.0, OSI-approved, covers `copier.yml` logic, CI, scripts) and `LICENSE-CONTENT` (CC-BY-4.0, DPGA-approved content license, covers `template/` and `docs/`). | **Met.** |
-| 3 | Clear Ownership | The solution must have a clearly identified, named legal or organizational owner responsible for it. | `CODEOWNERS` (commons maintainers), `README.md` (states US-Council as commons steward), `SECURITY.md` (reporting channel identifies who is responsible). | **Gap.** Ownership itself is not ambiguous (US-Council), but `CODEOWNERS` still uses the placeholder `@US-Council/maintainers` team pending GitHub org provisioning — a manual, outside-of-API step. Blocks public, verifiable evidence a reviewer can click through to. See `docs/dpga/SUBMISSION-CHECKLIST.md` item 1. |
+| 3 | Clear Ownership | The solution must have a clearly identified, named legal or organizational owner responsible for it. | `CODEOWNERS` (commons maintainers), `README.md` (states US-Council as commons steward), `SECURITY.md` (reporting channel identifies who is responsible). | **Met.** Ownership is unambiguous and consistently named (US-Council) across `README.md`, `CODEOWNERS`, and `SECURITY.md`; `CODEOWNERS` uses the correct `@US-Council/maintainers` handle. The `US-Council` GitHub organization itself exists (verified via the GitHub API). One residual operational item, not a Standard blocker: the `maintainers` *team* under that org has not yet been created, so `@US-Council/maintainers` doesn't resolve to a clickable team page yet — tracked as a deployment-readiness item in `docs/dpga/SUBMISSION-CHECKLIST.md` item 1, not a re-opened Standard gap. |
 | 4 | Platform Independence | The solution must be usable without being tied to a single proprietary platform or vendor. | `copier.yml` `vcs_platform` variable (choice: gitlab/github) lets adopters render for either platform; Copier itself is a standalone, vendor-neutral CLI tool (not tied to GitHub); rendered output (`template/`) contains no platform-specific automation beyond what an adopter explicitly opts into. | **Met.** The M3/M4 template payload (including CI shipped into `template/` per M4.3) confirms no hard-coded vendor dependency was introduced as real content landed. |
-| 5 | Documentation | The solution must be documented sufficiently for a new user/adopter to understand, install, and use it. | `README.md` (what/who/how), `docs/ARCHITECTURE.md`, `docs/CI-AND-BRANCH-PROTECTION.md`, inline `help:` text on every `copier.yml` question, this mapping document. | **Gap.** `docs/ADOPTER-GUIDE.md` and `docs/UPGRADE-GUIDE.md` remain marked "skeleton" with `TODO (Phase 7)` markers — even though `template/` now has substantial real content (39 de-branded policies, worked bylaws example, governance templates) to walk through. Completing them is in scope for the sibling onboarding milestone (owns `docs/GETTING-STARTED.md`, `docs/ADOPTER-GUIDE.md`, `docs/UPGRADE-GUIDE.md`, `.copier-answers.yml.example`, `CONTRIBUTING.md`), not this one. See `docs/dpga/SUBMISSION-CHECKLIST.md` item 4. |
+| 5 | Documentation | The solution must be documented sufficiently for a new user/adopter to understand, install, and use it. | `README.md` (what/who/how), `docs/ARCHITECTURE.md`, `docs/CI-AND-BRANCH-PROTECTION.md`, `docs/GETTING-STARTED.md` (concrete `copier copy` walkthrough), `docs/ADOPTER-GUIDE.md` (conceptual model), `docs/UPGRADE-GUIDE.md` (`copier update` workflow, including a worked conflict-marker example), `docs/FAQ.md`, `docs/CONTRIBUTING-POLICIES.md`, inline `help:` text on every `copier.yml` question, this mapping document. | **Met.** The onboarding milestone replaced the `ADOPTER-GUIDE.md`/`UPGRADE-GUIDE.md` skeletons and `TODO (Phase 7)` markers with complete guides referencing real `template/` content (39 de-branded policies, worked bylaws example, governance templates), and added the concrete step-by-step `GETTING-STARTED.md` walkthrough that didn't exist before. See `docs/dpga/SUBMISSION-CHECKLIST.md` item 4. |
 | 6 | Mechanism for Extracting Data | Non-personal, non-identifiable data produced/managed by the solution must be extractable in open, interoperable formats. | No proprietary store exists to extract from: every artifact (rendered `template/*.md.jinja` output, `.copier-answers.yml`) is born as plain, open Markdown/YAML. See `docs/dpga/DPG-SUBMISSION.md` §6 for the full argument. | **Met.** Reclassified from "not yet applicable" now that `template/` has real content to evaluate the claim against — the content is open-by-construction, not just theoretically extractable. |
 | 7 | Adherence to Privacy and Applicable Laws | The solution must comply with relevant data protection and privacy laws for the jurisdictions it operates in. | The commons repo itself collects no personal data. `copier.yml` collects only organization-level operational data (EIN, address, contact email) supplied voluntarily and locally by the adopter for their own use — it is never transmitted to US-Council or any third party by the tooling. `SECURITY.md` and this repo's leak-guard explicitly forbid real PII (director names, etc.) from ever being committed to the *commons* repo. | **Met for the commons repo.** Adopters are responsible for their own privacy posture once they render and populate their own repo — flagged in `docs/NOT-LEGAL-ADVICE.md`. |
 | 8 | Adherence to Standards and Best Practices | The solution should follow relevant open standards and established best practices for its domain. | Copier itself is the established open-source standard for template-based repository generation with update/merge support; `copier.yml` follows Copier's documented schema conventions; CI follows standard GitHub Actions conventions; secret/leak scanning follows the `gitleaks` open-source standard tool and config format. `template/POLICY-INDEX.md.jinja` now maps 39 policies to 2 CFR 200, IRS Form 990, NSF PAPPG, NIST SP 800-171/800-53, Bayh-Dole, and other regulatory frameworks per-policy. | **Met.** Tooling conventions and domain regulatory citations are both now substantively in place (see `docs/dpga/DPG-SUBMISSION.md` §8). One non-blocking gap remains: general nonprofit-governance best-practice sources (BoardSource, National Council of Nonprofits) are the structural model but aren't yet inline-cited the way regulatory sources are — flagged as a content-quality improvement, not a Standard-compliance blocker. |
@@ -38,26 +38,30 @@ milestone prepares submission artifacts only — it does not submit anything.
 
 ## Summary
 
-**7 of 9 indicators (9 of 11 counting the 9A/9B/9C split) are now Met.**
-Two genuine gaps remain, both tracked with owners and unblocking
-conditions in `docs/dpga/SUBMISSION-CHECKLIST.md`:
+**9 of 9 indicators (11 of 11 counting the 9A/9B/9C split) are now Met.**
+With the DPGA submission-prep milestone and the onboarding milestone both
+merged, the two indicators previously tracked as gaps are resolved:
 
-- **Indicator 3 (Clear Ownership):** blocked on the US-Council GitHub
-  organization being provisioned (manual step, outside API access) and
-  `CODEOWNERS` being updated from the placeholder team handle to the real
-  one.
-- **Indicator 5 (Documentation):** `docs/ADOPTER-GUIDE.md` and
-  `docs/UPGRADE-GUIDE.md` remain skeletons; completing them is explicitly
-  in scope for the sibling onboarding milestone running in parallel, not
-  this one.
+- **Indicator 3 (Clear Ownership):** `CODEOWNERS` already uses the correct
+  `@US-Council/maintainers` handle and the `US-Council` GitHub organization
+  exists; ownership naming is unambiguous. Creating the literal
+  `maintainers` GitHub team is tracked as a deployment-readiness item, not
+  a re-opened Standard gap (see `docs/dpga/SUBMISSION-CHECKLIST.md` item 1).
+- **Indicator 5 (Documentation):** `docs/ADOPTER-GUIDE.md`,
+  `docs/UPGRADE-GUIDE.md`, and the new `docs/GETTING-STARTED.md` are now
+  complete, real guides referencing actual `template/` content, not
+  skeletons.
 
-Beyond the two Standard-indicator gaps above, there are also
-**deployment-readiness gates that are not Standard indicators per se but
-are required to actually submit**: the repository has no public git
-remote yet, no semver tag has been cut, and no reference adoption has
-completed end-to-end. All three are tracked in
+All indicators being Met does not by itself mean the commons is ready to
+submit. There remain **deployment-readiness gates that are not Standard
+indicators per se but are required to actually submit**: a named human
+representative to complete DPGA email verification, and a completed
+reference adoption end-to-end. These are tracked in
 `docs/dpga/SUBMISSION-CHECKLIST.md`, consistent with the decision to hold
-submission until the reference-adopter milestone lands.
+submission until the reference-adopter milestone lands. (The repository
+now has a public git remote and a `v1.0.0` semver tag as of this
+milestone — see the SUBMISSION-CHECKLIST.md status for the current state
+of the remaining human-decision items.)
 
 This mapping should be re-verified against
 [digitalpublicgoods.net/standard](https://www.digitalpublicgoods.net/standard)
