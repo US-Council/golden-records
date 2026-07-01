@@ -1,0 +1,211 @@
+{%- if ai_agents_enabled %}
+---
+type: policy
+organization: {{ org_name }}
+title: AI Governance Policy for Board Operations
+status: adopted
+effective_date: on-merge
+legal_basis: Board resolution; NIST AI RMF (AI 100-1)
+id: POL-001
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# AI Governance Policy for Board Operations
+
+**{{ org_name }}** — EIN {{ ein }}
+A 501(c)(3) nonprofit research institute incorporated in {{ state }}.
+
+## 1. Purpose
+
+{{ org_name }} ("the Organization") uses AI agent systems as core infrastructure for board governance. This is not experimental — it is how the Organization operates. AI agents prepare agendas, draft minutes, generate financial reports, manage voting records, track action items, and support board decision-making on a continuous basis.
+
+This policy formalizes and authorizes that use. It establishes governance guardrails that satisfy regulatory and fiduciary obligations without creating bottlenecks that would undermine the Organization's operational model. The guiding principle is **speed with accountability**: AI agents are empowered to act autonomously within documented scope, and human officers ensure the integrity of official records.
+
+This policy is aligned with the NIST AI Risk Management Framework (AI 100-1) and is designed to demonstrate responsible AI governance to federal agencies, grant-making bodies, and the public.
+
+## 2. Scope
+
+This policy governs all AI systems used in connection with board governance of {{ org_name }}, including but not limited to:
+
+- Meeting agenda preparation and distribution
+- Board meeting minutes drafting and finalization
+- Meeting transcription and key extraction
+- Financial report generation and tax compliance tracking
+- Voting record management and quorum verification
+- Board resolution drafting and tracking
+- Action item tracking and follow-up
+- Research and analysis in support of board decisions
+- Communications drafting on behalf of the board
+
+**Out of scope**: AI use in the Organization's research programs, laboratory operations, and collaborative partnerships is governed by the separate Responsible AI Use Policy. This policy addresses internal board operations only.
+
+## 3. Authorized AI Platforms
+
+The following AI platforms and systems are authorized for board operations. This list is illustrative — replace it with your organization's actual approved AI platforms as designated by the Board:
+
+| Platform | Function |
+|----------|----------|
+| **[Approved AI assistant platform]** | AI agents performing secretary, recorder, treasurer, and parliamentarian roles |
+| **[Approved agent-orchestration platform]** | Agent orchestration platform coordinating multi-agent workflows |
+| **[Approved agentic-solutions platform]** | Agentic solutions supporting board operations |
+
+The Board Chair may authorize additional AI tools and platforms at any time without requiring a formal policy amendment. Such authorizations should be noted in the next board meeting minutes.
+
+## 4. Agent Roles and Authorities
+
+AI agents operate under documented instructions maintained in the `agents/` directory of the boardroom repository. Each agent has an `INSTRUCTIONS.md` file that defines its scope, workflow, data sources, and output format. These instruction files are the authoritative definition of each agent's permitted activities.
+
+| Agent | Scope | Instruction File |
+|-------|-------|-----------------|
+| **Secretary** | Agendas, minutes, action item tracking | `agents/secretary/INSTRUCTIONS.md` |
+| **Recorder** | Meeting transcription, key extraction, cross-agent coordination | `agents/recorder/INSTRUCTIONS.md` |
+| **Treasurer** | Financial reports, tax compliance tracking, budget monitoring | `agents/treasurer/INSTRUCTIONS.md` |
+| **Parliamentarian** | Motions, voting records, quorum verification, governance compliance | `agents/parliamentarian/INSTRUCTIONS.md` |
+
+Agents coordinate with each other as specified in their instructions — for example, the recorder feeds extracted motions to the secretary and financial discussions to the treasurer. This inter-agent coordination is authorized and expected.
+
+## 5. Speed-First Operating Principle
+
+AI agents are authorized to act autonomously within the scope defined by their `INSTRUCTIONS.md` files. They may draft documents, cross-reference organizational records, coordinate with other agents, and commit work products to the boardroom repository without waiting for human approval at each step.
+
+**Human approval is required at one point only: before a document becomes an official board record.** This means:
+
+- Agents draft agendas freely. The Board Chair reviews and approves the final agenda.
+- Agents draft minutes freely. The board reviews and approves the final minutes.
+- Agents generate financial reports freely. The fiscal custodian or Board Chair reviews and approves the final report.
+- Agents prepare voting records freely. The parliamentarian function certifies, and the Board Chair confirms the official record.
+
+Intermediate drafts, working documents, and preparatory materials do not require human sign-off. Creating approval chains for intermediate work products is contrary to this policy.
+
+## 6. Human Oversight Model
+
+### 6.1 Responsible Officers
+
+Each agent role maps to a human officer who bears ultimate responsibility for the accuracy and propriety of that agent's official outputs:
+
+| Agent | Responsible Officer |
+|-------|-------------------|
+| Secretary | Board Chair |
+| Recorder | Board Chair |
+| Treasurer | Board Chair / Fiscal Custodian |
+| Parliamentarian | Board Chair |
+
+### 6.2 Board Chair Authority
+
+The Board Chair has authority to:
+
+- Modify any agent's `INSTRUCTIONS.md` at any time to adjust scope, workflow, or constraints.
+- Override or correct any AI-generated output before or after it becomes an official record.
+- Temporarily suspend or expand an agent's operating authority.
+- Authorize new AI platforms or tools for board use.
+
+This authority may be delegated to the Vice-Chair or Executive Director.
+
+### 6.3 What Human Review Means
+
+Human review is not a rubber stamp. The responsible officer must confirm that:
+
+- The document is factually accurate and consistent with the Organization's records.
+- Motions, votes, and resolutions are recorded with correct wording and tallies.
+- Financial figures reconcile with source records.
+- No confidential or privileged information is improperly disclosed.
+
+## 7. Version Control and Audit Trail
+
+All AI-generated documents are committed to the boardroom git repository. This provides:
+
+- **Immutable history**: Every version of every document is preserved with timestamps and attribution.
+- **Diff-level transparency**: Any change to any board record can be reviewed line by line.
+- **Author attribution**: Git commit metadata identifies whether a change was made by an AI agent or a human officer.
+- **Branch-based workflow**: Draft documents may be prepared on working branches and merged to `main` upon approval, preserving the full review history.
+
+The git repository is the single source of truth for all board records. Documents that exist only outside the repository are not official board records.
+
+## 8. Transparency and Disclosure
+
+### 8.1 AI Contribution Disclosure
+
+Board records must disclose when AI agents contributed to their preparation. This is accomplished through:
+
+- **YAML frontmatter**: Documents include a `prepared_by` field identifying the agent (e.g., `prepared_by: secretary-agent`).
+- **Git history**: Commit messages and author metadata identify AI-generated commits.
+- **Meeting minutes**: When AI agents prepare meeting materials, the minutes note this as a matter of record.
+
+### 8.2 Public Transparency
+
+If board records are shared with external parties — grant agencies, partners, regulators, or the public — the AI contribution disclosure in the document's frontmatter satisfies the Organization's transparency obligation. No additional disclaimers are required.
+
+## 9. Quality Standards
+
+AI agent outputs must meet the following quality standards:
+
+- **Factual accuracy**: All names, dates, vote tallies, financial figures, and legal references must be correct and verifiable against authoritative sources within the repository.
+- **Source priority**: Agents must cross-reference the Organization's own records (`docs/board-roster.md`, prior minutes in `meetings/`, financial records, incorporation documents) rather than relying on AI training data for organizational facts.
+- **Consistency**: Documents must use consistent formatting per the repository's templates in `templates/`.
+- **Completeness**: Meeting minutes must capture all motions, votes, and action items. Financial reports must account for all relevant line items. Voting records must include every motion considered.
+
+## 10. Error Handling and Correction
+
+If an AI agent produces inaccurate output:
+
+1. The responsible human officer corrects the record directly in the git repository.
+2. The correction is committed with a clear commit message describing what was wrong and what was fixed.
+3. The git history preserves both the original error and the correction, maintaining a complete audit trail.
+4. If the error appeared in an already-approved official record, the correction is noted in the next board meeting minutes.
+
+Errors are expected and normal. The version-controlled workflow ensures they are caught, corrected, and documented without any loss of institutional record integrity.
+
+## 11. Security and Access Controls
+
+### 11.1 Data Access
+
+AI agents access organizational data through controlled interfaces:
+
+- The boardroom git repository (read and write within their documented scope).
+- Approved APIs and integrations as specified in agent instructions.
+- SharePoint document libraries via authenticated M365 CLI connections (read-only for reference material).
+
+### 11.2 Prohibited Actions
+
+No AI agent may, without explicit human authorization:
+
+- Access, modify, or transact against financial accounts (bank accounts, payment processors, cryptocurrency accounts).
+- Execute payments, transfers, or financial commitments of any kind.
+- File tax returns, legal documents, or regulatory submissions.
+- Modify the Organization's articles of incorporation, bylaws, or legal filings.
+- Communicate externally on behalf of the board (send emails, letters, or public statements).
+- Grant or revoke access permissions to organizational systems.
+
+### 11.3 Credential Handling
+
+AI agents must not store, log, or transmit credentials, API keys, or authentication tokens outside of approved secure channels. Secrets management follows the Organization's Cybersecurity and Information Security Policy.
+
+## 12. Relationship to Other Policies
+
+| Policy | Relationship |
+|--------|-------------|
+| Cybersecurity and Information Security Policy | Governs the security infrastructure AI agents operate within |
+| Delegation of Authority Policy | Defines the human authority levels that AI agents support but do not replace |
+| Document Retention Policy | Governs retention schedules for AI-generated board records |
+| Responsible AI Use Policy | Governs AI use in research and partnerships (out of scope for this policy) |
+
+## 13. Annual Review
+
+This policy is reviewed annually by the Board of Directors, or sooner if:
+
+- The Organization adopts materially new AI platforms or capabilities.
+- Federal or state regulations establish new requirements for AI governance in nonprofits.
+- An incident occurs that reveals a gap in this policy's coverage.
+
+The Board Chair may direct interim updates to this policy at any time. All revisions are tracked in the git repository.
+
+---
+
+*Prepared for adoption by the Board of Directors of {{ org_name }}.*
+{% endif %}
