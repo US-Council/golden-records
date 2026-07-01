@@ -1,0 +1,179 @@
+{%- if ai_agents_enabled %}
+---
+type: policy
+organization: {{ org_name }}
+title: Responsible AI Use Policy for Research Activities
+status: adopted
+effective_date: on-merge
+legal_basis: NSF PAPPG; NIH NOT-OD-23-032; OSTP AI guidance; NIST AI RMF (AI 100-1)
+id: POL-002
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Responsible AI Use Policy for Research Activities
+
+**{{ org_name }}** — a 501(c)(3) nonprofit research institute incorporated in {{ state }}
+EIN: {{ ein }}
+
+## 1. Purpose
+
+{{ org_name }} ("the Organization") embraces artificial intelligence as a core research capability. AI is not a supplemental tool at this institution — it is integral to how we conduct research, develop proposals, analyze data, and advance scientific knowledge. This policy establishes a framework for responsible AI use that satisfies federal disclosure requirements, maintains research integrity, and enables the Organization and its partners to move at maximum speed. The controls are disclosure and documentation, not prior authorization.
+
+## 2. Scope
+
+This policy applies to all research activities conducted by or on behalf of the Organization, including:
+
+- Federally funded research under any agency award (NSF, NIH, DOE, DARPA, DOD, and others)
+- Grant opportunity identification, proposal development, and budget preparation
+- Data collection, processing, analysis, and visualization
+- Hypothesis generation, literature review, and experimental design
+- Code generation, software development, and computational modeling
+- Manuscript preparation, editing, and figure generation
+- Collaborative research with STTR/SBIR partners and other external collaborators
+
+All directors, officers, employees, fellows, trainees, contractors, and collaborators who conduct research on behalf of or in association with the Organization ("Covered Persons") are subject to this policy.
+
+## 3. AI-First Research Posture
+
+{{ org_name }} operates AI agent orchestration platforms — as approved by the Board — as part of its core research infrastructure. Researchers are expected — not merely permitted — to leverage AI tools across the full research lifecycle:
+
+- **Hypothesis generation and literature review** — use AI to survey prior work, identify gaps, and generate testable hypotheses
+- **Data analysis and visualization** — use AI for statistical analysis, pattern recognition, data cleaning, and figure generation
+- **Code generation and computational workflows** — use AI to write, debug, and optimize research software
+- **Manuscript preparation** — use AI for drafting, editing, citation formatting, and language improvement
+- **Proposal development** — use AI for opportunity identification, narrative drafting, compliance checking, and budget preparation
+
+Researchers who are not using AI tools should be prepared to explain why a manual approach is superior for their specific task. The default is AI-assisted; the exception is manual-only.
+
+## 4. Disclosure Requirements
+
+### 4.1 Federal Funders
+
+AI use in federally funded research must be disclosed in accordance with each agency's requirements. Principal Investigators are responsible for knowing and following the current requirements of their specific funder.
+
+| Agency | Current Requirement | {{ org_name }} Compliance |
+|--------|--------------------|-----------------------|
+| **NSF** | Per PAPPG, AI use in proposals must be disclosed. AI-generated text cannot substitute for the PI's intellectual contribution. Proposals must reflect the PI's own ideas and expertise. | Disclose AI use in proposal preparation. Ensure all scientific content represents the PI's genuine intellectual contribution. AI assists — the PI authors. |
+| **NIH** | Per NOT-OD-23-032, AI tools (including large language models) cannot be listed as authors on NIH applications or reports. PIs and applicants are responsible for the accuracy of all content, including AI-assisted content. AI-generated content in peer review is prohibited. | Disclose AI assistance in applications. Never list an AI tool as a PI, co-investigator, or author. Validate all AI-assisted content for accuracy before submission. |
+| **DOE** | Follow agency-specific guidance and award terms. DOE is developing AI-specific policies; current requirements vary by program. | Monitor DOE policy updates. Comply with award-specific terms. Default to full disclosure when guidance is ambiguous. |
+| **DARPA/DOD** | Follow agency-specific guidance per award terms and conditions. Classified or CUI-related AI use may have additional restrictions. | Comply with all award terms. Consult the Contracting Officer's Representative (COR) when award terms are unclear on AI use. Never process classified or CUI data through commercial AI tools without explicit authorization. |
+
+### 4.2 Journals and Conferences
+
+When submitting manuscripts, authors must follow the AI disclosure policy of the target journal. When a journal has no stated policy, {{ org_name }}'s default is full disclosure. AI tools must never be listed as authors.
+
+### 4.3 Default Disclosure Language
+
+The following template paragraph may be adapted for use in publications, proposals, and reports:
+
+> *The authors used AI-assisted tools in the preparation of this work. Specifically, [name of tool(s) and version(s)] was used for [describe specific uses: e.g., literature search, draft text generation, code development, data analysis, figure preparation]. All AI-generated content was reviewed, validated, and revised by the authors, who take full responsibility for the accuracy and integrity of the final work. The scientific direction, intellectual contribution, experimental design, and conclusions are entirely those of the human authors.*
+
+Researchers should customize this language to accurately describe their specific AI use and to comply with the requirements of the target funder or publication venue.
+
+## 5. Human Validation Requirement
+
+AI outputs are starting points, not final products. All AI-assisted research outputs must be validated by a qualified researcher before they are published, submitted to a funder, or relied upon for scientific conclusions:
+
+- **Data and results** — AI-generated analyses must be verified against source data. Statistical outputs must be independently checked.
+- **Literature and citations** — all references produced by AI must be verified for existence and accuracy. AI tools hallucinate citations; assume every AI-generated citation is wrong until confirmed.
+- **Code** — AI-generated research code must be reviewed and tested before use in production analyses or published results.
+- **Text** — AI-drafted text must be reviewed for accuracy, coherence, and proper attribution before submission.
+
+The researcher who signs a submission, manuscript, or report is personally responsible for every claim in it, regardless of whether AI assisted in producing it.
+
+## 6. AI Tool Documentation
+
+Researchers must document their use of AI tools as part of the research record. Documentation must include:
+
+1. **Tool identification** — name, provider, model version (e.g., "Claude Opus 4, Anthropic, accessed 2026-03-15")
+2. **Purpose** — what task the AI tool was used for
+3. **Prompts and inputs** — the substantive prompts or instructions provided to the AI tool, to the extent they are material to reproducing the result
+4. **Outputs and modifications** — a record of what the AI produced and how the researcher modified, validated, or incorporated the output
+
+This documentation is part of the research record and must be retained in accordance with the Organization's Data Management Policy and Document Retention Policy. For federally funded research, AI tool documentation must be retained for the duration of the award plus three (3) years after submission of the final financial report, or longer if required by the award terms.
+
+## 7. Funder-Specific Compliance
+
+This policy establishes the Organization's minimum standards. Individual awards may impose stricter requirements on AI use. **Award terms prevail over this policy when they are more restrictive.**
+
+Principal Investigators are responsible for:
+
+- Reviewing the terms and conditions of each award for AI-specific provisions
+- Consulting with the relevant program officer or contracting officer when award terms are ambiguous regarding AI use
+- Imposing additional restrictions on their research team when required by a specific award
+- Communicating any award-specific AI restrictions to all team members, including collaborators at partner institutions
+
+## 8. Partner Collaboration
+
+{{ org_name }} serves as a Research Institution (RI) partner to small business concerns on STTR/SBIR awards and collaborates with other institutions on multi-site research. When collaborating with partners:
+
+- {{ org_name }}'s AI use must comply with both this policy and the partner's award terms and conditions
+- {{ org_name }} will not impose prior-authorization gates on AI use that would slow partner workflows. Disclosure and documentation are the controls.
+- When a partner's award terms restrict AI use more than this policy, {{ org_name }} personnel on that award will comply with the more restrictive terms
+- AI tool documentation for collaborative research must be shared with partners upon request to support their own compliance obligations
+
+See the Organization's STTR/SBIR Research Institution Partnership Policy for additional requirements governing collaborative research.
+
+## 9. Prohibited Uses
+
+AI tools must not be used to:
+
+1. **Fabricate data** — generate fictitious experimental results, observations, or measurements
+2. **Falsify results** — manipulate AI outputs to misrepresent research findings
+3. **Generate fictitious citations** — present AI-hallucinated references as real sources (see Section 5 on verification)
+4. **Substitute for peer review** — use AI to generate or replace substantive peer review of others' work in violation of funder or journal policies
+5. **Circumvent research integrity requirements** — use AI to evade plagiarism detection, conflict-of-interest disclosure, human subjects protections, or any other research integrity safeguard
+6. **Process restricted data without authorization** — submit classified, CUI, export-controlled, HIPAA-protected, or otherwise restricted data to commercial AI tools without explicit written authorization from the data owner and compliance with all applicable regulations
+
+Violations of these prohibitions constitute research misconduct and will be addressed under the Organization's Research Misconduct Policy.
+
+## 10. AI in Grant Capture
+
+AI tools are explicitly authorized and encouraged for all phases of grant capture:
+
+- **Opportunity identification** — AI-assisted scanning of federal funding announcements (grants.gov, SAM.gov, agency program pages) and matching to {{ org_name }} capabilities
+- **Proposal drafting** — AI assistance with narrative development, technical writing, and compliance checking against solicitation requirements
+- **Budget preparation** — AI-assisted cost estimation, rate calculations, and budget justification drafting
+- **Compliance review** — AI-assisted verification of proposal completeness and adherence to formatting and content requirements
+
+The Grant Capture Committee and Principal Investigators remain fully responsible for the intellectual content, scientific merit, and accuracy of all submissions. AI assists with the mechanics of proposal preparation; the research vision and technical approach must be the genuine intellectual contribution of the PI and research team.
+
+## 11. Training
+
+All Covered Persons must understand this policy and the AI-related requirements of their specific funders before using AI tools in federally funded research. Training must cover:
+
+- The requirements of this policy, including disclosure, documentation, human validation, and prohibited uses
+- Funder-specific AI use provisions applicable to the individual's awards
+- Practical guidance on documenting AI use in the research record
+- Recognizing and mitigating common AI failure modes (hallucination, bias, outdated information)
+
+AI responsible use training is incorporated into the Organization's Responsible Conduct of Research (RCR) training program. See the Organization's RCR Training Policy for timing, frequency, and documentation requirements.
+
+## 12. Annual Review
+
+This policy shall be reviewed annually by the Board of Directors or their designee. The review must assess:
+
+1. Whether federal funder AI policies have changed and whether this policy remains compliant
+2. Whether journal AI disclosure standards have evolved in ways that require policy updates
+3. Whether the Organization's AI tools and workflows have changed in ways that affect compliance
+4. Whether any incidents or near-misses related to AI use in research occurred during the review period
+5. Whether the prohibited uses list remains adequate given the current state of AI capabilities
+
+Given the rapid pace of change in AI policy at the federal level, the Executive Director may issue interim guidance between annual reviews when a funder publishes new AI requirements. Interim guidance has the same force as this policy until the next annual review.
+
+The next review is due no later than 12 months after the effective date.
+
+## 13. Amendments
+
+This policy may be amended by a resolution of the Board of Directors at any duly convened meeting at which a quorum is present. Amendments shall be consistent with current federal guidance on AI use in research.
+
+---
+
+*This policy becomes effective on merge to `main`. The merge commit and MR approval record are the official adoption record.*
+{% endif %}
