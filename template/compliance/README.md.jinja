@@ -1,0 +1,51 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+# Compliance
+
+This directory holds tax filings, state filings, and audit reports for
+{{ org_name }} (EIN: {{ ein }}).
+
+## What belongs here
+
+- Federal tax filings (e.g. Form 990 and its schedules).
+- {{ state }} state filings — annual reports, charitable-solicitation
+  registrations, and any other required state compliance documents.
+{%- if federal_grants_focus %}
+- Single Audit reports and other artifacts required by 2 CFR 200 Subpart F
+  once the Corporation's federal expenditures exceed the applicable
+  threshold (see `bylaws.md`{% if not include_bylaws_example %}, if adopted{% endif %}, Article XI, Section 11.3).
+{%- endif %}
+- Independent audit reports and management letters, if your organization
+  obtains them.
+
+## How compliance artifacts get here
+
+Filed and finalized compliance documents are added through this
+repository's ordinary governance process (see `GOVERNANCE.md`): typically
+{{ "an" if vcs_platform == "gitlab" else "a" }} {{ mr_term }} on an `admin/`
+branch, since these are records of filings already made rather than
+matters requiring a fresh board vote — unless your Delegation of Authority
+Policy requires board approval before filing, in which case use a
+`board/` branch instead.
+
+## A note on privacy
+
+This directory is a scaffold. It ships empty. Tax and state filings
+combine your organization's EIN with financial detail and, on some forms,
+individual compensation figures for directors, officers, and key
+employees — information that is sensitive even though parts of a Form 990
+are separately required to be publicly disclosed by the IRS.
+
+**Your organization controls its own privacy posture for its rendered
+repository**, independent of what the IRS separately requires you to
+disclose elsewhere. If this repository is public, or you are otherwise
+unsure whether a specific filing is appropriate for this level of
+visibility, keep it in your organization's own **private** repository
+instead.
+
+**Never contribute real compliance filings, or any other real adopted
+content, back to the [Golden Records](https://github.com/USCouncil/golden-records)
+commons.** That repository is a public, generic template — it must never
+receive real organization data, including a real EIN. This directory, in
+*your own* rendered repository, is the right place for your real filings;
+the commons template is not.

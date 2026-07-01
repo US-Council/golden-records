@@ -1,0 +1,44 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+# Minutes
+
+This directory holds approved meeting minutes for {{ org_name }}'s Board of
+Directors and its committees.
+
+## What belongs here
+
+- Finalized, board-approved minutes for regular, special, and committee
+  meetings, using the `MIN-YYYY-QN` identifier scheme described in
+  `GOVERNANCE.md`, Section 9.
+- Nothing else. Draft minutes, meeting preparation notes, and recordings
+  or transcripts that have not yet been approved do not belong in this
+  repository at all — see the note on drafting spaces in `CLAUDE.md`.
+
+## How minutes get here
+
+Minutes are drafted, reviewed, and adopted through this repository's
+ordinary governance process (see `GOVERNANCE.md`): an officer opens
+{{ "an" if vcs_platform == "gitlab" else "a" }} {{ mr_term }} on an `admin/`
+branch, the required officer approval is recorded as {{ mr_abbr }}
+approval, and the merge to `main` is the adoption event.
+
+## A note on privacy
+
+This directory is a scaffold. It ships empty. Real minutes frequently
+contain personally identifiable information about directors, staff,
+donors, or other individuals, and sometimes sensitive discussion of
+personnel, legal, or financial matters.
+
+**Your organization controls its own privacy posture for its rendered
+repository.** If this repository is public, or you are otherwise unsure
+whether specific minutes are appropriate for this level of visibility,
+keep minutes containing PII or sensitive deliberation in your
+organization's own **private** repository instead, and reference them here
+only by pointer if needed.
+
+**Never contribute real minutes, or any other real adopted content, back
+to the [Golden Records](https://github.com/USCouncil/golden-records)
+commons.** That repository is a public, generic template — it must never
+receive real organization data (see that repository's `CONTRIBUTING.md`
+leak-guard rule). This directory, in *your own* rendered repository, is
+the right place for your real minutes; the commons template is not.

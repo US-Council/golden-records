@@ -1,0 +1,43 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+# Agreements
+
+This directory holds executed agreements, MOUs, and subawards for
+{{ org_name }}.
+
+## What belongs here
+
+- Fully executed agreements: MOUs, teaming agreements{% if federal_grants_focus %}, subaward and subrecipient agreements, CRADAs{% endif %}, vendor and consultant contracts above the routine-purchase threshold, and any other agreement your Delegation of Authority Policy requires the Board or Executive Director to track centrally.
+- Executed documents only. Draft or unsigned agreements under negotiation do not belong here.
+
+## How agreements get here
+
+An agreement is added to this repository through the same governance
+process as any other document (see `GOVERNANCE.md`): {{ "an" if vcs_platform == "gitlab" else "a" }}
+{{ mr_term }} on the appropriate branch, reviewed and approved per the
+Delegation of Authority Policy and, where the agreement itself requires
+board approval, at the applicable quorum threshold.
+
+## A note on privacy
+
+This directory is a scaffold. It ships empty. Executed agreements
+routinely contain counterparty PII, negotiated financial terms, and
+confidentiality or non-disclosure obligations owed to a third party — not
+just to your own organization.
+
+**Your organization controls its own privacy posture for its rendered
+repository, and its confidentiality obligations to counterparties are
+independent of that choice.** If this repository is public, or a
+counterparty's agreement contains terms you are not free to disclose, keep
+the real, signed document in your organization's own **private**
+repository and record only a pointer, summary, or redacted version here if
+your governance process requires a public-facing trace of the agreement's
+existence.
+
+**Never contribute real agreements, or any other real adopted content,
+back to the [Golden Records](https://github.com/USCouncil/golden-records)
+commons.** That repository is a public, generic template — it must never
+receive real organization data, and it certainly must never receive a
+counterparty's confidential contract terms. This directory, in *your own*
+rendered repository, is the right place for your real agreements; the
+commons template is not.

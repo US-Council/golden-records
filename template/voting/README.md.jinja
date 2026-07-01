@@ -1,0 +1,45 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+# Voting
+
+This directory holds certified voting records for {{ org_name }}, using the
+`VOT-YYYY-NNN` identifier scheme described in `GOVERNANCE.md`, Section 9.
+
+## What belongs here
+
+- Certified records of votes taken by the Board or its committees,
+  including individual director vote tallies where your organization
+  chooses to record them at that level of detail.
+- Records reconciling this repository's {{ mr_term }} approvals with any
+  separate electronic-voting platform your organization uses in parallel
+  (see `GOVERNANCE.md`, Section 7, "Integrity Rules").
+
+## How voting records get here
+
+The {{ mr_term }} history on `board/` and `admin/` branches is itself the
+primary voting record — see `GOVERNANCE.md`. Use this directory for
+certified summaries or records required by your bylaws, a funder, or an
+auditor that need to exist as a standalone document rather than only as
+{{ mr_abbr }} metadata.
+
+## A note on privacy — this directory is especially sensitive
+
+This directory is a scaffold. It ships empty. Voting records are among the
+most sensitive content this repository can hold: **per-director vote
+tallies are, by design, personally identifying** — they tie a specific
+individual to a specific position on a specific, sometimes contentious,
+matter.
+
+**Your organization controls its own privacy posture for its rendered
+repository.** Think carefully before recording individual-level vote
+detail in a public repository. If this repository is public, or you are
+otherwise unsure, keep detailed voting records in your organization's own
+**private** repository and retain only what your bylaws or funders
+actually require here.
+
+**Never contribute real voting records, or any other real adopted
+content, back to the [Golden Records](https://github.com/USCouncil/golden-records)
+commons.** That repository is a public, generic template — it must never
+receive real organization data. This directory, in *your own* rendered
+repository, is the right place for your real voting records; the commons
+template is not.

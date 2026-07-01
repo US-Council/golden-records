@@ -1,0 +1,43 @@
+{%- set mr_term = "merge request" if vcs_platform == "gitlab" else "pull request" -%}
+{%- set mr_abbr = "MR" if vcs_platform == "gitlab" else "PR" -%}
+# Resolutions
+
+This directory holds board resolutions and meeting action packages for
+{{ org_name }}, using the `RES-NNN` identifier scheme described in
+`GOVERNANCE.md`, Section 9.
+
+## What belongs here
+
+- Adopted resolutions: elections, officer appointments, policy adoptions
+  and amendments, financial authorizations, and any other formal board
+  action that isn't itself a full policy or bylaws document.
+- Omnibus meeting action packages that bundle several resolutions
+  considered at a single meeting into one {{ mr_term }}.
+
+## How resolutions get here
+
+A director or officer proposes a resolution by opening {{ "an" if vcs_platform == "gitlab" else "a" }}
+{{ mr_term }} on a `board/` branch with the exact resolution text in the
+{{ mr_abbr }} description, per `GOVERNANCE.md`. Approval at the required
+quorum threshold and merge to `main` constitute adoption; the merge commit
+timestamp is the official adoption date, not any date written in the
+document.
+
+## A note on privacy
+
+This directory is a scaffold. It ships empty. Real resolutions can
+reference specific individuals (appointments, removals, compensation
+decisions), specific dollar amounts, or other sensitive organizational
+detail.
+
+**Your organization controls its own privacy posture for its rendered
+repository.** If this repository is public, or you are otherwise unsure
+whether a specific resolution is appropriate for this level of visibility,
+keep it in your organization's own **private** repository instead.
+
+**Never contribute real resolutions, or any other real adopted content,
+back to the [Golden Records](https://github.com/USCouncil/golden-records)
+commons.** That repository is a public, generic template — it must never
+receive real organization data. This directory, in *your own* rendered
+repository, is the right place for your real resolutions; the commons
+template is not.
