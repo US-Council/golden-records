@@ -1,0 +1,93 @@
+---
+title: Policy Index
+---
+
+# {{ org_name }} — Policy Index
+
+All policies adopted by the Board of Directors, maintained in `policies/`.
+This index reflects only the policies rendered for your configuration
+(see `federal_grants_focus` / `ai_agents_enabled` in `copier.yml`); it is
+regenerated automatically each time you run `copier copy` or `copier update`.
+
+| ID | Title | File | Legal Basis | Status | Adopted |
+|----|-------|------|-------------|--------|---------|
+{%- if ai_agents_enabled %}
+| POL-001 | AI Governance Policy for Board Operations | ai-governance-board.md | Board resolution; NIST AI RMF (AI 100-1) | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if ai_agents_enabled %}
+| POL-002 | Responsible AI Use Policy for Research Activities | ai-responsible-use-research.md | NSF PAPPG; NIH NOT-OD-23-032; OSTP AI guidance; NIST AI RMF (AI 100-1) | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-003 | Animal Welfare Statement | animal-welfare.md | PHS Policy on Humane Care and Use of Laboratory Animals; 9 CFR Chapter 1 (Animal Welfare Act) | adopted | <to be set on adoption> |
+| POL-004 | Code of Ethics and Conduct | code-of-ethics.md | IRS Form 990 governance best practice; 2 CFR 200.303 | adopted | <to be set on adoption> |
+| POL-005 | Compensation Review Policy | compensation-review.md | IRC Section 4958 (intermediate sanctions) | adopted | <to be set on adoption> |
+| POL-006 | Conflict of Interest Policy | conflict-of-interest.md | IRS Form 990 Part VI Line 12 | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-007 | Research Consortium Participation Policy | consortium-participation.md | 2 CFR 200 (Uniform Guidance); agency-specific consortium requirements | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-008 | Cost Accounting and Indirect Cost Rate Policy | cost-accounting.md | 2 CFR 200 Subpart E (200.400-475); 2 CFR 200.414 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-009 | Cost Sharing and Matching Policy | cost-sharing.md | 2 CFR 200.306 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-010 | Cooperative Research and Development Agreement (CRADA) Policy | crada.md | 15 USC 3710a (Federal Technology Transfer Act of 1986); Stevenson-Wydler Act | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-011 | Cybersecurity and Information Security Policy | cybersecurity.md | NIST SP 800-171; NIST SP 800-53 Rev 5 (control mapping); FAR 52.204-21; DFARS 252.204-7012, 252.204-7019, 252.204-7020, 252.204-7021; 32 CFR Part 170; 2 CFR 200.303 | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-012 | Data Management Policy | data-management.md | Federal funder DMP requirements (NSF, NIH, DOE, DARPA) | adopted | <to be set on adoption> |
+| POL-013 | Delegation of Authority Policy | delegation-of-authority.md | Organizational bylaws; 2 CFR 200.303 (internal controls) | adopted | <to be set on adoption> |
+| POL-014 | Document Retention and Destruction Policy | document-retention.md | IRS Form 990 Part VI Line 14 | adopted | <to be set on adoption> |
+| POL-015 | Drug-Free Workplace Policy | drug-free-workplace.md | Drug-Free Workplace Act of 1988 (41 USC 8101-8106) | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-016 | Export Control and Technology Control Policy | export-control.md | ITAR (22 CFR 120-130); EAR (15 CFR 730-774); OFAC sanctions | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-017 | Financial Conflict of Interest Policy (Investigator) | financial-conflict-of-interest.md | 42 CFR Part 50 Subpart F (PHS/NIH); NSF PAPPG Chapter IX | adopted | <to be set on adoption> |
+| POL-018 | Human Subjects Protection Policy | human-subjects-protection.md | 45 CFR 46 (Common Rule); 21 CFR 50/56 (FDA); NIH GPS 4.1.15 | adopted | <to be set on adoption> |
+| POL-019 | Intellectual Property and Invention Disclosure Policy | intellectual-property.md | Bayh-Dole Act (35 USC 200-212); 37 CFR 401; 2 CFR 200.315 | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-020 | Lobbying Certification and Disclosure Policy | lobbying-certification.md | 31 USC 1352 (Byrd Anti-Lobbying Amendment); 2 CFR 200.450; IRC Section 501(c)(3) | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-021 | Malign Foreign Talent Recruitment Program Policy | mftrp.md | CHIPS and Science Act of 2022 Section 10632; NSF PAPPG (NSF 24-1); DoD prohibition (Aug 2024) | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-022 | Non-Discrimination and Equal Opportunity Policy | non-discrimination.md | Title VI (Civil Rights Act 1964); Title IX (Education Amendments 1972); Section 504 (Rehabilitation Act 1973); Age Discrimination Act 1975; Executive Orders 11246, 13672 | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-023 | Pre-Award Spending Authority Policy | pre-award-spending.md | 2 CFR 200.458 (Pre-award costs) | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-024 | Procurement Policy | procurement.md | 2 CFR 200.318-327 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-025 | Property and Equipment Management Policy | property-equipment.md | 2 CFR 200.313-314 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-026 | Proposal Routing and Approval Policy | proposal-routing.md | 2 CFR 200.303 (internal controls); agency-specific proposal requirements | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-027 | Publication and Open Access Policy | publication-open-access.md | OSTP Nelson Memo (Aug 2022); NIH Public Access Policy; NSF Public Access Plan | adopted | <to be set on adoption> |
+| POL-028 | Responsible Conduct of Research Training Policy | rcr-training.md | NSF PAPPG Chapter IX.B; NIH NOT-OD-10-019; America COMPETES Act Section 7009 | adopted | <to be set on adoption> |
+| POL-029 | Research Misconduct Policy | research-misconduct.md | 42 CFR Part 93; 45 CFR 689 (NSF) | adopted | <to be set on adoption> |
+| POL-030 | Safety and Environmental Compliance Policy | safety-environmental.md | OSHA (29 CFR 1910); EPA regulations; 2 CFR 200.300; agency-specific safety requirements | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-031 | STTR/SBIR Research Institution Partnership Policy | sttr-sbir-partnership.md | 15 USC 638 (SBIR/STTR); SBA STTR Policy Directive; SBA SBIR Policy Directive | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-032 | Subaward and Subrecipient Monitoring Policy | subaward-monitoring.md | 2 CFR 200.332 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-033 | Suspension and Debarment Compliance Policy | suspension-debarment.md | 2 CFR 200.214; 2 CFR Part 180; Executive Orders 12549, 12689 | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-034 | Teaming Agreement Policy | teaming-agreement.md | FAR 9.6 (Contractor Team Arrangements); SBA STTR Policy Directive | adopted | <to be set on adoption> |
+{%- endif %}
+{%- if federal_grants_focus %}
+| POL-035 | Time and Effort Reporting Policy | time-effort-reporting.md | 2 CFR 200.430 | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-036 | Travel Policy | travel.md | 2 CFR 200.475 | adopted | <to be set on adoption> |
+| POL-037 | Whistleblower Protection Policy | whistleblower-protection.md | IRS Form 990 Part VI Line 13; Sarbanes-Oxley Section 1107 | adopted | <to be set on adoption> |
+{%- if federal_grants_focus %}
+| POL-038 | Federal Award Integrity and Mandatory Disclosure Policy | federal-award-integrity.md | 2 CFR 200.113; 2 CFR 200.303; FAR 52.203-13; 31 U.S.C. 3729-3733 | adopted | <to be set on adoption> |
+{%- endif %}
+| POL-039 | Research Security and Conflict of Commitment Policy | research-security-conflict-of-commitment.md | NSPM-33; CHIPS and Science Act of 2022 Section 10634; NSF Research Security Training requirement; sponsor current and pending support / other support requirements | adopted | <to be set on adoption> |
+

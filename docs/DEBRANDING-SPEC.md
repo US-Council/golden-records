@@ -132,20 +132,77 @@ cluster) to decide; not solved in this spec or its exemplar.
 
 ## 5. Conditional-rendering rules
 
-Two clusters are entirely gated, per the plan:
+Two clusters, plus the forms that reference them, are entirely gated,
+per the plan:
 
 - **AI-governance cluster** (`ai-governance-board.md`,
   `ai-responsible-use-research.md`) renders only when `ai_agents_enabled`
   is true.
-- **Federal-compliance cluster** (see manifest — 18 files, all citing
-  2 CFR 200 / FAR / federal-program-specific statutes) renders only when
-  `federal_grants_focus` is true.
+- **Federal-compliance cluster** (18 policies, all citing 2 CFR 200 / FAR
+  / federal-program-specific statutes) and the 10 forms whose
+  `related_policy` points into that cluster render only when
+  `federal_grants_focus` is true. See the FORMS addendum (§11) for the
+  full form list.
 
-Wrapping convention — wrap at the **file level**, using Jinja's
-whitespace-control block delimiters so the rendered output has no stray
-blank line where the tag was, and use the file's very first and very last
-line as the tag boundary (i.e. the `{% if %}` is the first line of the
-file, the `{% endif %}` is the last line, nothing else on either line):
+### 5.1 Wrapping convention — conditional **filenames**, not content wrappers
+
+**Corrected in Wave B (integration pass).** The original guidance in this
+section (superseded, kept below in §5.2 for the record) called for
+wrapping the whole file body in a content-level `{% if %}` / `{% endif %}`
+block. **Do not do that.** Copier does not skip a file when its rendered
+*content* is empty — it still writes the file to the adopter's repo,
+producing a near-empty stub (typically the file's own trailing newline,
+or nothing at all) instead of omitting the file. That defeats the purpose
+of gating: a `federal_grants_focus: false` adopter would still get 18
+empty `cybersecurity.md`-shaped files cluttering their `policies/`
+directory.
+
+The correct idiom is to make the **filename itself** conditional, using
+Copier's documented conditional-file convention: wrap the file's base
+name (everything before the trailing `.jinja` extension, which Copier
+strips to know a file is a template) in a Jinja `{% if %}` / `{% endif %}`
+block with no whitespace-control dashes needed (there is no surrounding
+newline inside a filename to worry about):
+
+```
+template/policies/{% if federal_grants_focus %}cybersecurity.md{% endif %}.jinja
+```
+
+When the condition is true, the rendered path is `policies/cybersecurity.md`
+and the file is created normally. When the condition is false, the
+rendered path is the empty string plus the (stripped) `.jinja` suffix —
+Copier recognizes this as "no file" and **omits the path from the
+destination tree entirely.** This was verified empirically with Copier
+9.16.0: a false render does not create the file at all (not a 0-byte
+file) — `test -e` on the path fails.
+
+Because the conditional now lives in the filename, the file's **body**
+must **not** also carry the old whole-file content wrapper — strip it.
+The body starts directly with the frontmatter `---` and ends with the
+policy's normal last line; there is no `{% if %}` / `{% endif %}` inside
+the file at all. (If a file needs a `-%}`/`{%-` whitespace-trim inside its
+own body for an unrelated reason — e.g. a per-row conditional inside an
+always-rendered index, see §11 — that is unrelated to this filename
+convention and still requires the usual Jinja whitespace-control care.)
+
+Do **not** use partial/section-level conditionals within an otherwise-
+always-rendered file for these flags — the plan calls for whole-policy
+gating (a policy either belongs to the org's operating posture or it
+doesn't). If a future cluster needs partial/section-level conditionals for
+a different reason, that's a separate decision this spec doesn't cover;
+raise it rather than improvising a new pattern.
+
+The other three clusters (research-integrity, HR/operations, risk/legal)
+are **not** gated by any `copier.yml` boolean — they render
+unconditionally for every adopter.
+
+### 5.2 Superseded guidance (kept for the record — do not follow)
+
+The whole-file-body wrapping convention originally specified here is
+**retired.** It is kept below, struck through in spirit if not in
+Markdown, purely so anyone who reads an old commit message or PR
+referencing "wrap at the file level" can see exactly what that meant and
+why it changed:
 
 ```jinja
 {%- if ai_agents_enabled %}
@@ -159,16 +216,8 @@ type: policy
 {%- endif %}
 ```
 
-Do **not** wrap individual sections/paragraphs within an otherwise-always-
-rendered file for these two flags — the plan calls for whole-policy
-gating (a policy either belongs to the org's operating posture or it
-doesn't). If a future cluster needs partial/section-level conditionals for
-a different reason, that's a separate decision this spec doesn't cover;
-raise it rather than improvising a new pattern.
-
-The other three clusters (research-integrity, HR/operations, risk/legal)
-are **not** gated by any `copier.yml` boolean — they render
-unconditionally for every adopter.
+This produces a stub file on a false render, not an omitted one. See
+§5.1 for the corrected convention actually used in this repo.
 
 ## 6. Hard rule: de-brand identifiers, never soften normative language
 
@@ -246,3 +295,124 @@ Policy" (found in `delegation-of-authority.md`, `proposal-routing.md`,
 with no special handling required. Flagging only so no downstream agent
 "fixes" a title-based cross-reference into an ID-based one or vice versa —
 leave the citation style exactly as found in each file.
+
+## 11. FORMS addendum (`template/templates/`)
+
+Added during Wave B integration, once all 15 form templates existed and
+their token conventions could be observed across the whole set. This
+section covers only what differs from the `policies/` conventions above;
+everything in §1–§10 that isn't explicitly overridden here (token
+mapping in §3, proper-name/vendor-name treatment, etc.) applies
+identically to forms.
+
+### 11.1 File naming and location
+
+Same pattern as §9, one directory over:
+
+```
+templates/<slug>.md   (source)  →  template/templates/<slug>.md.jinja  (this commons)
+```
+
+### 11.2 Frontmatter — a different, smaller key set than policies
+
+Forms use a 4-key frontmatter block, not the 12-key policy block in §1:
+
+```yaml
+---
+type: template
+organization: {{ org_name }}
+title: <Form Title>
+related_policy: policies/<slug>.md
+---
+```
+
+- `type` is the literal string `template` (vs. `policy`).
+- `organization` follows the same `{{ org_name }}` substitution as §1.
+- `title` is verbatim, same as §1.
+- `related_policy` is a **relative path**, not a title, pointing at the
+  policy this form implements (e.g. `policies/conflict-of-interest.md`).
+  It is not itself de-branded (it contains no org identity) and is not a
+  Copier variable — leave it as a plain relative path string. One form
+  (`board-member-agreement.md.jinja`) points at `bylaws.md` rather than a
+  `policies/` file; `bylaws.md` doesn't exist yet in this commons (it's
+  M3 governance-packaging scope, not yet built) — leave the reference
+  as-is, it will resolve once M3 lands.
+- Forms carry none of the policy-specific lifecycle keys (`id`, `status`,
+  `effective_date`, `version`, `last_updated`, `adopted_meeting`,
+  `supersedes`, `superseded_by`, `review_cycle`, `next_review`) — do not
+  add them; a form is a fillable artifact, not an adopted governance
+  document with its own review cycle.
+
+### 11.3 Fillable-field conventions — three distinct styles, one hazard
+
+The source corpus uses three different conventions for "the adopter fills
+this in," and they are **not interchangeable**:
+
+1. **Underscore blank**, for short single-line fields (signature, printed
+   name, date): `_______________________________________________`. Pure
+   literal text, no Jinja involved, no special handling needed.
+2. **Checkbox**, for multiple-choice items: `- [ ] Yes` / `- [ ] No`. Also
+   pure literal text.
+3. **Double-curly-brace placeholder**, for named or structured fields the
+   adopter fills in per-use (e.g. a specific proposal's agency name, PI
+   name, or a percentage): `{{Placeholder Text}}`.
+
+**Hazard**: style 3 looks exactly like real Jinja variable syntax
+(`{{ expression }}`), because it is the same delimiter. Since these form
+files are themselves `.jinja` templates rendered by Copier, a literal
+`{{Board Member Name}}` in the source would be parsed as a genuine Jinja
+expression at render time — and `Board Member Name` (three bare,
+space-separated identifiers) is not valid Jinja expression syntax, so
+Copier would fail with a `TemplateSyntaxError` on every render, gating
+flag or not. This was reproduced directly:
+
+```pycon
+>>> Environment().from_string('{{Board Member Name}}')
+jinja2.exceptions.TemplateSyntaxError: expected token 'end of print
+statement', got 'Member'
+```
+
+The existing forms (`board-member-agreement.md.jinja`,
+`ri-letter-of-support.md.jinja`) avoid this by wrapping the literal
+placeholder text as a **quoted Jinja string literal**, which Jinja
+evaluates (trivially, to itself) and prints back out verbatim:
+
+```jinja
+{{ '{{Board Member Name}}' }}
+```
+
+renders to the literal text `{{Board Member Name}}` in the adopter's
+output — exactly the fillable placeholder the form needs, with no syntax
+error. **Any new form content using the double-curly-brace fillable
+convention must use `{{ '{{...}}' }}`, never a bare `{{...}}`.** This is
+easy to miss because it renders correctly in a plain Markdown preview and
+only breaks at actual `copier copy` time.
+
+### 11.4 Gating — 1:1 with each form's `related_policy`
+
+A form is gated behind `federal_grants_focus` (using the same
+conditional-filename convention as §5.1 — forms follow §5.1 exactly, not
+the retired §5.2 approach) if and only if its `related_policy` points at
+a `federal_grants_focus`-gated policy. No form is gated behind
+`ai_agents_enabled`. Verified for all 15 forms during Wave B integration
+(the dispatch brief's original 10-form gated list was checked against
+each form's `related_policy` mapping and confirmed correct, no changes
+needed):
+
+| Form | `related_policy` | Gated? |
+|------|-------------------|--------|
+| `cui-poam.md` | `policies/cybersecurity.md` | federal_grants_focus |
+| `cui-system-security-plan.md` | `policies/cybersecurity.md` | federal_grants_focus |
+| `current-pending-support.md` | `policies/proposal-routing.md` | federal_grants_focus |
+| `director-citizenship-certification.md` | `policies/export-control.md` | federal_grants_focus |
+| `dod-cui-opportunity-review.md` | `policies/proposal-routing.md` | federal_grants_focus |
+| `export-control-screening.md` | `policies/export-control.md` | federal_grants_focus |
+| `federal-award-disclosure-report.md` | `policies/federal-award-integrity.md` | federal_grants_focus |
+| `mftrp-certification.md` | `policies/mftrp.md` | federal_grants_focus |
+| `ri-letter-of-support.md` | `policies/sttr-sbir-partnership.md` | federal_grants_focus |
+| `subrecipient-commitment.md` | `policies/subaward-monitoring.md` | federal_grants_focus |
+| `board-member-agreement.md` | `bylaws.md` | not gated |
+| `coi-annual-disclosure.md` | `policies/conflict-of-interest.md` | not gated |
+| `fcoi-sfi-disclosure.md` | `policies/financial-conflict-of-interest.md` | not gated |
+| `research-security-disclosure.md` | `policies/research-security-conflict-of-commitment.md` | not gated |
+| `research-security-training-attestation.md` | `policies/research-security-conflict-of-commitment.md` | not gated |
