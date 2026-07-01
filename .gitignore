@@ -1,0 +1,6 @@
+# Claude Code's in-repo worktrees (used for parallel milestone branches
+# during development). These are gitlinks/working directories that break
+# copier's own git operations when present in a rendered/consuming repo's
+# tree (`fatal: No url found for submodule path`) and have no reason to be
+# tracked in the commons itself.
+.claude/
