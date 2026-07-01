@@ -1,0 +1,77 @@
+{%- if federal_grants_focus %}
+---
+type: policy
+organization: {{ org_name }}
+title: Suspension and Debarment Compliance Policy
+status: adopted
+effective_date: on-merge
+legal_basis: 2 CFR 200.214; 2 CFR Part 180; Executive Orders 12549, 12689
+id: POL-033
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Suspension and Debarment Compliance Policy
+
+**{{ org_name }}** — a 501(c)(3) nonprofit research institute incorporated in {{ state }}
+EIN: {{ ein }}
+
+## Article I — Purpose and Scope
+
+This policy ensures that {{ org_name }} ("the Organization") does not knowingly enter into covered transactions with parties that are debarred, suspended, or otherwise excluded from participation in federal awards. It applies to all directors, officers, employees, and agents who authorize or execute contracts, subawards, or purchase orders using federal funds.
+
+## Article II — Prohibition
+
+The Organization shall not knowingly award any contract, subaward, or purchase order under a federal award to any entity or individual that is debarred, suspended, proposed for debarment, or voluntarily excluded from participation in covered transactions, as defined in 2 CFR Part 180.
+
+## Article III — Verification Requirements
+
+### 3.1 SAM.gov Screening
+
+Before issuing any subaward, contract, or purchase order exceeding **$25,000** under a federal award, the Organization shall verify the proposed party's eligibility by searching the System for Award Management (**sam.gov**) exclusions database. The search must confirm that the party does not appear on the Excluded Parties List.
+
+### 3.2 OFAC Screening
+
+For any transaction involving international parties or cross-border payments, the Organization shall screen the proposed party against the Office of Foreign Assets Control (**OFAC**) Specially Designated Nationals and Blocked Persons (SDN) List maintained by the U.S. Department of the Treasury, regardless of transaction amount.
+
+### 3.3 BIS Entity List Screening
+
+For transactions involving international collaborators, suppliers, or subrecipients — particularly those related to controlled technologies, research equipment, or dual-use items — the Organization shall screen the proposed party against the Bureau of Industry and Security (**BIS**) Entity List and other denied-party lists maintained by the U.S. Department of Commerce.
+
+### 3.4 Written Certification
+
+In addition to database verification, the Organization shall obtain a **written certification** from each subrecipient or contractor under a federal award affirming that the party (and its principals) is not presently debarred, suspended, proposed for debarment, or voluntarily excluded from covered transactions. This certification shall be obtained prior to execution of the agreement and incorporated into the contract or subaward file.
+
+## Article IV — Ongoing Monitoring
+
+For multi-year agreements, the Organization shall **re-verify** the eligibility of each subrecipient and contractor at least **annually** by repeating the SAM.gov, OFAC, and BIS screenings described in Article III. Re-verification shall occur on or before each anniversary of the agreement's effective date.
+
+## Article V — Documentation
+
+The Organization shall maintain records of all verification activities, including:
+
+- Screenshots or printouts of SAM.gov, OFAC, and BIS search results, dated and annotated with the name of the person who conducted the search;
+- Signed written certifications from subrecipients and contractors; and
+- Records of any adverse findings and the actions taken in response.
+
+## Article VI — Reporting
+
+If the Organization discovers that it has entered into a covered transaction with a debarred or suspended party, or with a party appearing on the OFAC SDN List or BIS Entity List, the Executive Director shall:
+
+1. Immediately suspend performance under the affected transaction pending review;
+2. Notify the relevant federal awarding agency or pass-through entity within **five business days** of discovery; and
+3. Take corrective action as directed by the awarding agency, which may include termination of the transaction.
+
+## Article VII — Record Retention
+
+All records related to suspension and debarment verification — including search results, certifications, correspondence, and corrective action documentation — shall be retained for a minimum of **three years** from the date of submission of the final expenditure report for the applicable federal award, consistent with 2 CFR 200.334 and the Organization's Document Retention Policy.
+
+## Article VIII — Annual Review
+
+The Board of Directors shall review this policy annually. The Executive Director shall report any instances of adverse screening findings or noncompliance. This review may take place at any regular or special board meeting and shall be noted in the meeting minutes.
+{%- endif %}
