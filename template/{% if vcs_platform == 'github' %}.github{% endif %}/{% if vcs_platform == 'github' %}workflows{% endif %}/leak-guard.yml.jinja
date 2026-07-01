@@ -1,0 +1,43 @@
+name: leak-guard
+
+# This workflow scans THIS repository — {{ org_name }}'s own private
+# governance repository, rendered from the golden-records commons — for
+# accidentally-committed SECRETS and CREDENTIALS (API keys, private keys,
+# generic tokens, passwords, cloud credentials) using gitleaks' built-in
+# default ruleset.
+#
+# It deliberately does NOT scan for {{ org_name }}'s own organization
+# identifiers (EIN, director names, address, etc.) the way the public
+# golden-records commons repo's leak-guard does — those values legitimately
+# belong in THIS repo. See SECURITY.md for what to do if this check ever
+# fires on a real finding, and docs/CI-AND-BRANCH-PROTECTION.md for how to
+# make this a required status check on protected branches.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: leak-guard-{% raw %}${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
+jobs:
+  gitleaks:
+    name: gitleaks secret scan (default rules)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_CONFIG: .gitleaks.toml
+          GITLEAKS_ENABLE_COMMENTS: false

@@ -1,0 +1,23 @@
+title = "{{ org_name }} leak-guard configuration"
+
+# This is YOUR repository's own secret-scanning configuration, used by the
+# leak-guard CI job (.github/workflows/leak-guard.yml on GitHub, or
+# .gitlab-ci.yml on GitLab — whichever this repo was rendered with). It
+# catches accidentally-committed SECRETS and CREDENTIALS — API keys, private
+# keys, generic tokens, passwords, cloud credentials — using gitleaks'
+# built-in default ruleset.
+#
+# Unlike the public golden-records commons repo this template was rendered
+# from, this file deliberately does NOT define custom rules for
+# organization identifiers (an EIN-shaped pattern, an SSN-shaped pattern) or
+# a literal denylist of real org names/addresses. Those checks exist in the
+# commons to keep a *generic template* free of real organization data; here,
+# in {{ org_name }}'s own private repository, that data legitimately belongs
+# and should not be flagged. See SECURITY.md for what to do if this scan
+# ever fires on a real finding.
+[extend]
+useDefault = true
+
+# To add rules specific to your own infrastructure (e.g. an internal token
+# format), append [[rules]] entries below — see
+# https://github.com/gitleaks/gitleaks#configuration for the format.
