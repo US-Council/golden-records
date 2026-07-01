@@ -1,0 +1,175 @@
+{%- if federal_grants_focus %}
+---
+type: policy
+organization: {{ org_name }}
+title: Proposal Routing and Approval Policy
+status: adopted
+effective_date: on-merge
+legal_basis: 2 CFR 200.303 (internal controls); agency-specific proposal requirements
+id: POL-026
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Proposal Routing and Approval Policy
+
+**{{ org_name }}** — 501(c)(3) Nonprofit Research Institute
+EIN: {{ ein }} | Incorporated in {{ state }}
+
+## 1. Purpose
+
+{{ org_name }} ("the Organization") pursues multiple simultaneous grant proposals, STTR partnerships, and other sponsored research opportunities. A streamlined internal routing process ensures that every proposal receives the compliance review required by federal regulations and sponsor terms while moving quickly enough to meet submission deadlines. This policy standardizes that process. The goal is to enable fast, high-quality proposal submission — not to create bureaucracy.
+
+## 2. Scope
+
+This policy applies to all proposals that commit {{ org_name }} resources, including:
+
+- Federal grant applications (NSF, NIH, DOE, DoD, etc.)
+- STTR/SBIR proposals where {{ org_name }} serves as the Research Institution (RI)
+- Contract proposals and task order responses
+- Consortium and center applications
+- Cooperative Research and Development Agreement (CRADA) proposals
+- Teaming agreements that include a statement of work and budget
+- Any other sponsored research submission requiring institutional authorization
+
+Informal letters of support, conference abstracts, and internal seed-funding requests are outside this policy's scope.
+
+## 3. Roles
+
+| Role | Responsibility |
+|------|---------------|
+| **Principal Investigator (PI)** | Identifies opportunity, leads technical narrative, provides updates through award |
+| **Grant Capture Committee** | Manages the proposal pipeline, reviews mission alignment, tracks status. Chaired by the Grant Officer (Board Chair). |
+| **Fiscal Custodian** | Prepares budgets, verifies cost allowability, calculates indirect costs |
+| **Executive Director** | Reviews institutional commitments, signs certifications, authorizes submission |
+
+## 4. Proposal Lifecycle
+
+### Stage 1 — Intent to Propose
+
+The PI notifies the Grant Capture Committee of the opportunity **at least 30 calendar days before the submission deadline**, or as soon as the opportunity is identified if the timeline is shorter. The notification must include:
+
+- Sponsor and solicitation number
+- Submission deadline
+- Estimated total budget and {{ org_name }} share
+- Key personnel and their anticipated effort
+- Whether the proposal involves cost sharing, human subjects, export-controlled technology, subrecipients, federal contract clauses, CUI/FCI, or specific cybersecurity requirements
+
+The Grant Capture Committee confirms mission alignment and enters the opportunity into the proposal tracker.
+
+### Stage 2 — Compliance Pre-Check
+
+Before substantive proposal development begins, the following screenings are completed:
+
+| Check | Responsible Party |
+|-------|------------------|
+| Eligibility verification (organization type, registration, certifications) | Grant Capture Committee |
+| Export control screening (per Export Control Policy, Section 7) | PI with Export Control Officer review |
+| Cybersecurity / CUI opportunity review (FAR, DFARS, CMMC, SPRS, FIPS, external services) | Executive Director + IT Administrator |
+| Research security / conflict of commitment / foreign affiliation review | Grant Officer + Executive Director |
+| Conflict of interest disclosure (per FCOI Policy, Section 4) | Each Investigator |
+| Cost sharing requirements and institutional capacity | Fiscal Custodian |
+| Human subjects / IRB requirements | PI |
+| Debarment and suspension verification (SAM.gov) | Grant Capture Committee |
+
+Any issue that cannot be resolved is escalated to the Executive Director before the proposal proceeds.
+
+### Stage 3 — Proposal Development
+
+- The PI prepares the technical narrative, project summary, and all PI-owned sections.
+- The fiscal custodian prepares the budget, budget justification, and fringe/indirect rate documentation.
+- The Grant Capture Committee reviews the draft for mission alignment, strategic fit, and consistency with active and pending proposals.
+- Supporting documents (biosketches, current and pending support, facilities descriptions, data management plans) are assembled.
+
+### Stage 4 — Internal Review
+
+The Executive Director reviews the complete proposal package and verifies:
+
+- Technical narrative is responsive to the solicitation
+- Budget is allowable, allocable, and reasonable under 2 CFR 200 Subpart E
+- All institutional commitments (facilities, equipment, cost sharing, key personnel effort) are accurate and the Organization can fulfill them
+- Required compliance checks from Stage 2 are documented
+- Any required cybersecurity clauses, SPRS submissions, system-boundary decisions, and external service reviews are documented before submission or award acceptance
+- No conflicts with existing awards or pending proposals (e.g., overlapping effort, duplicative funding)
+
+The Executive Director may request revisions. This review should be completed within **5 business days** of receiving the full package; PIs should plan accordingly.
+
+### Stage 5 — Approval and Submission
+
+Upon approval, the Executive Director signs all required institutional certifications (see Section 6) and authorizes submission. The proposal is submitted to the sponsor through the designated submission system (e.g., Research.gov, Grants.gov, DSIP, agency portal). The Grant Capture Committee logs the submission date and confirmation number.
+
+## 5. Expedited Review
+
+When an opportunity is identified with **fewer than 15 calendar days** before the deadline, the Executive Director may authorize an expedited process:
+
+1. The PI submits the intent-to-propose notice and compliance pre-check simultaneously.
+2. The Executive Director conducts a concurrent review during proposal development rather than waiting for a complete package.
+3. The Executive Director may approve submission with compliance items documented as pending, provided all required certifications can be truthfully signed at the time of submission.
+4. Any outstanding compliance checks (export control, COI, cost sharing verification) must be completed within **5 business days after submission**. If a post-submission check reveals a material issue, the Executive Director determines the appropriate remediation, up to and including withdrawal of the proposal.
+
+Expedited review is an exception, not the norm. Repeated reliance on expedited review for the same PI or program area will be addressed by the Grant Capture Committee.
+
+## 6. Required Certifications at Submission
+
+The Executive Director certifies the following at the time of submission (as applicable to the solicitation):
+
+- **Debarment and suspension** — the Organization and its principals are not debarred, suspended, or proposed for debarment (2 CFR 180)
+- **Lobbying** — for proposals exceeding $100,000: no federally appropriated funds have been or will be used for lobbying (31 USC 1352)
+- **Financial conflict of interest** — all Investigators have submitted current FCOI disclosures and any identified conflicts are managed per the FCOI Policy
+- **Current and pending support** — all key personnel have provided accurate and complete current and pending support disclosures
+- **Malign foreign talent recruitment program (MFTRP)** — each covered individual certifies they are not a party to a MFTRP, per NSF and CHIPS Act requirements
+- **Research security and conflict of commitment** — all senior/key personnel have provided complete disclosures regarding outside appointments, foreign affiliations, research support, and material outside commitments as required by organizational policy and sponsor terms
+- **Cybersecurity and CUI readiness** — when the solicitation or award includes FAR 52.204-21, DFARS 252.204-7012 / -7019 / -7020 / -7021, or similar cybersecurity clauses, the Organization has completed the required opportunity review and can truthfully make any required representations, assessments, or submissions
+- **Federal award integrity** — no known integrity issue, undisclosed overpayment, or credible evidence of covered misconduct is being withheld from a required sponsor, pass-through, OIG, or Contracting Officer disclosure
+- Any additional sponsor-specific certifications required by the solicitation
+
+## 7. STTR-Specific Routing
+
+When {{ org_name }} serves as the RI partner on an STTR proposal where a small business concern (SBC) is the prime:
+
+1. The PI coordinates with the SBC prime to define the scope of work, budget split (minimum 30% RI share for STTR Phase I/II), and IP terms before proposal development begins.
+2. Budget preparation by the fiscal custodian must align with the SBC's overall budget and the solicitation's funding limits.
+3. The IP allocation between {{ org_name }} and the SBC must be agreed in writing before submission, per the SBA STTR Policy Directive and the Organization's Teaming Agreement Policy.
+4. The internal review (Stage 4) focuses on {{ org_name }}'s scope, budget, and IP terms. The SBC is responsible for its own institutional review and submission.
+5. The Executive Director signs {{ org_name }}'s RI letter of commitment and any required certifications. The SBC submits the proposal.
+
+## 8. Post-Submission
+
+- The Grant Capture Committee tracks proposal status in the proposal tracker and updates the Board at each regular meeting.
+- The PI monitors the sponsor's review timeline and provides status updates (e.g., panel review scheduled, site visit requested, award/decline notification).
+- If the sponsor requests revisions, budget modifications, or additional information, the PI and the fiscal custodian respond through the same internal review process (Stages 3-5), adjusted for the sponsor's response deadline.
+
+## 9. Declined and Unfunded Proposals
+
+When a proposal is not funded:
+
+1. The PI obtains reviewer feedback and panel summaries (when available from the sponsor).
+2. The PI prepares a brief lessons-learned summary for the Grant Capture Committee, identifying strengths, weaknesses, and whether a resubmission is warranted.
+3. The Grant Capture Committee decides whether to pursue resubmission, redirect the concept to a different solicitation, or close the effort.
+
+## 10. Record Retention
+
+| Record | Retention Period |
+|--------|-----------------|
+| Submitted proposals (funded) | 3 years from final expenditure report, per 2 CFR 200.334 |
+| Submitted proposals (unfunded) | 3 years from submission date |
+| Intent-to-propose notices and compliance pre-checks | Same as the associated proposal |
+| Reviewer feedback and lessons-learned summaries | Same as the associated proposal |
+| Institutional certifications | Same as the associated proposal |
+
+Records shall be stored and managed in accordance with the Document Retention and Destruction Policy.
+
+## 11. Adoption
+
+This policy becomes effective on merge to `main`; the merge commit and MR approval record are the official adoption record.
+
+| Signature | Title | Date |
+|-----------|-------|------|
+| | Chairman of the Board | |
+| | Vice-Chair / Executive Director | |
+{%- endif %}
