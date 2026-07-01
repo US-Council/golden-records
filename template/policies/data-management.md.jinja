@@ -52,12 +52,12 @@ Data classification determines which storage backend and Kubernetes storage clas
 
 | Tier | Primary Storage | Storage Class | Rationale |
 |------|----------------|---------------|-----------|
-| Public | GitLab repositories, SeaweedFS (`sp-archive`) | `longhorn` (default, 2-replica) | Availability sufficient; no confidentiality concern |
-| Internal | GitLab repositories, Longhorn volumes | `longhorn-r2` (2-replica) | Standard redundancy across the 3-node pool (worker-4/5/6) |
-| Confidential | Longhorn volumes, SOPS-encrypted secrets | `longhorn-r2-critical` (2-replica + daily snapshots/backups) | Snapshot and backup protection; encryption enforced |
-| Restricted | Longhorn volumes with namespace-isolated access | `longhorn-r2-critical` | Maximum protection; never placed on ephemeral storage; never replicated to external cloud without contractual authorization |
+| Public | Version-controlled repositories; the organization's designated object storage | Default block storage (2-replica) | Availability sufficient; no confidentiality concern |
+| Internal | Version-controlled repositories; the organization's designated block storage | Standard-redundancy tier (2-replica) | Standard redundancy across the organization's compute node pool |
+| Confidential | The organization's designated block storage; SOPS-encrypted secrets | Critical-redundancy tier (2-replica + daily snapshots/backups) | Snapshot and backup protection; encryption enforced |
+| Restricted | The organization's designated block storage, with namespace-isolated access | Critical-redundancy tier | Maximum protection; never placed on ephemeral storage; never replicated to external cloud without contractual authorization |
 
-**Ephemeral storage** (`longhorn-local-1r`, single-replica) is permitted only for build caches, CI artifacts, and scratch workloads. It must never hold data classified Internal or above.
+**Ephemeral storage** (single-replica, non-durable) is permitted only for build caches, CI artifacts, and scratch workloads. It must never hold data classified Internal or above.
 
 ## 4. Backup and Recovery
 
@@ -65,21 +65,21 @@ Data classification determines which storage backend and Kubernetes storage clas
 
 | Layer | Tool | Schedule | Retention | Destination |
 |-------|------|----------|-----------|-------------|
-| Block volumes (Longhorn) | Longhorn snapshots | Daily, 01:00 UTC | 30 days | Local cluster |
-| Block volumes (Longhorn) | Longhorn backups | Daily, 03:00 UTC | 30 days | Azure Blob Storage (`focusapiarybackups`, Cool tier, LRS, East US) |
-| Kubernetes objects | Velero | Daily, 06:00 UTC | 30 days | SeaweedFS (`velero` bucket) |
-| Git repositories | GitLab (native) | Continuous (push-based) | Full history | On-cluster GitLab + mirrored to external remote |
-| Secrets | SOPS + age encryption | Committed to Git | Full history | Git repository; decryption keys in Azure Key Vault (`omlab-secrets`) |
+| Block volumes | Block-storage snapshot tooling | Daily, 01:00 UTC | 30 days | Local cluster |
+| Block volumes | Block-storage backup tooling | Daily, 03:00 UTC | 30 days | The organization's designated backup storage location (cool/archive tier, geo-redundant per provider) |
+| Kubernetes objects | Cluster backup tooling | Daily, 06:00 UTC | 30 days | The organization's designated object storage |
+| Git repositories | Version control system (native) | Continuous (push-based) | Full history | On-cluster repository host + mirrored to external remote |
+| Secrets | SOPS + age encryption | Committed to Git | Full history | Git repository; decryption keys in its secrets manager |
 
-Azure Blob soft-delete provides an additional safety net: 30-day blob-level and 7-day container-level recovery windows. All transfers enforce TLS 1.2+.
+The backup storage provider's soft-delete feature provides an additional safety net: 30-day blob-level and 7-day container-level recovery windows, where supported. All transfers enforce TLS 1.2+.
 
 ### 4.2 Monthly Restore Testing
 
 The IT Administrator must perform at least one restore test per calendar month covering:
 
-1. **Volume restore** — Restore a Longhorn volume from an Azure Blob backup to a test namespace. Verify data integrity.
-2. **Velero restore** — Restore a Kubernetes namespace from a Velero backup. Verify workloads start and serve traffic.
-3. **Secret recovery** — Decrypt a SOPS-encrypted secret using the age key from Azure Key Vault. Verify the plaintext matches expected value.
+1. **Volume restore** — Restore a block-storage volume from the backup storage location to a test namespace. Verify data integrity.
+2. **Cluster restore** — Restore a Kubernetes namespace from a cluster backup. Verify workloads start and serve traffic.
+3. **Secret recovery** — Decrypt a SOPS-encrypted secret using the age key from its secrets manager. Verify the plaintext matches expected value.
 
 Results must be logged as a dated entry in the `ops/restore-tests/` directory of the infrastructure repository. Failures must be triaged within 48 hours.
 
@@ -87,25 +87,25 @@ Results must be logged as a dated entry in the `ops/restore-tests/` directory of
 
 ### At Rest
 
-- **Longhorn volumes**: Encrypted at the node filesystem layer. All volumes classified Confidential or Restricted must use encrypted storage.
-- **Azure Blob**: Server-side encryption (Microsoft-managed keys, AES-256). {{ org_name }} data stored here is already encrypted by Longhorn backup before upload.
-- **Secrets**: SOPS with age (v1.3.1+) encryption before committing to Git. Decryption keys are stored in Azure Key Vault (`omlab-secrets`), never on disk in plaintext.
-- **SeaweedFS**: Bucket versioning enabled; encryption handled at the application or volume layer.
+- **Block storage volumes**: Encrypted at the node filesystem layer. All volumes classified Confidential or Restricted must use encrypted storage.
+- **Backup storage location**: Server-side encryption (provider-managed keys, AES-256 or equivalent). {{ org_name }} data stored here is already encrypted by the block-storage backup process before upload.
+- **Secrets**: SOPS with age (v1.3.1+) encryption before committing to Git. Decryption keys are stored in its secrets manager, never on disk in plaintext.
+- **Object storage**: Bucket versioning enabled; encryption handled at the application or volume layer.
 
 ### In Transit
 
 - All inter-node and external traffic must use TLS 1.2 or higher.
 - Internal cluster communication uses Kubernetes-native service mesh or mTLS where available.
-- Azure Blob connections enforce TLS 1.2+ minimum at the storage account level.
+- Backup storage connections enforce TLS 1.2+ minimum at the storage account level.
 
 ## 6. Access Control
 
 | System | Mechanism | Principle |
 |--------|-----------|-----------|
 | Kubernetes | RBAC (Role/ClusterRole bindings per namespace) | Least privilege; no cluster-admin for workload service accounts |
-| SeaweedFS / S3 | Per-bucket access keys; keys rotated quarterly | Separate keys per application; no shared root credentials |
-| GitLab | Project-level roles (Guest, Reporter, Developer, Maintainer, Owner) | Contributors get minimum role needed; admin access limited to IT Administrator |
-| Azure Key Vault | Azure RBAC with named-principal access policies | Only the cluster's ExternalSecrets operator and named administrators |
+| Object storage | Per-bucket access keys; keys rotated quarterly | Separate keys per application; no shared root credentials |
+| Version control system | Project-level roles (Guest, Reporter, Developer, Maintainer, Owner) | Contributors get minimum role needed; admin access limited to IT Administrator |
+| Secrets manager | Role-based access with named-principal access policies | Only the cluster's secrets-sync operator and named administrators |
 | SSH / Node access | Key-based only; no password auth | Restricted to infrastructure team |
 
 Access reviews are conducted annually (see Section 10). Offboarded personnel must have all credentials revoked within 24 hours.
@@ -126,9 +126,9 @@ Access reviews are conducted annually (see Section 10). Offboarded personnel mus
 ### 7.2 Research Data Lifecycle
 
 1. **Collection/Generation** — Researcher classifies data per Section 2 and records classification in the project's DMP.
-2. **Active Use** — Data stored on appropriate Longhorn storage class. Working copies in Git where size permits.
+2. **Active Use** — Data stored on the appropriate block storage class. Working copies in Git where size permits.
 3. **Publication** — Data reclassified per funder requirements. Public datasets moved to open repositories.
-4. **Archival** — Long-term data archived to SeaweedFS (`sp-archive`) or funder-designated external repository. Metadata preserved.
+4. **Archival** — Long-term data archived to the organization's designated object storage or a funder-designated external repository. Metadata preserved.
 5. **Disposal** — Data destroyed per retention schedule. Cryptographic erasure (key destruction) is acceptable for encrypted volumes.
 
 ## 8. Large File Handling
@@ -137,7 +137,7 @@ Git repositories enforce a **10 MB per-file limit**. Files exceeding this thresh
 
 **Procedure for large files:**
 
-1. Upload the file to SeaweedFS (S3-compatible) in the appropriate project bucket.
+1. Upload the file to the organization's designated object storage (S3-compatible) in the appropriate project bucket.
 2. Commit a pointer file to Git containing: S3 bucket, object key, SHA-256 checksum, and file size.
 3. The pointer file serves as the authoritative reference; the S3 object is the authoritative content.
 
@@ -149,7 +149,7 @@ Large research datasets, trained models, and media assets must always follow thi
 
 - **Sensitive research data** remains on {{ org_name }}-controlled hardware at all times during active use. No third-party cloud provider has access to plaintext data in the primary storage tier.
 - **Export-controlled data** (ITAR, EAR, CUI) can be handled without relying on a cloud provider's compliance certifications, because the data never leaves {{ org_name }}-controlled systems during processing.
-- **Off-cluster replication** (Azure Blob backups) is limited to encrypted blobs. {{ org_name }} retains sole possession of decryption keys via Azure Key Vault.
+- **Off-cluster replication** (backups to its designated backup storage location) is limited to encrypted blobs. {{ org_name }} retains sole possession of decryption keys via its secrets manager.
 - When a funder or contract requires data to remain within specific jurisdictions or on specific infrastructure, the self-hosted model allows compliance without architectural changes.
 
 For Restricted-tier data subject to export controls, the IT Administrator must confirm that the full data path (storage, backup, any replication) complies with the applicable regulation before the data is onboarded.

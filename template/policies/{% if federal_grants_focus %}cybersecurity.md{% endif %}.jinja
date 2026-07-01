@@ -43,7 +43,7 @@ No system, repository, external service, or collaboration workflow may be used f
 
 ### 3.1 Zero-Trust Network Model
 
-All internal services are accessed exclusively through **OpenZiti** or another approved identity-based access layer. There are no intentionally exposed public endpoints for internal administrative services. Every connection must require:
+All internal services are accessed exclusively through **the Organization's designated zero-trust network access (ZTNA) layer** or another approved identity-based access layer. There are no intentionally exposed public endpoints for internal administrative services. Every connection must require:
 
 - A cryptographic identity or equivalent approved credential.
 - Policy-based authorization tied to the specific service or role.
@@ -66,8 +66,8 @@ All systems enforce **role-based access control (RBAC)** under the principle of 
 |--------|-----------|-------------|
 | Kubernetes | RBAC (Role / ClusterRole per namespace) | No routine cluster-admin for workload accounts |
 | GitLab | Project-level roles | Protected branches and limited merge authority |
-| Azure Key Vault | Azure RBAC with named principals | Restricted secret and key access |
-| OpenZiti | Service-level policies per identity | Access granted per service, not per network segment |
+| Secrets manager | Role-based access with named principals | Restricted secret and key access |
+| Zero-trust network access (ZTNA) | Service-level policies per identity | Access granted per service, not per network segment |
 
 Access is reviewed at least annually and upon separation or material role change. Departing personnel lose access within 24 hours.
 
@@ -180,7 +180,7 @@ If the review shows that the Organization cannot truthfully meet a material clau
 
 ## 14. Board Communications
 
-Board communications are conducted via **Focusmail** or another approved organizational channel. Sensitive board matters involving FCI, CUI, or Restricted data must use approved protected channels and must not be transmitted over unapproved personal or unsecured channels.
+Board communications are conducted via **the Board's designated communications platform** or another approved organizational channel. Sensitive board matters involving FCI, CUI, or Restricted data must use approved protected channels and must not be transmitted over unapproved personal or unsecured channels.
 
 ## 15. Policy Governance
 

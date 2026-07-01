@@ -33,3 +33,14 @@ Maha Khan
 Marietta, Ohio
 Tao Mgt
 Tao Finances
+
+# Wave B additions: real infrastructure/tool identifiers found and
+# genericized during policy/form de-branding (see docs/DEBRANDING-SPEC.md).
+# These are org-identifying (a specific product/infra name tied to the
+# source org's real deployment), unlike generic OSS product names such as
+# SeaweedFS or Longhorn, which are not org-identifying and are therefore
+# intentionally NOT listed here.
+focusapiarybackups
+omlab-secrets
+Focusmail
+MatterBallot
