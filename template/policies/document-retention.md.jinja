@@ -1,0 +1,103 @@
+---
+type: policy
+organization: {{ org_name }}
+title: Document Retention and Destruction Policy
+status: adopted
+effective_date: on-merge
+legal_basis: IRS Form 990 Part VI Line 14
+id: POL-014
+version: "1.0"
+last_updated: <to be set on adoption>
+adopted_meeting: <to be set on adoption>
+supersedes: null
+superseded_by: null
+review_cycle: annual
+next_review: <to be set on adoption>
+---
+
+# Document Retention and Destruction Policy
+
+**{{ org_name }}** — 501(c)(3) Nonprofit Research Institute
+EIN: {{ ein }} | Incorporated in {{ state }}
+
+## 1. Purpose
+
+This policy establishes retention periods for the records of {{ org_name }}, ensures compliance with IRS requirements for tax-exempt organizations (Form 990, Part VI, Line 14), and provides orderly procedures for the destruction of records that have satisfied their retention period.
+
+All directors, officers, employees, contractors, and agents of {{ org_name }} are expected to comply with this policy.
+
+## 2. Scope
+
+This policy applies to all records created, received, or maintained by {{ org_name }} in any format — digital files, paper documents, email, chat logs, financial systems, and version-controlled repositories.
+
+## 3. Retention Schedule
+
+| Category | Examples | Minimum Retention |
+|----------|----------|-------------------|
+| **Corporate records** | Articles of incorporation, bylaws, amendments, board minutes, resolutions, tax-exemption determination letter, state filings | **Permanent** |
+| **Tax records** | Form 990, Form 990-EZ, supporting schedules, correspondence with IRS | **7 years** from filing date |
+| **Financial records** | Bank statements, receipts, invoices, general ledger, accounts payable/receivable, audit reports | **7 years** |
+| **Grant records** | Applications, award letters, budgets, progress reports, final deliverables, subrecipient agreements | **Duration of grant + 7 years**, or per funder requirement (whichever is longer) |
+| **Research data** | Datasets, lab notebooks, analysis code, data management plans (DMPs) | **Per funder DMP requirements; minimum 10 years** from project completion |
+| **Employment / contractor records** | Offer letters, W-4s, 1099s, contracts, performance records, termination documentation | **7 years** after separation |
+| **Correspondence** | Official board communications, formal organizational letters, regulatory correspondence | **3 years** |
+| **Insurance records** | Policies, claims, certificates of insurance | **Permanent** |
+
+When a funder, grantor, or regulatory body imposes a longer retention period than listed above, the longer period governs.
+
+## 4. Storage Locations
+
+{{ org_name }} maintains records across the following systems:
+
+| System | Purpose | Access |
+|--------|---------|--------|
+| **Records repository** (git-based, version-controlled) | Official governance records, board minutes, policies, templates, rosters, voting artifacts | Protected `main`; immutable commit history |
+| **Boardroom repository** (git-based, version-controlled) | Working drafts, agenda prep, AI scratch work, and pre-meeting materials | Working history only; not the authoritative corporate record |
+| **Focusmail archives** | Official email correspondence, board communications | Retained per email provider policies; exported annually |
+| **SharePoint (legacy)** | Historical documents migrated from original SharePoint site | Read-only reference; no new documents created here |
+| **Financial systems** (fiscal custodian custody) | Accounting records, bank statements, tax filings | Managed by fiscal custodian |
+
+Digital records stored in the git-based records repository benefit from immutable, cryptographically verifiable version history. This satisfies the IRS expectation that records be maintained in a manner that ensures their integrity.
+
+## 5. Destruction Procedures
+
+Records that have satisfied their retention period may be destroyed, subject to the following requirements:
+
+1. **Verify eligibility.** Confirm the retention period has expired by referencing the schedule in Section 3.
+2. **Check for holds.** Confirm no litigation hold (Section 6) or pending audit, investigation, or legal proceeding applies to the records.
+3. **Obtain approval.** The Board Chair or designated officer must authorize destruction in writing (email or board resolution).
+4. **Destroy securely.** Paper records must be shredded. Digital records must be permanently deleted from all storage systems, including backups, within 90 days of authorization. Git-based records are retained in repository history and are exempt from destruction (commits are immutable).
+5. **Log the action.** Record the date, description of records destroyed, applicable retention category, and authorizing officer in a destruction log maintained in the records repository.
+
+**Records must never be destroyed:**
+- During any pending or reasonably anticipated litigation, audit, or government investigation
+- In response to or in anticipation of a subpoena, discovery request, or regulatory inquiry
+- Before their minimum retention period has expired
+
+## 6. Litigation Hold
+
+When {{ org_name }} becomes aware of pending or reasonably anticipated litigation, government investigation, or audit, the Board Chair shall issue a written litigation hold notice to all affected parties. Upon receipt of a litigation hold:
+
+- All destruction of potentially relevant records must cease immediately, regardless of retention schedule.
+- The hold remains in effect until the Board Chair issues a written release.
+- Failure to comply with a litigation hold may result in sanctions, adverse legal consequences, and personal liability.
+
+## 7. Annual Review
+
+The Board of Directors shall review this policy at least annually, typically at the Q1 board meeting, to ensure:
+
+- Retention periods remain compliant with current federal and state law
+- Storage systems and locations are accurately reflected
+- Any new record categories are incorporated
+- Destruction procedures are being followed
+
+The date of each review shall be recorded in the board minutes.
+
+## 8. Adoption
+
+This policy becomes effective on merge to `main`; the merge commit and MR approval record are the official adoption record.
+
+| Signature | Title | Date |
+|-----------|-------|------|
+| | Chairman of the Board | |
+| | Vice-Chair / Executive Director | |
