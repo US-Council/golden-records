@@ -1,0 +1,59 @@
+# .copier-answers.yml.example
+#
+# A realistic, fully filled-in example of the answers file Copier writes
+# after `copier copy` — for a fictional organization ("Rivertown Community
+# Trust"). Nothing in this file identifies a real nonprofit.
+#
+# WHAT THIS IS FOR
+# - A concrete reference so you can see the shape and format of every
+#   answer before you sit down to run `copier copy` yourself — see
+#   docs/GETTING-STARTED.md for what each variable means.
+# - A starting point for a non-interactive render: copy this file, edit
+#   every value for your own organization, then run:
+#
+#     copier copy --trust --data-file your-answers.yml \
+#       gh:USCouncil/golden-records ./our-records
+#
+#   This skips the interactive question prompts and renders directly from
+#   the values you supply — useful for scripting a render, or for a second
+#   pass once you already know every answer. Validators (e.g. the EIN
+#   format check) still run against the values you provide.
+#
+# WHAT THIS IS NOT
+# - This is NOT your real .copier-answers.yml. The real one is written BY
+#   Copier during `copier copy`/`copier update`, records the exact template
+#   commit and version you rendered from, and must never be hand-edited —
+#   `copier update`'s 3-way merge depends on it being accurate. Using this
+#   file with --data-file still produces a correct, Copier-written
+#   .copier-answers.yml in your destination; you are not replacing that
+#   mechanism, just skipping the interactive prompts.
+# - Do not commit a file named exactly `.copier-answers.yml` to this
+#   commons repo with real-looking data in it — leak-guard will (correctly)
+#   treat anything resembling a real EIN or org name as a violation. This
+#   example file is intentionally named with the `.example` suffix and
+#   uses only the fictional Rivertown Community Trust throughout.
+#
+# See copier.yml for the authoritative question schema, help text, and
+# validators for every field below.
+
+ai_agents_enabled: true
+board_quorum_rule: majority
+board_size: 5
+charter_no: ""
+ein: "12-3456789"
+federal_grants_focus: false
+fiscal_year_end: "December 31"
+include_bylaws_example: false
+incorp_statute: "Ohio Revised Code Chapter 1702"
+irs_determination_date: "March 15, 2024"
+org_name: "Rivertown Community Trust"
+org_short: "RCT"
+org_website: "https://rivertowncommunitytrust.example"
+primary_contact_email: "governance@rivertowncommunitytrust.example"
+principal_address: "123 Main Street, Rivertown, OH 45701"
+public_charity_classification: "509(a)(1)/170(b)(1)(A)(vi)"
+registered_agent_name: ""
+registered_agent_type: individual
+state: Ohio
+treasurer_title: Treasurer
+vcs_platform: github
